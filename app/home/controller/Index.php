@@ -42,6 +42,14 @@ class Index extends BaseController
         return View::fetch('home/zczx', ['result' => $result]);
     }
 
+    public function XlcsList($id)
+    {
+        $data = FrontMenuService::GetTypeListInfo($id);
+//        halt($data);
+        return View::fetch('home/xlcs_list', ['data' => $data]);
+
+    }
+
     public function ZsxgList()
     {
 
@@ -102,12 +110,6 @@ class Index extends BaseController
         return View::fetch('home/xlzx_dh');
     }
 
-
-    public function XlcsList()
-    {
-        return View::fetch('home/xlcs_list');
-
-    }
 
     public function XlcsArc()
     {

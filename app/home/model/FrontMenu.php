@@ -16,7 +16,7 @@ class FrontMenu extends Model
      */
     public static function TopMenu()
     {
-        $info = FrontMenu::where('MenuLocation', 1)->select()->toArray();
+        $info = FrontMenu::where('MenuLocation', 1)->where('ParentID',0)->select()->toArray();
 
         return $info;
     }
@@ -28,9 +28,9 @@ class FrontMenu extends Model
     public static function GetChildMenu($ID)
     {
         $info = FrontMenu::where('ParentID', $ID)->select();
-        if ($info->isEmpty()) {
-            redirect('http://home.baidu.com')->send();
-        }
+//        if ($info->isEmpty()) {
+//            redirect('http://home.baidu.com')->send();
+//        }
         return $info;
     }
 }

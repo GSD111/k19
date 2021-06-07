@@ -1,0 +1,100 @@
+﻿{include file="home/header" /}
+
+<body style="background:#f5f5f5;">
+<div class="head2">
+	<a href="javascript:history.go(-1);"><img src="/home/picture/tb16.png" /></a>
+    <p>抑郁测试</p>
+</div>
+
+<div class="ylcs_mn">
+	<div class="jd">
+    	<!--<img src="picture/tp03.png" />-->
+        <div class="jdt">
+        	<div class="wc"></div>
+            <img src="/home/picture/tb20.png" />
+        </div>
+        <p class="p1">100%</p>
+        <p class="p2">10/10</p>
+    </div>
+    <div class="wt">
+    	<p class="p1">20.我有新的业务联系的诀窍。</p>
+        <ul>
+            <li>
+                <input type="radio" value="1" id="choice_1" name="question_1" />
+                <label for="choice_1">大多是真的</label>
+           </li>
+           <li>
+                <input type="radio" value="2" id="choice_2" name="question_1" />
+                <label for="choice_2">正确或错误</label>
+           </li>
+           <li>
+                <input type="radio" value="3" id="choice_3" name="question_1" />
+                <label for="choice_3">大多是假的</label>
+           </li>
+           <li>
+                <input type="radio" value="4" id="choice_4" name="question_1" />
+                <label for="choice_4">完全错误</label>
+           </li>
+    	</ul>
+        <div class="xztj">
+        	<p class="p2">上一题</p>
+            <p class="p3" id="reg">提交</p>
+        </div>
+        <div style=" height:1rem;clear:both;"></div>
+    </div>
+</div>
+<!--专业测试弹出-->
+<div class="zctc">
+	<div class="fk">
+    	<div class="nr">
+        	<p class="p1">请您留下邮箱地址</p>	
+        	<input type="text" name="email" /> 
+            <p class="p1">您可以选填微信</p>	
+        	<input type="text" name="weixin" /> 
+            <p class="p1">用户自述</p>	
+        	<textarea name="zisu"></textarea>
+        </div>
+		<p class="p2">取消</p>
+        <p class="p3">确定</p>
+    </div>
+</div>
+
+<!--付费弹出-->
+<div class="fftc">
+	<div class="fk">
+    	<p class="p1">抑郁测试<span>￥2.99</span></p>
+        <p class="p2">选择支付方式</p>
+        <ul>
+        	<li>
+            	<input type="radio" value="" id="weixin" name="zhifu" />
+                <label for="weixin"><img src="/home/picture/tb21.png" />微信支付</label>
+            </li>
+            <li>
+            	<input type="radio" value="" id="zhifubao" name="zhifu" />
+                <label for="zhifubao"><img src="/home/picture/tb22.png" />支付宝支付</label>
+            </li>
+        </ul>
+        <a href="{:URL('home/ylcs04')}" class="qr">确认付款</a>
+    </div>
+</div>
+
+
+{include file="home/footer" /}
+
+<script>
+	$("#reg").click(function(){
+		$(".zctc").css('display','block');
+		});
+	$(".zctc").find(".fk").find(".p2").click(function(){
+		$(".zctc").css('display','none');
+		});
+	$(".zctc").find(".fk").find(".p3").click(function(){
+		$(".zctc").css('display','none');
+		$(".fftc").css('display','block');
+		});
+</script>
+
+<!--底部js-->
+<!--<script type="text/javascript" src="js/footer.js"></script>-->
+</body>
+</html>

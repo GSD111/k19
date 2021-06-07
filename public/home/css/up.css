@@ -1,0 +1,30 @@
+*{
+	margin:0;
+	padding:0;
+}
+
+.id_img_wp{
+    width:94%;
+    margin:0 auto;
+    min-height:30px;
+}
+.img_wp{
+    width:40%;
+    margin-left:15px;
+    float:left;
+    cursor:pointer;
+    margin-bottom:20px;
+}
+.img_wp img{
+    width:40%;
+    height:220px;
+}
+.img_intro{
+    color:#383838;
+    text-align:center;
+    font-family:"微软雅黑";
+    padding:10px 0 10px 0;
+}
+.cf{
+    clear:both;
+}

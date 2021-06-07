@@ -1,0 +1,72 @@
+﻿{include file="home/header" /}
+
+<body style="background:#f5f5f5;">
+<div class="head2">
+	<a href="javascript:history.go(-1);"><img src="/home/picture/tb16.png" /></a>
+    <p>抑郁测试</p>
+</div>
+
+<div class="ylcs_mn">
+	<div class="jd">
+    	<!--<img src="picture/tp03.png" />-->
+        <div class="jdt">
+        	<div class="wc"></div>
+            <img src="/home/picture/tb20.png" />
+        </div>
+        <p class="p1">100%</p>
+        <p class="p2">10/10</p>
+    </div>
+    <div class="wt">
+    	<p class="p1">20.我有新的业务联系的诀窍。</p>
+        <ul>
+            <li>
+                <input type="radio" value="1" id="choice_1" name="question_1" />
+                <label for="choice_1">大多是真的</label>
+           </li>
+           <li>
+                <input type="radio" value="2" id="choice_2" name="question_1" />
+                <label for="choice_2">正确或错误</label>
+           </li>
+           <li>
+                <input type="radio" value="3" id="choice_3" name="question_1" />
+                <label for="choice_3">大多是假的</label>
+           </li>
+           <li>
+                <input type="radio" value="4" id="choice_4" name="question_1" />
+                <label for="choice_4">完全错误</label>
+           </li>
+    	</ul>
+        <div class="xztj">
+        	<p class="p2">上一题</p>
+            <p class="p3" id="reg">提交</p>
+        </div>
+        <div style=" height:1rem;clear:both;"></div>
+    </div>
+</div>
+<!--娱乐测试弹出-->
+<div class="yctc">
+	<div class="fk">
+    	<img src="/home/picture/tp04.png" />
+        <p class="p1">恭喜你，你是健健康康的哟，不需要太担心了啦！</p>
+        <p class="p2">确定</p>
+    </div>
+</div>
+
+
+{include file="home/footer" /}
+
+
+<script>
+	$("#reg").click(function(){
+		$(".yctc").css('display','block');
+		});
+	$(".yctc").find(".fk").find(".p2").click(function(){
+		$(".yctc").css('display','none');
+		});
+</script>
+
+<!--底部js-->
+<!--<script type="text/javascript" src="js/footer.js"></script>-->
+
+</body>
+</html>

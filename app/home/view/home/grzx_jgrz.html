@@ -1,0 +1,174 @@
+﻿<!--<html>-->
+<!--<head>-->
+<!--    <title>机构入驻申请</title>-->
+<!--    <meta name="keywords" content="">-->
+<!--    <meta name="description" content="">-->
+<!--    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>-->
+<!--    <meta http-equiv="Cache-Control" content="no-cache"/>-->
+<!--    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">-->
+<!--    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">-->
+<!--    <meta name="HandheldFriendly" content="true">-->
+<!--    <meta name="MobileOptimized" content="240"/>-->
+<!--    <meta name="format-detection" content="telephone=no"/>-->
+<!--    &lt;!&ndash;    <link href="css/main.css" rel="stylesheet" type="text/css"/>&ndash;&gt;-->
+<!--    &lt;!&ndash;    <script type="text/javascript" src="js/jquery.js"></script>&ndash;&gt;-->
+<!--    &lt;!&ndash;    <script type="text/javascript" src="js/rem_auto.js"></script>&ndash;&gt;-->
+<!--    {load href="/home/css/main.css"}-->
+<!--    {load href="/home/css/up.css"}-->
+<!--    {load href="/home/js/jquery.js"}-->
+<!--    {load href="/home/js/rem_auto.js"}-->
+<!--    {load href="/home/js/up.js"}-->
+
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<!--    {load href="/admin/lib/layui/layui.js"}-->
+<!--    {load href="/admin/js/xadmin.js"}-->
+<!--    {load href="/admin/css/xadmin.css"}-->
+<!--    &lt;!&ndash;    <script src="./lib/layui/layui.js" charset="utf-8"></script>&ndash;&gt;-->
+<!--    &lt;!&ndash;    <script type="text/javascript" src="./js/xadmin.js"></script>&ndash;&gt;-->
+<!--</head>-->
+
+{include file="home/header" /}
+{load href="/home/css/up.css"}
+{load href="/home/js/up.js"}
+{load href="/admin/lib/layui/layui.js"}
+{load href="/admin/js/xadmin.js"}
+{load href="/admin/css/xadmin.css"}
+
+<body style="background:#f5f5f5;margin:0 auto;">
+<div class="head2">
+    <a href="javascript:history.go(-1);"><img src="/home/picture/tb16.png"/></a>
+    <p>机构入驻申请</p>
+</div>
+<div class="grzx_jgrz">
+    <form class="layui-form layui-col-md12  layui-form-pane">
+        <div class="nr">
+            <!--            <p class="p1">机构名称：</p><input type="text" class="tex01"/>-->
+            <!--        <div class="kg"></div>-->
+            <!--        <p class="p2">地址:</p>-->
+            <!--        <select>-->
+            <!--            <option>河南省</option>-->
+            <!--        </select>-->
+            <!--        <select>-->
+            <!--            <option>郑州市</option>-->
+            <!--        </select>-->
+            <!--        <select>-->
+            <!--            <option>中原区</option>-->
+            <!--        </select>-->
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">机构名称</label>
+                <div class="layui-input-block">
+                    <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入机构名称"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item x-city" id="start">
+<!--                <label class="layui-form-label" style="width:122px;">地址</label>-->
+                <div class="layui-input-inline" style="margin-left:5px;">
+                    <select name="province" lay-filter="province">
+                        <option value="">请选择省</option>
+                    </select>
+                </div>
+                <div class="layui-input-inline" style="margin-left:5px;">
+                    <select name="city" lay-filter="city">
+                        <option value="">请选择市</option>
+                    </select>
+                </div>
+                <div class="layui-input-inline" style="margin-left:5px;">
+                    <select name="area" lay-filter="area">
+                        <option value="">请选择县/区</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">具体地址</label>
+                <div class="layui-input-block">
+                    <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入详细地址"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">联系方式</label>
+                <div class="layui-input-block">
+                    <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入联系方式"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">联系人</label>
+                <div class="layui-input-block">
+                    <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入联系人"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">营业时间</label>
+                <div class="layui-input-block">
+                    <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入营业时间"
+                           class="layui-input">
+                </div>
+            </div>
+            <!--            <input type="text" value="" placeholder="请输入详细地址" class="tex02"/>-->
+            <!--            <p class="p1">联系方式：</p><input type="text" class="tex01"/>-->
+            <!--            <div class="kg"></div>-->
+            <!--            <p class="p1">联系人：</p><input type="text" class="tex01"/>-->
+            <!--            <div class="kg"></div>-->
+            <!--            <p class="p1">营业时间：</p><input type="text" class="tex01"/>-->
+            <div class="kg"></div>
+            <p class="p1">执照上传：</p>
+            <!--            <img src="picture/tp17.png" class="sc"/>-->
+            <div style="width:76%;display:flex;">
+                <div class="id_img_wp">
+                    <input type="file" name="img" onchange="getzImg(this)" style="display:none" value="" id="img_z"/>
+                    <div class="img_wp" onclick="upload()">
+                        <img style="width:204px;height:130px;"  src="/home/picture/upload.png" id="zmz">
+                    </div>
+                </div>
+<!--                <img src="/home/picture/tp18.png" class="sc"/>-->
+            </div>
+            <p class="p3">*请上传清晰、且正面的营业执照图片，不能涂改、修改或污点。文件不能大于500K</p>
+            <div class="kg"></div>
+            <p class="p1">执照许可：</p>
+            <div style="width:76%;display:flex;">
+                <div class="id_img_wp">
+                    <input type="file" name="img" onchange="getzImg(this)" style="display:none" value="" id="img_z"/>
+                    <div class="img_wp" onclick="upload()">
+                        <img style="width:204px;height:130px;"  src="/home/picture/upload.png" id="zmz">
+                    </div>
+                </div>
+<!--                <img src="/home/picture/tp18.png" class="sc"/>-->
+            </div>
+            <!--            <img src="picture/tp17.png" class="sc"/>-->
+            <!--            <img src="picture/tp19.png" class="sc"/>-->
+            <p class="p3">*请上传清晰、且正面的营业执照图片，不能涂改、修改或污点。文件不能大于500K</p>
+
+            <!--        <a href="#" class="bc">保存</a>-->
+            <div style="text-align: center;display:flex;margin-top:20px;">
+                <a style="margin:auto" href="grzx_jgrztj.html" class="tj">提交</a>
+            </div>
+            <div class="kg"></div>
+        </div>
+    </form>
+
+</div>
+
+
+<div style="height:1rem;"></div>
+
+{load href="/admin/js/xcity.js"}
+<script>
+    layui.use(['form', 'code'], function () {
+        form = layui.form;
+
+        layui.code();
+
+        $('#start').xcity();
+
+        $('#end').xcity('广东', '广州市', '东山区');
+
+    });
+</script>
+{include file="home/footer" /}
+</body>
+</html>

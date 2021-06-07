@@ -1,0 +1,25 @@
+﻿{include file="home/header" /}
+
+<body style="background:#f5f5f5;">
+<div class="head2">
+	<a href="javascript:history.go(-1);"><img src="/home/picture/tb16.png" /></a>
+    <p>生活其他类别咨询</p>
+</div>
+
+<div class="zczx_two">
+	<ul>
+        {foreach $result as $k=>$v}
+        <li><a href="javascript:alert('打开会话框')">{$v['MenuName']}</a></li>
+        {/foreach}
+<!--    	<li><a href="{:URL('home/xlzx_dh')}">职业</a></li>-->
+<!--        <li><a href="{:URL('home/xlzx_dh')}">性格</a></li>-->
+<!--        <li><a href="{:URL('home/xlzx_dh')}">智商</a></li>-->
+<!--        <li><a href="{:URL('home/xlzx_dh')}">人际关系</a></li>-->
+    </ul>
+</div>
+
+<!--底部js-->
+<!--<script type="text/javascript" src="js/footer.js"></script>-->
+{include file="home/footer" /}
+</body>
+</html>

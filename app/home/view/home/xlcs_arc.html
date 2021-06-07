@@ -1,0 +1,99 @@
+﻿{include file="home/header" /}
+
+<body style="background:#f5f5f5;">
+<div class="head2">
+	<a href="javascript:history.go(-1);"><img src="/home/picture/tb16.png" /></a>
+    <p>抑郁症</p>
+</div>
+
+<div class="xlcs_arc">
+	<div class="dm01">
+    	<p class="p1">抑郁测试</p>
+        <p class="p2">有时每个人都会陷入困境，但如果生活持续使您沮丧，而您的低谷使工作变得困难，那么您可能会感到沮丧。找出您的情绪低落是否对这项抑郁症测试至关重要。该评估旨在确定您目前是否患有抑郁症或处于患抑郁症的风险中，同时评估您的心态是否会使您更容易患上抑郁症。</p>
+    </div>
+    <div class="dm02">
+    	<p class="p1">测试结果</p>
+        <p class="p2">希望您诚实并真诚的完成测试，最后留下邮箱，我们的心理医生会人工评估结束后，发到您的邮箱和个人中心。这个过程需要1-2个工作日。本次测试娱乐测试免费显示部分结果，专业测试您需要支付2.99元，如果您愿意，你可以在测试结束后进行支付。</p>
+    </div>
+    <div class="dm03">
+    	<ul>
+            <a href="{:URL('home/ylcs01')}">
+                <li>
+                    <p class="p1">娱乐测试</p>
+                    <p class="p2"><span class="sp1">免费，</span>预计1分钟完成</p>
+               </li>
+           </a>
+           
+            <li id="reg">
+                <p class="p1">专业测试</p>
+                <p class="p2"><span class="sp2">2.99元，</span>预计15分钟完成</p>
+           </li>
+           
+            <a href="{:URL('home/index')}">
+                <li>
+                    <p class="p3">下次再测试</p>
+               </li>
+           </a>
+        </ul>
+    </div>
+</div>
+
+<!--专业测试弹出-->
+<div class="tcxxdj">
+	<div class="fk">
+    	<p class="p1"><span>温馨提示：</span>您即将进入专业测试的答题中，我们会由专业的心理医师根据您的回答来给出对应的判断，请您在答题前完成下面基本信息的填写，并在最后答题结束后，支付相应的服务费用。</p>
+        <div class="dm01">
+        	<p>姓名：</p>
+            <input type="text" />
+        </div>
+        <div class="dm02">
+        	<p>性别：</p>
+            <input type="radio" class="nan" name="sex"/><label for="nan">男</label>
+            <input type="radio" class="nv" name="sex"/><label for="nv">女</label>
+        </div>
+        <div class="dm01">
+        	<p>年龄：</p>
+            <input type="text" />
+        </div>
+        <div class="dm03">
+        	<p>婚姻：</p>
+            <input type="radio" class="nan" name="sex"/><label for="nan">单身</label>
+            <input type="radio" class="nv" name="sex"/><label for="nv">恋爱</label>
+            <input type="radio" class="nan" name="sex"/><label for="nan">已婚</label>
+            <input type="radio" class="nv" name="sex"/><label for="nv">已婚已育</label>
+            <br/>
+            <input type="radio" class="nan" name="sex"/><label for="nan">离异</label>
+            <input type="radio" class="nv" name="sex"/><label for="nv">离异再组</label>
+            <input type="radio" class="nan" name="sex"/><label for="nan">离异再组已育</label>
+        </div>
+        <div class="dm01">
+        	<p>职业：</p>
+            <input type="text" />
+        </div>
+        <a href="{:URL('home/ylcs03')}" class="a1">确定</a>
+        <p class="p2"><input type="radio" name="qd" />点击确定说明您已经同意《测试说明》的相关信息。</p>
+    </div>
+</div>
+
+
+<script>
+	$("#reg").click(function(){
+		$(".tcxxdj").css('display','block');
+		});
+</script>
+
+
+
+
+
+<!--说明-->
+<div class="xlcs_sm">
+	<p>※该测试仅用于信息和参考目的。最后的结果不能替代专业诊断或任何健康状况的治疗。更不能以此为医疗判断。如果您想寻求有执照的心理健康专业人员的建议，您可以直接<a href="#">点击这里</a>进入寻找医师。</p>
+</div>
+
+<!--底部js-->
+<!--<script type="text/javascript" src="js/footer.js"></script>-->
+
+{include file="home/footer" /}
+</body>
+</html>

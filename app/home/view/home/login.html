@@ -1,0 +1,36 @@
+﻿{include file="home/header" /}
+
+<body style="background:#fff;">
+<div class="login">
+	<div class="hd01">
+    	<a href="javascript:history.go(-1);"><img src="/home/picture/tb55.png" /></a>
+    </div>
+    <div class="logo1">
+    	<img src="/home/picture/logo2.png" />
+    </div>
+    <p class="p1">登录/注册</p>
+    <div class="tel"><img src="/home/picture/tb56.png" /><input type="text" value="请输入您的手机号"/></div>
+    <div class="yzm"><img src="/home/picture/tb57.png" /><input type="text" value="请输入短信验证码" /><a href="#">获取验证码</a></div>
+    <p class="p2">点击同意登录或者注册即代表您同意<span>《K19提供的相关服务条款》</span></p>
+    <a href="{:URL('home/index')}" class="a1">登录/注册</a>
+    <a href="#"><p class="p3">忘记密码</p></a>
+</div>
+
+
+
+
+
+<!--&lt;!&ndash;底部js&ndash;&gt;-->
+<!--<script type="text/javascript" src="js/footer.js"></script>-->
+
+
+<script>
+$(".in_wzzx").find(".nav").find("li").find(".p1").click(function(){
+	$(".in_wzzx").find(".nav").find("li").find(".p1").removeClass("chkcs");
+	$(this).addClass("chkcs");
+	$(".in_wzzx").find(".nav").find("li").find(".wzzx").hide();
+	$(this).next(".wzzx").show();
+});	
+</script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<?php
+
+
+namespace app\home\model;
+
+
+use think\Model;
+
+class FrontMenu extends Model
+{
+    protected $table = 'frontmenu';
+    protected $readonly = ['id', 'MenuName', 'MenuLocation', 'ParentID'];
+
+    /*
+     * 获取头部栏目按钮
+     */
+    public static function TopMenu()
+    {
+        $info = FrontMenu::where('MenuLocation', 1)->select()->toArray();
+
+        return $info;
+    }
+
+    /*
+     * 获取栏目按钮下面的子按钮
+     * @param string $ID 栏目按钮的ID
+     */
+    public static function GetChildMenu($ID)
+    {
+        $info = FrontMenu::where('ParentID', $ID)->select();
+        if ($info->isEmpty()) {
+            redirect('http://home.baidu.com')->send();
+        }
+        return $info;
+    }
+}

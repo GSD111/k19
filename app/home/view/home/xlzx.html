@@ -1,0 +1,24 @@
+﻿{include file="home/header" /}
+
+<body style="background:#f5f5f5;">
+<div class="head2">
+	<a href="javascript:history.go(-1);"><img src="/home/picture/tb16.png" /></a>
+    <p>心理咨询</p>
+</div>
+
+<div class="zczx_mn">
+	<ul>
+        {foreach $result as $k=>$v}
+        <li><a href="{:URL('home/xlzx_qt?'.'id='.$v['ID'])}">{$v['MenuName']}</a></li>
+        {/foreach}
+<!--    	<li><a href="{:URL('www/xlzx_dh')}">精神疾病咨询</a></li>-->
+<!--        <li><a href="{:URL('www/xlzx_dh')}">心理咨询</a></li>-->
+<!--        <li><a href="{:URL('www/xlzx_qt')}">生活其他类心理咨询</a></li>-->
+    </ul>
+</div>
+
+
+
+{include file="home/footer" /}
+</body>
+</html>

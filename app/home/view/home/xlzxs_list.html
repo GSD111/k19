@@ -1,0 +1,190 @@
+﻿{include file="home/header" /}
+
+<body style="background:#f5f5f5;">
+<div class="head2">
+	<a href="javascript:history.go(-1);"><img src="/home/picture/tb16.png" /></a>
+    <p>心理咨询师</p>
+</div>
+<div class="zxs_fd">
+	<div class="find">
+    	<input type="text" value="请输入城市" name="city" class="ct" />
+        <input type="submit" value="搜索" class="ser"/>
+    </div>
+    <ul>
+    	<li><a href="">北京</a></li>
+        <li><a href="">天津</a></li>
+        <li><a href="">重庆</a></li>
+        <li><a href="">四川</a></li>
+        <li><a href="">福建</a></li>
+        <li><a href="">陕西</a></li>
+        <li class="chk"><a href="">上海</a></li>
+        <li class="icon">更多</li>
+    </ul>
+    <div style="clear:both;"></div>
+</div>
+
+
+
+<!--城市查找侧边栏-->
+<div class="yyTree" id="yyTree">
+    <dl class="yyTrft">
+        <div class="bt">
+            <img src="/home/picture/tb26.png" class="adr"/>
+            <p>全部医生</p>
+            <img src="/home/picture/tb27.png" class="chk icon"/>
+        </div>
+        <div class="hx"></div>
+        <div class="dq">
+            <p class="p1">华北地区</p>
+            <ul>
+                <li>北京</li>
+                <li>天津</li>
+                <li>河北</li>
+                <li>山西</li>
+                <li>内蒙古</li>
+            </ul>
+        </div>
+        <div class="hx"></div>
+        <div class="dq">
+            <p class="p1">东北地区</p>
+            <ul>
+                <li>辽宁</li>
+                <li>吉林</li>
+                <li>黑龙江</li>
+                <li>大连</li>
+            </ul>
+        </div>
+        <div class="hx"></div>
+        <div class="dq">
+            <p class="p1">华东地区</p>
+            <ul>
+                <li>上海</li>
+                <li>江苏</li>
+                <li>浙江</li>
+                <li>安徽</li>
+                <li>福建</li>
+                <li>江西</li>
+                <li>山东</li>
+                <li>宁波</li>
+                <li>夏门</li>
+                <li>青岛</li>
+            </ul>
+        </div>
+        <div class="hx"></div>
+        <div class="dq">
+            <p class="p1">中南地区</p>
+            <ul>
+                <li>河南</li>
+                <li>湖北</li>
+                <li>湖南</li>
+                <li>广东</li>
+                <li>广西</li>
+                <li>海南</li>
+                <li>深圳</li>
+            </ul>
+        </div>
+        <div class="hx"></div>
+        <div class="dq">
+            <p class="p1">西南地区</p>
+            <ul>
+                <li>重庆</li>
+                <li>四川</li>
+                <li>贵州</li>
+                <li>云南</li>
+                <li>西藏</li>
+            </ul>
+        </div>
+        <div class="hx"></div>
+        <div class="dq">
+            <p class="p1">西北地区</p>
+            <ul>
+                <li>陕西</li>
+                <li>甘肃</li>
+                <li>青海</li>
+                <li>宁夏</li>
+                <li>新疆</li>
+            </ul>
+        </div>
+        
+    </dl>
+    <div class="yyTrRt"></div>
+</div>
+
+
+
+<script>
+	$(function(){
+		$(".icon").click(function(){
+			//$(".navTree").show();
+			$(".yyTree").addClass("thisyyTree");
+			$("body").addClass("noScroll");
+		});
+		
+		$(".yyTrRt").click(function(){
+			//$(".navTree").hide();
+			$(".yyTree").removeClass("thisyyTree");
+			$("body").removeClass("noScroll");
+		});
+
+	});
+</script> 
+
+
+
+
+
+
+
+
+
+<div class="zxs_list">
+	<ul class="u1">
+    	<li>
+        	<img src="/home/picture/tp02.png" />
+            <div class="rt">
+            	<p class="p1">贾金鼎</p>
+                <p class="p2">2002年毕业于中山大学临床医学专业。毕业后一直从事精神心理临床工作，先后于急性病区。</p>
+                <a href="{:URL('home/xlzxs_arc')}" class="zx">了解更多</a>
+            </div>
+        </li>
+        <li>
+        	<img src="/home/picture/tp02.png" />
+            <div class="rt">
+            	<p class="p1">贾金鼎</p>
+                <p class="p2">2002年毕业于中山大学临床医学专业。毕业后一直从事精神心理临床工作，先后于急性病区。</p>
+                <a href="{:URL('home/xlzxs_arc')}" class="zx">了解更多</a>
+            </div>
+        </li>
+        <li>
+        	<img src="/home/picture/tp02.png" />
+            <div class="rt">
+            	<p class="p1">贾金鼎</p>
+                <p class="p2">2002年毕业于中山大学临床医学专业。毕业后一直从事精神心理临床工作，先后于急性病区。</p>
+                <a href="{:URL('home/xlzxs_arc')}" class="zx">了解更多</a>
+            </div>
+        </li>
+        <li>
+        	<img src="/home/picture/tp02.png" />
+            <div class="rt">
+            	<p class="p1">贾金鼎</p>
+                <p class="p2">2002年毕业于中山大学临床医学专业。毕业后一直从事精神心理临床工作，先后于急性病区。</p>
+                <a href="{:URL('home/xlzxs_arc')}" class="zx">了解更多</a>
+            </div>
+        </li>
+        <li>
+        	<img src="/home/picture/tp02.png" />
+            <div class="rt">
+            	<p class="p1">贾金鼎</p>
+                <p class="p2">2002年毕业于中山大学临床医学专业。毕业后一直从事精神心理临床工作，先后于急性病区。</p>
+                <a href="{:URL('home/xlzxs_arc')}" class="zx">了解更多</a>
+            </div>
+        </li>
+    </ul>
+</div>
+
+
+<!--底部js-->
+<!--<script type="text/javascript" src="js/footer.js"></script>-->
+{include file="home/footer" /}
+</body>
+</html>

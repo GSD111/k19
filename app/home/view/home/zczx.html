@@ -9,9 +9,9 @@
 <div class="zczx_mn">
 	<ul>
         {foreach $result as $k=>$v}
-        <li><a href="{:URL('home/xlcs_list?'.'id='.$v['ID'])}">{$v['MenuName']}</a></li>
+        <li><a href="{:URL('/home/xlcs_list?'.'id='.$v['ID'])}">{$v['MenuName']}</a></li>
         {/foreach}
-        <li><a href="{:URL('home/xlzxs_list')}">我不想测试 直接咨询心理师</a></li>
+        <li><a href="{:URL('/home/xlzxs_list')}">我不想测试 直接咨询心理师</a></li>
 <!--    	<li><a href="{:URL('home/xlcs_list')}">职业测试</a></li>-->
 <!--        <li><a href="{:URL('home/xlcs_list')}">心理健康测试</a></li>-->
 <!--        <li><a href="{:URL('home/xlcs_list')}">性格测试</a></li>-->

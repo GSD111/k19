@@ -15,7 +15,7 @@
         <input style="width:36%;float:left;margin-top:4px;margin-left:5px;height:36px;"  id="btn" type="button" onclick="duanxin()" value="发送验证码" />
     </div>
     <p class="p2">点击同意登录或者注册即代表您同意<span>《K19提供的相关服务条款》</span></p>
-    <a href="{:URL('home/index')}" class="a1">登录/注册</a>
+    <a href="{:URL('/home/index')}" class="a1">登录/注册</a>
     <a href="#"><p class="p3">忘记密码</p></a>
 </div>
 
@@ -56,7 +56,7 @@ function duanxin(){
         }
     }
     $.ajax({
-        url:'http://www.tp6.com/home/home/sms',
+        url:'http://www.tp6.com/home/sms',
         data:{'phone':phone},
         type:"POST",
         dataType:"Json",

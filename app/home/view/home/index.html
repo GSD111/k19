@@ -2,9 +2,9 @@
 
 <body style="background:#f5f5f5;">
 <div class="header">
-    <a href="{:URL('home/index')}"><img src="/home/picture/logo.png" class="logo"/></a>
+    <a href="{:URL('/home/index')}"><img src="/home/picture/logo.png" class="logo"/></a>
     <p>精神康复 心理咨询 上k19</p>
-    <a href="{:URL('home/login')}"><img src="/home/picture/onload.png" class="img01"/></a>
+    <a href="{:URL('/home/login')}"><img src="/home/picture/onload.png" class="img01"/></a>
 </div>
 <!--功能模块-->
 <div class="in_nav">
@@ -63,7 +63,7 @@
     <ul>
         {foreach $doctor as $k=>$v}
         <li>
-            <a href="{:URL('home/xlzxs_arc?id='.$v['ID'])}">
+            <a href="{:URL('/home/xlzxs_arc?id='.$v['ID'])}">
                 <img src="/home/picture/{$v['UserAvatar']}"/>
                 <p>{$v['RealName']}</p>
             </a>
@@ -96,7 +96,7 @@
     <ul>
         {foreach $hospital as $k=>$v}
         <li>
-            <a href="{:URL('home/hosp_list?id='.$v['ID'])}">
+            <a href="{:URL('/home/hosp_list?id='.$v['ID'])}">
                 <img src="/home/picture/{$v['UserAvatar']}"/>
                 <p>{$v['RealName']}</p>
             </a>

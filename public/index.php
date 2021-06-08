@@ -12,15 +12,17 @@
 // [ 应用入口文件 ]
 namespace think;
 
+
+//define('BIND_MODULE','home');
 require __DIR__ . '/../vendor/autoload.php';
 
 // 执行HTTP应用并响应
 $http = (new App())->http;
 
-$response = $http->run();
+//$response = $http->run();
 
 // 运行用户的请求 多应用(设置home应用)
-//$response = $http->name('home')->run();
+$response = $http->name('home')->run();
 
 $response->send();
 

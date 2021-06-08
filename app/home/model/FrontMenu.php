@@ -4,23 +4,38 @@
 namespace app\home\model;
 
 
-use think\facade\Db;
 use think\Model;
+use app\home\enum\StatusCode;
 
 class FrontMenu extends Model
 {
     protected $table = 'frontmenu';
-    protected $readonly = ['id', 'MenuName', 'MenuLocation', 'ParentID'];
+    protected $readonly = ['ID', 'MenuName', 'MenuLocation', 'ParentID'];
 
 
     /*
-     * 获取头部栏目按钮
+     * 获取首页头部栏目按钮
      */
     public static function TopMenu()
     {
-        $info = FrontMenu::where('MenuLocation', 1)->where('ParentID', 0)->select()->toArray();
+        $topmenu = FrontMenu::where('MenuLocation', StatusCode::FRONTMENU_LOCATIONTOP)
+            ->where('ParentID', StatusCode::FRONTMENU_PARENTID)->select()->toArray();
 
-        return $info;
+        return $topmenu;
+    }
+
+    /*
+     * 获取首页底部文章栏目按钮
+     */
+    public static function BottomMenu()
+    {
+        $bottommenu = FrontMenu::where('MenuLocation', StatusCode::FRONTMENU_LOCATIONBOTTOM)
+            ->where('ParentID', StatusCode::FRONTMENU_PARENTID)->select();
+        if ($bottommenu->isEmpty()) {
+            return false;
+        }
+
+        return $bottommenu;
     }
 
     /*
@@ -30,9 +45,6 @@ class FrontMenu extends Model
     public static function GetChildMenu($id)
     {
         $info = FrontMenu::where('ParentID', $id)->select();
-//        if ($info->isEmpty()) {
-//            redirect('http://home.baidu.com')->send();
-//        }
         return $info;
     }
 }

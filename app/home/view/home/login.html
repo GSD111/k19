@@ -9,7 +9,7 @@
     	<img src="/home/picture/logo2.png" />
     </div>
     <p class="p1">登录/注册</p>
-    <div class="tel"><img src="/home/picture/tb56.png" /><input id="phone" type="text" placeholder="请输入您的手机号"/></div>
+    <div class="tel"><img src="/home/picture/tb56.png" /><input id="phone" name="phone" type="text" placeholder="请输入您的手机号"/></div>
     <div class="yzm"><img src="/home/picture/tb57.png" />
         <input type="text" placeholder="请输入短信验证码"  />
         <input style="width:36%;float:left;margin-top:4px;margin-left:5px;height:36px;"  id="btn" type="button" onclick="duanxin()" value="发送验证码" />
@@ -55,20 +55,20 @@ function duanxin(){
             count--;
         }
     }
-    // $.ajax({
-    //     url:'https://bbxt.bdxqqbdc.com/Home/testAction',
-    //     data:{'username':username},
-    //     type:"POST",
-    //     dataType:"Json",
-    //     success:function(data){
-    //         if(data['status'] == "0"){
-    //             // console.log(data);
-    //             alert('已发送');
-    //         }else{
-    //             alert('发送失败');
-    //         }
-    //     }
-    // });
+    $.ajax({
+        url:'http://www.tp6.com/home/home/sms',
+        data:{'phone':phone},
+        type:"POST",
+        dataType:"Json",
+        success:function(data){
+            if(data['status'] == "0"){
+                // console.log(data);
+                alert('已发送');
+            }else{
+                alert('发送失败');
+            }
+        }
+    });
 
 }
 </script>

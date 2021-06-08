@@ -29,8 +29,10 @@ class FontMenu
       */
     public static function GetTypeListInfo($id)
     {
-        $data = Db::table('typelist')->where('ParsentID', $id)->order('Grade desc')->select();
+        $data = Db::table('typelist')->where('ParsentID', $id)
+            ->order('Grade desc')->select();
 
         return $data;
     }
+
 }

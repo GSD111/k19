@@ -3,9 +3,11 @@
 namespace app\home\controller;
 
 use app\BaseController;
+use app\home\model\Article as ArticleModel;
 use app\home\model\FrontMenu;
 use app\home\model\FrontMenu as FrontMenuModel;
 use app\home\service\FontMenu as FrontMenuService;
+use app\home\service\User as UserService;
 use think\facade\View;
 
 class Index extends BaseController
@@ -16,10 +18,23 @@ class Index extends BaseController
      */
     public function Index()
     {
-
+        //头部导航栏目按钮
         $result = FrontMenuModel::TopMenu();
-//        halt($result);
-        return View::fetch('home/index', ['result' => $result]);
+
+        $doctor = UserService::RecommendDoctor();
+
+        $hospital = UserService::RecommendHospital();
+        $article = ArticleModel::RecommendArticle();
+//        halt($article);
+        $bottommenu = FrontMenu::BottomMenu();
+
+        View::assign('result', $result);
+        View::assign('doctor', $doctor);
+        View::assign('hospital', $hospital);
+        View::assign('article',$article);
+        View::assign('bottommenu', $bottommenu);
+//        halt($bottommenu);
+        return View::fetch('home/index');
     }
 
     public function Xlzx($id)

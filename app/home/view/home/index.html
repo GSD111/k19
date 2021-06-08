@@ -18,30 +18,30 @@
                 </a>
             </li>
             {/foreach}
-<!--            <li>-->
-<!--                <a href="{:URL('home/xlzx')}">-->
-<!--                    <img src="picture/tb01.png"/>-->
-<!--                    <p>心理咨询</p>-->
-<!--                </a>-->
-<!--            </li>-->
-<!--            <li>-->
-<!--                <a href="{:URL('home/zczx')}">-->
-<!--                    <img src="picture/tb02.png"/>-->
-<!--                    <p>症状自测</p>-->
-<!--                </a>-->
-<!--            </li>-->
-<!--            <li>-->
-<!--                <a href="{:URL('home/zsxg_list')}">-->
-<!--                    <img src="picture/tb03.png"/>-->
-<!--                    <p>知识相关</p>-->
-<!--                </a>-->
-<!--            </li>-->
-<!--            <li>-->
-<!--                <a href="{:URL('home/wzxqs_list')}">-->
-<!--                    <img src="picture/tb04.png"/>-->
-<!--                    <p>倾诉一刻</p>-->
-<!--                </a>-->
-<!--            </li>-->
+            <!--            <li>-->
+            <!--                <a href="{:URL('home/xlzx')}">-->
+            <!--                    <img src="picture/tb01.png"/>-->
+            <!--                    <p>心理咨询</p>-->
+            <!--                </a>-->
+            <!--            </li>-->
+            <!--            <li>-->
+            <!--                <a href="{:URL('home/zczx')}">-->
+            <!--                    <img src="picture/tb02.png"/>-->
+            <!--                    <p>症状自测</p>-->
+            <!--                </a>-->
+            <!--            </li>-->
+            <!--            <li>-->
+            <!--                <a href="{:URL('home/zsxg_list')}">-->
+            <!--                    <img src="picture/tb03.png"/>-->
+            <!--                    <p>知识相关</p>-->
+            <!--                </a>-->
+            <!--            </li>-->
+            <!--            <li>-->
+            <!--                <a href="{:URL('home/wzxqs_list')}">-->
+            <!--                    <img src="picture/tb04.png"/>-->
+            <!--                    <p>倾诉一刻</p>-->
+            <!--                </a>-->
+            <!--            </li>-->
         </ul>
     </div>
     <div class="mk02">
@@ -57,40 +57,71 @@
     </div>
 </div>
 
+
+<!-- RecommendDoctor -->
 <div class="in_zxs">
     <ul>
+        {foreach $doctor as $k=>$v}
         <li>
-            <a href="{:URL('home/xlzxs_arc')}">
-                <img src="/home/picture/tb07.png"/>
-                <p>贾金鼎</p>
+            <a href="{:URL('home/xlzxs_arc?id='.$v['ID'])}">
+                <img src="/home/picture/{$v['UserAvatar']}"/>
+                <p>{$v['RealName']}</p>
             </a>
         </li>
-        <li>
-            <img src="/home/picture/tb08.png"/>
-            <p>范大庆</p>
-        </li>
-        <li>
-            <img src="/home/picture/tb09.png"/>
-            <p>樊凌姿</p>
-        </li>
-        <li>
-            <img src="picture/tb10.png"/>
-            <p>娄渊敏</p>
-        </li>
+        {/foreach}
+        <!--        <li>-->
+        <!--            <a href="{:URL('home/xlzxs_arc')}">-->
+        <!--                <img src="/home/picture/tb07.png"/>-->
+        <!--                <p>贾金鼎</p>-->
+        <!--            </a>-->
+        <!--        </li>-->
+        <!--        <li>-->
+        <!--            <img src="/home/picture/tb08.png"/>-->
+        <!--            <p>范大庆</p>-->
+        <!--        </li>-->
+        <!--        <li>-->
+        <!--            <img src="/home/picture/tb09.png"/>-->
+        <!--            <p>樊凌姿</p>-->
+        <!--        </li>-->
+        <!--        <li>-->
+        <!--            <img src="picture/tb10.png"/>-->
+        <!--            <p>娄渊敏</p>-->
+        <!--        </li>-->
     </ul>
 </div>
+
+
+<!-- RecommendHospital -->
+<div class="in_zxs">
+    <ul>
+        {foreach $hospital as $k=>$v}
+        <li>
+            <a href="{:URL('home/hosp_list?id='.$v['ID'])}">
+                <img src="/home/picture/{$v['UserAvatar']}"/>
+                <p>{$v['RealName']}</p>
+            </a>
+        </li>
+        {/foreach}
+    </ul>
+</div>
+
 
 <div class="in_advert">
     <div class="nr">
         <p class="p1">资讯</p>
-        <p class="p2">长期睡眠质量不高，会怎样？</p><img src="/home/picture/tb11.png"/>
+        <p class="p2">{$article.Title}</p><img src="/home/picture/tb11.png"/>
     </div>
 </div>
 
 <div class="in_wzzx">
     <ul class="nav">
-        <li>
-            <p class="p1 chkcs">推荐内容</p>
+
+        <li style="display:flex;width:100%;">
+            {foreach $bottommenu as $k=>$v}
+                <p style="flex:1;" class="p1">
+                    <a style="color:black;" href="{:URL()}">{$v['MenuName']}</a>
+                </p>
+            {/foreach}
             <div class="wzzx" style="display:block;">
                 <ul>
                     <a href="arc_arc.html">
@@ -133,73 +164,117 @@
                 </ul>
             </div>
         </li>
-        <li>
-            <p class="p1">医院介绍</p>
-            <div class="wzzx">
-                <ul>
-                    <li>
-                        <img src="/home/picture/tp01.png"/>
-                        <div class="nr">
-                            <p class="p2">精神分裂症如何防治？</p>
-                            <p class="p3">精神分裂症从防治的角度来讲，首先强调的是早发现、早诊断、早干预。一旦发现有...</p>
-                        </div>
-                    </li>
-                    <li>
-                        <img src="/home/picture/tp01.png"/>
-                        <div class="nr">
-                            <p class="p2">精神分裂症如何防治？</p>
-                            <p class="p3">精神分裂症从防治的角度来讲，首先强调的是早发现、早诊断、早干预。一旦发现有...</p>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </li>
-        <li>
-            <p class="p1">心理咨询</p>
-            <div class="wzzx">
-                <ul>
-                    <li>
-                        <img src="/home/picture/tp01.png"/>
-                        <div class="nr">
-                            <p class="p2">精神分裂症如何防治？</p>
-                            <p class="p3">精神分裂症从防治的角度来讲，首先强调的是早发现、早诊断、早干预。一旦发现有...</p>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </li>
-        <li>
-            <p class="p1">精神疾病</p>
-            <div class="wzzx">
-                <ul>
-                    <a href="{:URL('home/jsjb_list')}">
-                        <li>
-                            <img src="/home/picture/tp01.png"/>
-                            <div class="nr">
-                                <p class="p2">精神分裂症如何防治？</p>
-                                <p class="p3">精神分裂症从防治的角度来讲，首先强调的是早发现、早诊断、早干预。一旦发现有...</p>
-                            </div>
-                        </li>
-                    </a>
-                </ul>
-            </div>
-        </li>
-        <li>
-            <p class="p1">心理疾病</p>
-            <div class="wzzx">
-                <ul>
-                    <a href="{:URL('home/jsjb_list')}">
-                        <li>
-                            <img src="/home/picture/tp01.png"/>
-                            <div class="nr">
-                                <p class="p2">精神分裂症如何防治？</p>
-                                <p class="p3">精神分裂症从防治的角度来讲，首先强调的是早发现、早诊断、早干预。一旦发现有...</p>
-                            </div>
-                        </li>
-                    </a>
-                </ul>
-            </div>
-        </li>
+        <!--        <li>-->
+        <!--            <p class="p1 chkcs">推荐内容</p>-->
+        <!--            <div class="wzzx" style="display:block;">-->
+        <!--                <ul>-->
+        <!--                    <a href="arc_arc.html">-->
+        <!--                        <li>-->
+        <!--                            <img src="/home/picture/tp01.png"/>-->
+        <!--                            <div class="nr">-->
+        <!--                                <p class="p2">精神分裂症如何防治？</p>-->
+        <!--                                <p class="p3">精神分裂症从防治的角度来讲，首先强调的是早发现、早诊断、早干预。一旦发现有...</p>-->
+        <!--                            </div>-->
+        <!--                        </li>-->
+        <!--                    </a>-->
+        <!--                    <li>-->
+        <!--                        <img src="/home/picture/tp01.png"/>-->
+        <!--                        <div class="nr">-->
+        <!--                            <p class="p2">精神分裂症如何防治？</p>-->
+        <!--                            <p class="p3">精神分裂症从防治的角度来讲，首先强调的是早发现、早诊断、早干预。一旦发现有...</p>-->
+        <!--                        </div>-->
+        <!--                    </li>-->
+        <!--                    <li>-->
+        <!--                        <img src="/home/picture/tp01.png"/>-->
+        <!--                        <div class="nr">-->
+        <!--                            <p class="p2">精神分裂症如何防治？</p>-->
+        <!--                            <p class="p3">精神分裂症从防治的角度来讲，首先强调的是早发现、早诊断、早干预。一旦发现有...</p>-->
+        <!--                        </div>-->
+        <!--                    </li>-->
+        <!--                    <li>-->
+        <!--                        <img src="/home/picture/tp01.png"/>-->
+        <!--                        <div class="nr">-->
+        <!--                            <p class="p2">精神分裂症如何防治？</p>-->
+        <!--                            <p class="p3">精神分裂症从防治的角度来讲，首先强调的是早发现、早诊断、早干预。一旦发现有...</p>-->
+        <!--                        </div>-->
+        <!--                    </li>-->
+        <!--                    <li>-->
+        <!--                        <img src="picture/tp01.png"/>-->
+        <!--                        <div class="nr">-->
+        <!--                            <p class="p2">精神分裂症如何防治？</p>-->
+        <!--                            <p class="p3">精神分裂症从防治的角度来讲，首先强调的是早发现、早诊断、早干预。一旦发现有...</p>-->
+        <!--                        </div>-->
+        <!--                    </li>-->
+        <!--                </ul>-->
+        <!--            </div>-->
+        <!--        </li>-->
+        <!--        <li>-->
+        <!--            <p class="p1">医院介绍</p>-->
+        <!--            <div class="wzzx">-->
+        <!--                <ul>-->
+        <!--                    <li>-->
+        <!--                        <img src="/home/picture/tp01.png"/>-->
+        <!--                        <div class="nr">-->
+        <!--                            <p class="p2">精神分裂症如何防治？</p>-->
+        <!--                            <p class="p3">精神分裂症从防治的角度来讲，首先强调的是早发现、早诊断、早干预。一旦发现有...</p>-->
+        <!--                        </div>-->
+        <!--                    </li>-->
+        <!--                    <li>-->
+        <!--                        <img src="/home/picture/tp01.png"/>-->
+        <!--                        <div class="nr">-->
+        <!--                            <p class="p2">精神分裂症如何防治？</p>-->
+        <!--                            <p class="p3">精神分裂症从防治的角度来讲，首先强调的是早发现、早诊断、早干预。一旦发现有...</p>-->
+        <!--                        </div>-->
+        <!--                    </li>-->
+        <!--                </ul>-->
+        <!--            </div>-->
+        <!--        </li>-->
+        <!--        <li>-->
+        <!--            <p class="p1">心理咨询</p>-->
+        <!--            <div class="wzzx">-->
+        <!--                <ul>-->
+        <!--                    <li>-->
+        <!--                        <img src="/home/picture/tp01.png"/>-->
+        <!--                        <div class="nr">-->
+        <!--                            <p class="p2">精神分裂症如何防治？</p>-->
+        <!--                            <p class="p3">精神分裂症从防治的角度来讲，首先强调的是早发现、早诊断、早干预。一旦发现有...</p>-->
+        <!--                        </div>-->
+        <!--                    </li>-->
+        <!--                </ul>-->
+        <!--            </div>-->
+        <!--        </li>-->
+        <!--        <li>-->
+        <!--            <p class="p1">精神疾病</p>-->
+        <!--            <div class="wzzx">-->
+        <!--                <ul>-->
+        <!--                    <a href="{:URL('home/jsjb_list')}">-->
+        <!--                        <li>-->
+        <!--                            <img src="/home/picture/tp01.png"/>-->
+        <!--                            <div class="nr">-->
+        <!--                                <p class="p2">精神分裂症如何防治？</p>-->
+        <!--                                <p class="p3">精神分裂症从防治的角度来讲，首先强调的是早发现、早诊断、早干预。一旦发现有...</p>-->
+        <!--                            </div>-->
+        <!--                        </li>-->
+        <!--                    </a>-->
+        <!--                </ul>-->
+        <!--            </div>-->
+        <!--        </li>-->
+        <!--        <li>-->
+        <!--            <p class="p1">心理疾病</p>-->
+        <!--            <div class="wzzx">-->
+        <!--                <ul>-->
+        <!--                    <a href="{:URL('home/jsjb_list')}">-->
+        <!--                        <li>-->
+        <!--                            <img src="/home/picture/tp01.png"/>-->
+        <!--                            <div class="nr">-->
+        <!--                                <p class="p2">精神分裂症如何防治？</p>-->
+        <!--                                <p class="p3">精神分裂症从防治的角度来讲，首先强调的是早发现、早诊断、早干预。一旦发现有...</p>-->
+        <!--                            </div>-->
+        <!--                        </li>-->
+        <!--                    </a>-->
+        <!--                </ul>-->
+        <!--            </div>-->
+        <!--        </li>-->
     </ul>
 </div>
 

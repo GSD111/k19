@@ -41,6 +41,7 @@ Route::group('home',function(){
 
 //首页登录
     Route::get('/login','Homelogin/login');
+    Route::post('/sms','Login/Sms');
 
 //问医生
     Route::get('/xlzxs_list','Askdoctor/XlzxsList');

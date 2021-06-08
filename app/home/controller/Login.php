@@ -35,8 +35,8 @@ class Login extends BaseController
                     'file' => '/tmp/easy-sms.log',
                 ],
                 'aliyun' => [
-                    'access_key_id' => 'LTAI5t9U6Rp7vqDWLv4o4ADb',
-                    'access_key_secret' => 'fMeR6sQWBZhghYhHLUEvs7u6nIoJzR',
+                    'access_key_id' => '',
+                    'access_key_secret' => '',
                     'sign_name' => '',
                 ],
                 //...

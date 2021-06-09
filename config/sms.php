@@ -1,7 +1,6 @@
 <?php
 
 return [
-    'smsconfig'=>[
         // HTTP 请求的超时时间（秒）
         'timeout' => 5.0,
 
@@ -30,5 +29,4 @@ return [
             ],
             //...
         ],
-    ]
 ];

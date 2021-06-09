@@ -118,51 +118,59 @@
 
         <li style="display:flex;width:100%;">
             {foreach $bottommenu as $k=>$v}
-                <p style="flex:1;" class="p1">
-                    <a style="color:black;" href="{:URL()}">{$v['MenuName']}</a>
-                </p>
+            <p style="flex:1;" class="p1" index="{$v['ID']}">
+<!--                <a style="color:black;" href="{:URL('/home/index?id='.$v['ID'])}">{$v['MenuName']}</a>-->
+                   {$v['MenuName']}
+            </p>
             {/foreach}
-            <div class="wzzx" style="display:block;">
+
+            {foreach $bottommenu as $k=>$v}
+            <div class="wzzx" style="display:none;" item-index="{$v['ID']}">
                 <ul>
-                    <a href="arc_arc.html">
-                        <li>
-                            <img src="/home/picture/tp01.png"/>
-                            <div class="nr">
-                                <p class="p2">精神分裂症如何防治？</p>
-                                <p class="p3">精神分裂症从防治的角度来讲，首先强调的是早发现、早诊断、早干预。一旦发现有...</p>
-                            </div>
-                        </li>
-                    </a>
-                    <li>
-                        <img src="/home/picture/tp01.png"/>
-                        <div class="nr">
-                            <p class="p2">精神分裂症如何防治？</p>
-                            <p class="p3">精神分裂症从防治的角度来讲，首先强调的是早发现、早诊断、早干预。一旦发现有...</p>
-                        </div>
-                    </li>
-                    <li>
-                        <img src="/home/picture/tp01.png"/>
-                        <div class="nr">
-                            <p class="p2">精神分裂症如何防治？</p>
-                            <p class="p3">精神分裂症从防治的角度来讲，首先强调的是早发现、早诊断、早干预。一旦发现有...</p>
-                        </div>
-                    </li>
-                    <li>
-                        <img src="/home/picture/tp01.png"/>
-                        <div class="nr">
-                            <p class="p2">精神分裂症如何防治？</p>
-                            <p class="p3">精神分裂症从防治的角度来讲，首先强调的是早发现、早诊断、早干预。一旦发现有...</p>
-                        </div>
-                    </li>
-                    <li>
-                        <img src="picture/tp01.png"/>
-                        <div class="nr">
-                            <p class="p2">精神分裂症如何防治？</p>
-                            <p class="p3">精神分裂症从防治的角度来讲，首先强调的是早发现、早诊断、早干预。一旦发现有...</p>
-                        </div>
-                    </li>
+
+                        {foreach $v['article'] as $item}
+                            <a href="arc_arc.html" id="article_item">
+                                <li>
+                                    <img src="/home/picture/{$item['ArticleImg']}"/>
+                                    <div class="nr">
+                                        <p class="p2">{$item['Title']}</p>
+                                        <p class="p3">{$item['Content']}...</p>
+                                    </div>
+                                </li>
+                            </a>
+                        {/foreach}
+
+                    <!--                    <li>-->
+                    <!--                        <img src="/home/picture/tp01.png"/>-->
+                    <!--                        <div class="nr">-->
+                    <!--                            <p class="p2">精神分裂症如何防治？</p>-->
+                    <!--                            <p class="p3">精神分裂症从防治的角度来讲，首先强调的是早发现、早诊断、早干预。一旦发现有...</p>-->
+                    <!--                        </div>-->
+                    <!--                    </li>-->
+                    <!--                    <li>-->
+                    <!--                        <img src="/home/picture/tp01.png"/>-->
+                    <!--                        <div class="nr">-->
+                    <!--                            <p class="p2">精神分裂症如何防治？</p>-->
+                    <!--                            <p class="p3">精神分裂症从防治的角度来讲，首先强调的是早发现、早诊断、早干预。一旦发现有...</p>-->
+                    <!--                        </div>-->
+                    <!--                    </li>-->
+                    <!--                    <li>-->
+                    <!--                        <img src="/home/picture/tp01.png"/>-->
+                    <!--                        <div class="nr">-->
+                    <!--                            <p class="p2">精神分裂症如何防治？</p>-->
+                    <!--                            <p class="p3">精神分裂症从防治的角度来讲，首先强调的是早发现、早诊断、早干预。一旦发现有...</p>-->
+                    <!--                        </div>-->
+                    <!--                    </li>-->
+                    <!--                    <li>-->
+                    <!--                        <img src="picture/tp01.png"/>-->
+                    <!--                        <div class="nr">-->
+                    <!--                            <p class="p2">精神分裂症如何防治？</p>-->
+                    <!--                            <p class="p3">精神分裂症从防治的角度来讲，首先强调的是早发现、早诊断、早干预。一旦发现有...</p>-->
+                    <!--                        </div>-->
+                    <!--                    </li>-->
                 </ul>
             </div>
+            {/foreach}
         </li>
         <!--        <li>-->
         <!--            <p class="p1 chkcs">推荐内容</p>-->
@@ -279,19 +287,51 @@
 </div>
 
 <div class="gashxf">
-    <a href="{:URL('home/gash')}"><img src="/home/picture/gash.png"/></a>
+    <a href="{:URL('/home/gash')}"><img src="/home/picture/gash.png"/></a>
 </div>
 
 
 {include file="home/footer" /}
 
 <script>
-    $(".in_wzzx").find(".nav").find("li").find(".p1").click(function () {
-        $(".in_wzzx").find(".nav").find("li").find(".p1").removeClass("chkcs");
-        $(this).addClass("chkcs");
-        $(".in_wzzx").find(".nav").find("li").find(".wzzx").hide();
-        $(this).next(".wzzx").show();
-    });
+    $('.wzzx').hide();
+    $('.wzzx').eq(0).show();
+    var indexVal = $('this').attr('index');
+    $('wzzx[item-index="'+indexVal+'"]').show();
+    // $(".in_wzzx").find(".nav").find("li").find(".p1").click(function () {
+    //     $(".in_wzzx").find(".nav").find("li").find(".p1").removeClass("chkcs");
+    //     $(this).addClass("chkcs");
+    //     $(".in_wzzx").find(".nav").find("li").find(".wzzx").hide();
+    //     $(this).next(".wzzx").show();
+    // });
+    // function get_article(id){
+    //     $.ajax({
+    //         type: "post",
+    //         dataType: "text",
+    //         data: {
+    //             "id": id,
+    //             // '_token': '{{csrf_token()}}'
+    //         },
+    //         url: '/index?id=' + id,//目标地址
+    //         success:function (data) {
+    //             showData(data)
+    //         },
+    //         error:function(e){
+    //           console.log(e)
+    //         }
+    //
+    // });
+    // }
+    //
+    // function showData(data){
+    //    var article = $('#article_item');
+    //    article.empty();
+    //    article.append('<a><li><img src=""/><div><p></p><p></p></div></div></li></a>');
+    //    for(var i=0;i<data.length;i++){
+    //       var str = '<a><img src=""><div><p>+data[i].Title</p><p>+data[i].Content</p></div></a>';
+    //       article.append(str);
+    //    }
+    // }
 </script>
 </body>
 </html>

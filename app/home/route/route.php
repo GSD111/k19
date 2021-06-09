@@ -18,6 +18,8 @@ use think\facade\Route;
 
 Route::group('home',function(){
     Route::get('/index','Index/Index');
+    Route::get('/index/:id','Index/Index');
+//    Route::get('/index','Index/GetArticle');
     Route::get('/xlzx','Index/Xlzx');
     Route::get('/zczx','Index/Zczx');
     Route::get('/zsxg_list','Index/ZsxgList');

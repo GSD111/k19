@@ -118,7 +118,7 @@
 
         <li style="display:flex;width:100%;">
             {foreach $bottommenu as $k=>$v}
-            <p style="flex:1;" class="p1" index="{$v['ID']}">
+            <p style="flex:1;" class="p1" index="{$v['ID']}" onclick="menuClick()">
 <!--                <a style="color:black;" href="{:URL('/home/index?id='.$v['ID'])}">{$v['MenuName']}</a>-->
                    {$v['MenuName']}
             </p>
@@ -294,10 +294,13 @@
 {include file="home/footer" /}
 
 <script>
-    $('.wzzx').hide();
-    $('.wzzx').eq(0).show();
-    var indexVal = $('this').attr('index');
-    $('wzzx[item-index="'+indexVal+'"]').show();
+    function menuClick (){
+        $('.wzzx').hide();
+        $('.wzzx').eq(0).show();
+        var indexVal = $('this').attr('index');
+        $('wzzx[item-index="'+indexVal+'"]').show();
+    }
+
     // $(".in_wzzx").find(".nav").find("li").find(".p1").click(function () {
     //     $(".in_wzzx").find(".nav").find("li").find(".p1").removeClass("chkcs");
     //     $(this).addClass("chkcs");

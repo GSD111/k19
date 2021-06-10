@@ -30,10 +30,10 @@ class Article extends Model
      */
     public static function GetByArticle($id)
     {
-        $info = Article::where('MenuID', $id)->order('ID desc')->select();
+        $info = Article::where('MenuID', $id)->order('ID desc')->limit(15)->select();
         if ($info->isEmpty()) {
-
-            return $info = Article::where('IsRecommend', StatusCode::ARTICEL_ISRECOMMEND)->select();
+            return false;
+//            return $info = Article::where('IsRecommend', StatusCode::ARTICEL_ISRECOMMEND)->select();
         }
         return $info;
     }

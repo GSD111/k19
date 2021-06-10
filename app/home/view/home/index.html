@@ -118,7 +118,7 @@
 
         <li style="display:flex;width:100%;">
             {foreach $bottommenu as $k=>$v}
-            <p style="flex:1;" class="p1" index="{$v['ID']}" onclick="menuClick()">
+            <p style="flex:1;" class="p1" index="{$v['ID']}">
 <!--                <a style="color:black;" href="{:URL('/home/index?id='.$v['ID'])}">{$v['MenuName']}</a>-->
                    {$v['MenuName']}
             </p>
@@ -294,47 +294,25 @@
 {include file="home/footer" /}
 
 <script>
-    function menuClick (){
+    $('.wzzx').hide();
+    $('.wzzx').eq(0).show();
+
+    $('.in_wzzx .nav li .p1').click(function(){
+        var indexVal=$(this).attr('index');
         $('.wzzx').hide();
-        $('.wzzx').eq(0).show();
-        var indexVal = $('this').attr('index');
-        $('wzzx[item-index="'+indexVal+'"]').show();
-    }
+        $('.wzzx[item-index="'+indexVal+'"]').show();
+    })
 
     // $(".in_wzzx").find(".nav").find("li").find(".p1").click(function () {
+    //     var indexVal = $('this').attr('index');
+    //     console.log(indexVal)
+    //     $('wzzx[item-index="'+indexVal+'"]').show();
     //     $(".in_wzzx").find(".nav").find("li").find(".p1").removeClass("chkcs");
     //     $(this).addClass("chkcs");
     //     $(".in_wzzx").find(".nav").find("li").find(".wzzx").hide();
     //     $(this).next(".wzzx").show();
     // });
-    // function get_article(id){
-    //     $.ajax({
-    //         type: "post",
-    //         dataType: "text",
-    //         data: {
-    //             "id": id,
-    //             // '_token': '{{csrf_token()}}'
-    //         },
-    //         url: '/index?id=' + id,//目标地址
-    //         success:function (data) {
-    //             showData(data)
-    //         },
-    //         error:function(e){
-    //           console.log(e)
-    //         }
-    //
-    // });
-    // }
-    //
-    // function showData(data){
-    //    var article = $('#article_item');
-    //    article.empty();
-    //    article.append('<a><li><img src=""/><div><p></p><p></p></div></div></li></a>');
-    //    for(var i=0;i<data.length;i++){
-    //       var str = '<a><img src=""><div><p>+data[i].Title</p><p>+data[i].Content</p></div></a>';
-    //       article.append(str);
-    //    }
-    // }
+
 </script>
 </body>
 </html>

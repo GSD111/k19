@@ -42,26 +42,26 @@ class Login extends BaseController
 //                //...
 //            ],
 //        ];
-
         $phone = $_GET['phone'];
 //            halt($phone);
         $code = random_int(100000, 999999);
-        $lock = Cache::set('mobile_captcha_lock' , $phone, 60);
-        if (Cache::has($lock)) {
-
+        $lock = Cache::set('mobile_captcha_lock_' .$phone, 1,60);
+//        halt($lock);
+        if(!$lock){
             return '验证码未超过一分钟,不能发送';
         }
-//        $countkey = 'mobile_captcha_count_'.$phone;
-//        if(Cache::has($countkey)){
-//            $count = Cache::inc('mobile_captcha_count_'.$phone);
-//            if($count > 10){
-//
-//                return "验证码当天发送不能超过10次";
-//            }
-//        }else{
-//            Cache::set($countkey,1);
-//        }
-//        Cache::set('mobile_captcha', $code, 600);
+        $countkey = 'mobile_captcha_count_'.$phone;
+        if(Cache::has($countkey)){
+            $count = Cache::inc('mobile_captcha_count_'.$phone);
+//            halt($count);
+            if($count > 5){
+
+                return "验证码超出发送限制请稍后在试";
+            }
+        }else{
+            Cache::set($countkey,1,7200);
+        }
+        Cache::set('mobile_captcha_'.$phone, $code, 600);
 
 
 

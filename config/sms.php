@@ -23,9 +23,9 @@ return [
 //                'api_key' => '824f0ff2f71cab52936axxxxxxxxxx',
 //            ],
             'aliyun' => [
-                'access_key_id' => 'LTAI5tLvXN1SPPVPowMENJpS',
-                'access_key_secret' => 'UMEeYdksK2IPTPXVAgOYxvnWjnN2hk',
-                'sign_name' => '验证码短信',
+                'access_key_id' => 'LTAI5t9U6Rp7vqDWLv4o4ADb',
+                'access_key_secret' => 'fMeR6sQWBZhghYhHLUEvs7u6nIoJzR',
+                'sign_name' => 'k19平台短信发送服务',
             ],
             //...
         ],

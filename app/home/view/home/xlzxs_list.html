@@ -139,46 +139,48 @@
 
 <div class="zxs_list">
 	<ul class="u1">
+        {foreach $data as $k=>$v}
     	<li>
-        	<img src="/home/picture/tp02.png" />
+        	<img src="/home/picture/{$v['UserAvatar']}" />
             <div class="rt">
-            	<p class="p1">贾金鼎</p>
+            	<p class="p1">{$v['RealName']}</p>
                 <p class="p2">2002年毕业于中山大学临床医学专业。毕业后一直从事精神心理临床工作，先后于急性病区。</p>
                 <a href="{:URL('/home/xlzxs_arc')}" class="zx">了解更多</a>
             </div>
         </li>
-        <li>
-        	<img src="/home/picture/tp02.png" />
-            <div class="rt">
-            	<p class="p1">贾金鼎</p>
-                <p class="p2">2002年毕业于中山大学临床医学专业。毕业后一直从事精神心理临床工作，先后于急性病区。</p>
-                <a href="{:URL('/home/xlzxs_arc')}" class="zx">了解更多</a>
-            </div>
-        </li>
-        <li>
-        	<img src="/home/picture/tp02.png" />
-            <div class="rt">
-            	<p class="p1">贾金鼎</p>
-                <p class="p2">2002年毕业于中山大学临床医学专业。毕业后一直从事精神心理临床工作，先后于急性病区。</p>
-                <a href="{:URL('/home/xlzxs_arc')}" class="zx">了解更多</a>
-            </div>
-        </li>
-        <li>
-        	<img src="/home/picture/tp02.png" />
-            <div class="rt">
-            	<p class="p1">贾金鼎</p>
-                <p class="p2">2002年毕业于中山大学临床医学专业。毕业后一直从事精神心理临床工作，先后于急性病区。</p>
-                <a href="{:URL('/home/xlzxs_arc')}" class="zx">了解更多</a>
-            </div>
-        </li>
-        <li>
-        	<img src="/home/picture/tp02.png" />
-            <div class="rt">
-            	<p class="p1">贾金鼎</p>
-                <p class="p2">2002年毕业于中山大学临床医学专业。毕业后一直从事精神心理临床工作，先后于急性病区。</p>
-                <a href="{:URL('/home/xlzxs_arc')}" class="zx">了解更多</a>
-            </div>
-        </li>
+        {/foreach}
+<!--        <li>-->
+<!--        	<img src="/home/picture/tp02.png" />-->
+<!--            <div class="rt">-->
+<!--            	<p class="p1">贾金鼎</p>-->
+<!--                <p class="p2">2002年毕业于中山大学临床医学专业。毕业后一直从事精神心理临床工作，先后于急性病区。</p>-->
+<!--                <a href="{:URL('/home/xlzxs_arc')}" class="zx">了解更多</a>-->
+<!--            </div>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--        	<img src="/home/picture/tp02.png" />-->
+<!--            <div class="rt">-->
+<!--            	<p class="p1">贾金鼎</p>-->
+<!--                <p class="p2">2002年毕业于中山大学临床医学专业。毕业后一直从事精神心理临床工作，先后于急性病区。</p>-->
+<!--                <a href="{:URL('/home/xlzxs_arc')}" class="zx">了解更多</a>-->
+<!--            </div>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--        	<img src="/home/picture/tp02.png" />-->
+<!--            <div class="rt">-->
+<!--            	<p class="p1">贾金鼎</p>-->
+<!--                <p class="p2">2002年毕业于中山大学临床医学专业。毕业后一直从事精神心理临床工作，先后于急性病区。</p>-->
+<!--                <a href="{:URL('/home/xlzxs_arc')}" class="zx">了解更多</a>-->
+<!--            </div>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--        	<img src="/home/picture/tp02.png" />-->
+<!--            <div class="rt">-->
+<!--            	<p class="p1">贾金鼎</p>-->
+<!--                <p class="p2">2002年毕业于中山大学临床医学专业。毕业后一直从事精神心理临床工作，先后于急性病区。</p>-->
+<!--                <a href="{:URL('/home/xlzxs_arc')}" class="zx">了解更多</a>-->
+<!--            </div>-->
+<!--        </li>-->
     </ul>
 </div>
 

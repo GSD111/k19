@@ -30,7 +30,7 @@ class User
     public static function RecommendHospital()
     {
         $hospital = UserModel::where('IsPersion', StatusCode::USER_PERSION)
-            ->where('IsDoctor', StatusCode::USER_ISDOCTOR)
+//            ->where('IsDoctor', StatusCode::USER_ISDOCTOR)
             ->limit(4)
             ->orderRaw('rand()')
             ->select();
@@ -39,5 +39,33 @@ class User
             return false;
         }
         return $hospital;
+    }
+
+    /*
+     * 获取所有的医生
+     */
+
+    public static function GetDoctorAll()
+    {
+        $data = UserModel::where('IsDoctor', StatusCode::USER_DOCTOR)->select();
+        if ($data->isEmpty()) {
+            return false;
+        }
+
+        return $data;
+    }
+
+    /*
+     * 获取所有的医院商家
+     */
+
+    public static function GetHospitalAll()
+    {
+        $data = UserModel::where('IsPersion', StatusCode::USER_PERSION)->select();
+        if ($data->isEmpty()) {
+            return false;
+        }
+
+        return $data;
     }
 }

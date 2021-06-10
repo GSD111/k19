@@ -42,8 +42,8 @@ Route::group('home',function(){
     Route::get('/ylcs04','Index/Ylcs04');
 
 //首页登录
-    Route::get('/login','Homelogin/login');
-    Route::post('/sms','Login/Sms');
+    Route::any('/login','Homelogin/login');
+    Route::post('/SendCaptcha','Homelogin/SendCaptcha');
 
 //问医生
     Route::get('/xlzxs_list','Askdoctor/XlzxsList');

@@ -133,58 +133,60 @@
 
 <div class="hosp_list">
 	<ul class="u1">
+        {foreach $data as $k=>$v}
     	<li>
         	<a href="{:URL('/home/hosp_arc')}">
-                <img src="/home/picture/tp12.png" />
+                <img src="/home/picture/{$v['UserAvatar']}" />
                 <div class="rt">
-                    <p class="p1">重庆医科大学附属第二医院</p>
+                    <p class="p1">{$v['RealName']}</p>
                     <p class="p2">医院介绍：重庆医科大学附属第...</p>
                     <p class="p3">地址：渝中院区位于重庆市渝中区临江路74号</p>
                 </div>
             </a>
         </li>
-        <li>
-        	<a href="{:URL('/home/hosp_arc')}">
-                <img src="/home/picture/tp12.png" />
-                <div class="rt">
-                    <p class="p1">重庆医科大学附属第二医院</p>
-                    <p class="p2">医院介绍：重庆医科大学附属第...</p>
-                    <p class="p3">地址：渝中院区位于重庆市渝中区临江路74号</p>
-                </div>
-            </a>
-        </li>
-        <li>
-        	<img src="/home/picture/tp12.png" />
-            <div class="rt">
-            	<p class="p1">重庆医科大学附属第二医院</p>
-                <p class="p2">医院介绍：重庆医科大学附属第...</p>
-                <p class="p3">地址：渝中院区位于重庆市渝中区临江路74号</p>
-            </div>
-        </li>
-        <li>
-        	<img src="/home/picture/tp12.png" />
-            <div class="rt">
-            	<p class="p1">重庆医科大学附属第二医院</p>
-                <p class="p2">医院介绍：重庆医科大学附属第...</p>
-                <p class="p3">地址：渝中院区位于重庆市渝中区临江路74号</p>
-            </div>
-        </li>
-        <li>
-        	<img src="/home/picture/tp12.png" />
-            <div class="rt">
-            	<p class="p1">重庆医科大学附属第二医院</p>
-                <p class="p2">医院介绍：重庆医科大学附属第...</p>
-                <p class="p3">地址：渝中院区位于重庆市渝中区临江路74号</p>
-            </div>
-        </li>
-        <li>
-        	<img src="/home/picture/tp12.png" />
-            <div class="rt">
-            	<p class="p1">重庆医科大学附属第二医院</p>
-                <p class="p2">医院介绍：重庆医科大学附属第...</p>
-                <p class="p3">地址：渝中院区位于重庆市渝中区临江路74号</p>
-            </div>
-        </li>
+        {/foreach}
+<!--        <li>-->
+<!--        	<a href="{:URL('/home/hosp_arc')}">-->
+<!--                <img src="/home/picture/tp12.png" />-->
+<!--                <div class="rt">-->
+<!--                    <p class="p1">重庆医科大学附属第二医院</p>-->
+<!--                    <p class="p2">医院介绍：重庆医科大学附属第...</p>-->
+<!--                    <p class="p3">地址：渝中院区位于重庆市渝中区临江路74号</p>-->
+<!--                </div>-->
+<!--            </a>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--        	<img src="/home/picture/tp12.png" />-->
+<!--            <div class="rt">-->
+<!--            	<p class="p1">重庆医科大学附属第二医院</p>-->
+<!--                <p class="p2">医院介绍：重庆医科大学附属第...</p>-->
+<!--                <p class="p3">地址：渝中院区位于重庆市渝中区临江路74号</p>-->
+<!--            </div>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--        	<img src="/home/picture/tp12.png" />-->
+<!--            <div class="rt">-->
+<!--            	<p class="p1">重庆医科大学附属第二医院</p>-->
+<!--                <p class="p2">医院介绍：重庆医科大学附属第...</p>-->
+<!--                <p class="p3">地址：渝中院区位于重庆市渝中区临江路74号</p>-->
+<!--            </div>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--        	<img src="/home/picture/tp12.png" />-->
+<!--            <div class="rt">-->
+<!--            	<p class="p1">重庆医科大学附属第二医院</p>-->
+<!--                <p class="p2">医院介绍：重庆医科大学附属第...</p>-->
+<!--                <p class="p3">地址：渝中院区位于重庆市渝中区临江路74号</p>-->
+<!--            </div>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--        	<img src="/home/picture/tp12.png" />-->
+<!--            <div class="rt">-->
+<!--            	<p class="p1">重庆医科大学附属第二医院</p>-->
+<!--                <p class="p2">医院介绍：重庆医科大学附属第...</p>-->
+<!--                <p class="p3">地址：渝中院区位于重庆市渝中区临江路74号</p>-->
+<!--            </div>-->
+<!--        </li>-->
     </ul>
 </div>
 

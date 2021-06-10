@@ -6,6 +6,7 @@ namespace app\home\controller;
 
 use app\BaseController;
 use think\facade\View;
+use app\home\service\User as UserService;
 
 class Findhospital extends BaseController
 {
@@ -15,11 +16,14 @@ class Findhospital extends BaseController
      */
     public function HospList()
     {
+        $data = UserService::GetHospitalAll();
+        View::assign('data', $data);
 
         return View::fetch('home/hosp_list');
     }
 
-    public function HospArc(){
+    public function HospArc()
+    {
 
         return View::fetch('home/hosp_arc');
     }

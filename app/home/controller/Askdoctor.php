@@ -18,15 +18,21 @@ class Askdoctor extends BaseController
      */
     public function XlzxsList()
     {
-
+        $searchID = Request::param('id');
         $keywords = Request::param('city');
-        if(empty($keywords)){
-            $data = UserService::GetDoctorAll();
+
+        if (!empty($searchID)) {
+            $data = UserService::SearchAreaDoctor($searchID);
+        } elseif (!empty($keywords)) {
+            $data = AreaCityModel::GetAreaDoctorOrHospital()->whereLike("CityName", $keywords);
+
         }else{
-            $data = AreaCityModel::GetAreaDoctorOrHospital()->whereLike("CityName",$keywords);
+            $data = UserService::GetDoctorAll();
         }
-        halt($data);
-        $area = AreaCityModel::GetAreaAll();
+
+//        halt($data);
+        $area = AreaCityModel::GetAreaAll()->toArray();
+//        halt($area);
         $hotcity = AreaCityModel::IsHotCity()->toArray();
 
         View::assign('area',$area);

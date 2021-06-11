@@ -4,6 +4,7 @@
 namespace app\home\model;
 
 
+use app\home\enum\StatusCode;
 use think\facade\Db;
 use think\Model;
 
@@ -51,8 +52,10 @@ class AreaCity extends Model
     {
         $all = Db::table('areacity')
             ->join('user', 'user.AreaId = areacity.ID')
-            ->visible(['CityName', 'RealName', 'PhoneNumber'])
+            ->where('user.IsDoctor',StatusCode::USER_DOCTOR)
+            ->visible(['ID','UserAvatar','CityName', 'RealName', 'PhoneNumber','AreaId'])
             ->select();
+//        halt($all);
         return $all;
     }
 }

@@ -56,6 +56,18 @@ class User
     }
 
     /*
+     * 根据区域获取对应的医生
+     * @param string $AreaId 区域的ID
+     */
+    public static function SearchAreaDoctor($AreaId)
+    {
+        $data = UserModel::where('IsDoctor', StatusCode::USER_DOCTOR)
+            ->where('AreaId', $AreaId)->select();
+
+        return $data;
+    }
+
+    /*
      * 获取所有的医院商家
      */
 

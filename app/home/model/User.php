@@ -11,4 +11,6 @@ class User extends Model
     protected $table = "user";
 
     protected $readonly = ['ID','RealName','UserAvatar'];
+
+
 }

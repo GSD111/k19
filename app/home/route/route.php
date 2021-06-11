@@ -44,6 +44,7 @@ Route::group('home',function(){
 //首页登录
     Route::any('/login','Homelogin/login');
     Route::post('/SendCaptcha','Homelogin/SendCaptcha');
+    Route::post('/SingIn','Homelogin/SingIn');
 
 //问医生
     Route::get('/xlzxs_list','Askdoctor/XlzxsList');

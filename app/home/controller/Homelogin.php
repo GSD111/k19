@@ -10,27 +10,44 @@ use app\home\model\User;
 use Overtrue\EasySms\EasySms;
 use think\facade\Cache;
 use think\facade\Request;
+use think\facade\Session;
 use think\facade\View;
 
 class Homelogin extends BaseController
 {
     public function Login()
     {
+//        halt(Cache::pull('users'));
+        return View::fetch('home/login');
+    }
+
+    public function SingIn()
+    {
         $phone = Request::param('PhoneNumber');
         $captcha = Request::param('captcha');
-//        dump(Request::getInput('PhoneNumber','captcha'));
-//        dump(Request::param('captcha'));
-        $result = User::where('PhoneNumber',$phone)->find();
-//        dump($result->UserStatus);
-//        if(Cache::get('mobile_captcha') != $captcha){
-//
-//            echo "验证码有误";
-//        }
-        if($result->UserStatus != StatusCode::USER_STATUS){
-            echo "您的账号存在异常无法登录，请联系管理进行处理";
+        if (!empty($phone)) {
+            $result = User::where('PhoneNumber', $phone)->find();
+//            dump($result);
+//            if (Cache::get('mobile_captcha') != $captcha) {
+//                return "<script>alert('验证码有误');</script>";
+//            }
+            if (empty($result)) {
+                User::create([
+                    'PhoneNumber' => $phone,
+                ]);
+                redirect('/home/index')->send();
+            }
+            if ($result->UserStatus != StatusCode::USER_STATUS) {
+                return "<script>alert('您的账号存在异常无法登录，请联系管理进行处理');</script>";
+            }
+            $result->PhoneNumber = $phone;
+            $result->save();
+            Cache::set('users',['id'=>$result->ID,'phone'=>$result->PhoneNumber,'type'=>$result->UserType],60);
+//            Session::set('users',['id'=>$result->ID,'phone'=>$result->PhoneNumber,'type'=>$result->UserType]);
+//            dump($result->ID,$result->PhoneNumber,$result->UserType);
+//            Cache::get('users');
+            redirect('/home/index')->send();
         }
-
-        return View::fetch('home/login');
     }
 
     public function SendCaptcha()
@@ -58,11 +75,11 @@ class Homelogin extends BaseController
                     'code' => $code
                 ]
             ]);
-            return ['status' => 200, 'msg' => '发送成功'];
+            return $data = ['status' => 200, 'msg' => '发送成功'];
         } catch (\Overtrue\EasySms\Exceptions\NoGatewayAvailableException $exception) {
 //            $msg = $exception->getException('aliyun')->getMessage();
 //            halt($msg);
-            return ['status' => 500, 'msg' => '发送失败'];
+            return $data = ['status' => 500, 'msg' => '发送失败'];
         }
 
     }

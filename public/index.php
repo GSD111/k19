@@ -14,6 +14,7 @@ namespace think;
 
 
 //define('BIND_MODULE','home');
+
 require __DIR__ . '/../vendor/autoload.php';
 
 // 执行HTTP应用并响应

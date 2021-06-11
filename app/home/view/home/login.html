@@ -9,7 +9,7 @@
         <img src="/home/picture/logo2.png"/>
     </div>
     <p class="p1">登录/注册</p>
-    <form method="post" action="{:URL('/home/login')}">
+    <form method="post" action="{:URL('/home/SingIn')}">
         <div class="tel"><img src="/home/picture/tb56.png"/><input id="phone" name="PhoneNumber" type="text"
                                                                    placeholder="请输入您的手机号"/></div>
         <div class="yzm"><img src="/home/picture/tb57.png"/>
@@ -59,16 +59,16 @@
             }
         }
         $.ajax({
-            url: 'http://www.k19.com/home/SendCaptcha?phone=' + phone,
+            url: '/home/SendCaptcha?phone=' + phone,
             data: {},
             type: "POST",
             dataType: "Json",
             success: function (data) {
                 if (data['status'] == 200) {
                     // console.log(data);
-                    alert('已发送');
+                    layer.msg(data.msg, { icon:1,time:1500});
                 } else {
-                    alert('发送失败');
+                    layer.msg(data.msg, { icon:5,time:2000});
                 }
             }
         });

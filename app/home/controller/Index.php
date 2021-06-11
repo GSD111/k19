@@ -10,6 +10,7 @@ use app\home\service\FontMenu as FrontMenuService;
 use app\home\service\User as UserService;
 use think\facade\Cache;
 use think\facade\Request;
+use think\facade\Session;
 use think\facade\View;
 
 class Index extends BaseController
@@ -21,7 +22,7 @@ class Index extends BaseController
     public function Index()
     {
 
-//        halt(Cache::get('mobile_captcha'));
+//        halt(Session::get('id'));
         //头部导航栏目按钮
         $result = FrontMenuModel::TopMenu();
 

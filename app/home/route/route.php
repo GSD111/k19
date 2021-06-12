@@ -70,4 +70,7 @@ Route::group('home',function(){
     Route::get('/grzx_zxspj','Personalcenter/GrzxZxspj');
     Route::get('/grzx_jgrztj','Personalcenter/GrzxJgrztj');
     Route::get('/grzx_ysrztj','Personalcenter/GrzxYsrztj');
+
+    //个人认证
+    Route::any('/people_certification','Certification/PeopleCertification');
 });

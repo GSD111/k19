@@ -14,13 +14,13 @@
     <p>心理医生入驻申请</p>
 </div>
 <div class="grzx_ysrz">
-    <form class="layui-form layui-col-md12  layui-form-pane">
+    <form class="layui-form layui-col-md12  layui-form-pane" method="post" action="{:URL('/home/people_certification')}">
         <div class="nr">
             <!--    	<p class="p1">姓    名：</p><input type="text" class="tex01"/>-->
             <div class="layui-form-item">
                 <label class="layui-form-label">姓名</label>
                 <div class="layui-input-block">
-                    <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入机构名称"
+                    <input type="text" name="name"  autocomplete="off" placeholder="请输入机构名称"
                            class="layui-input">
                 </div>
             </div>
@@ -57,7 +57,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">具体地址</label>
                 <div class="layui-input-block">
-                    <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入详细地址"
+                    <input type="text" name="address"  autocomplete="off" placeholder="请输入详细地址"
                            class="layui-input">
                 </div>
             </div>
@@ -67,14 +67,14 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">联系方式</label>
                 <div class="layui-input-block">
-                    <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入电话号"
+                    <input type="text" name="user_phone" autocomplete="off" placeholder="请输入电话号"
                            class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">服务时间</label>
                 <div class="layui-input-block">
-                    <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入时间"
+                    <input type="text" name="business_time"  autocomplete="off" placeholder="请输入时间"
                            class="layui-input">
                 </div>
             </div>
@@ -86,7 +86,7 @@
             <!--        <img src="/home/picture/tp20.png" class="sc"/>-->
             <div style="width:76%;display:flex;">
                 <div class="id_img_wp">
-                    <input type="file" name="img" onchange="getzImg(this)" style="display:none" value="" id="img_z"/>
+                    <input type="file" name="license_permission" onchange="getzImg(this)" style="display:none" value="" id="img_z"/>
                     <div class="img_wp" onclick="upload()">
                         <img style="width:204px;height:130px;" src="/home/picture/upload.png" id="zmz">
                     </div>
@@ -98,21 +98,28 @@
             <div class="bg"></div>
             <div class="ly">
                 <p class="p5">选择领域：</p>
-                <ul>
-                    <li>婚姻</li>
-                    <li>家庭</li>
-                    <li>职场</li>
-                    <li>人际</li>
-                    <li>婚姻</li>
-                    <li>家庭</li>
-                    <li>职场</li>
-                    <li>人际</li>
-                </ul>
+<!--                <ul>-->
+<!--                    <li>婚姻</li>-->
+<!--                    <li>家庭</li>-->
+<!--                    <li>职场</li>-->
+<!--                    <li>人际</li>-->
+<!--                    <li>婚姻</li>-->
+<!--                    <li>家庭</li>-->
+<!--                    <li>职场</li>-->
+<!--                    <li>人际</li>-->
+<!--                </ul>-->
+
+                    <div class="layui-input-block">
+                        <input type="checkbox" name="specialty[write]" lay-skin="primary" title="写作" value="写作" checked="">
+                        <input type="checkbox" name="specialty[read]" lay-skin="primary" title="阅读" value="阅读">
+<!--                        <input type="checkbox" name="like1[game]" lay-skin="primary" title="游戏" disabled="">-->
+                    </div>
                 <p class="p6">*最多选择三个擅长领域</p>
             </div>
 
             <a href="#" class="bc">保存</a>
-            <a href="{:URL('/home/grzx_ysrztj')}" class="tj">提交审核</a>
+<!--            <a href="{:URL('/home/grzx_ysrztj')}" class="tj">提交审核</a>-->
+            <input type="submit" class="tj" value="提交审核" />
             <div class="kg"></div>
         </div>
 

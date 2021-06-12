@@ -12,6 +12,11 @@ class AreaCity extends Model
 {
     protected $table = 'areacity';
 
+    public function user(){
+
+        return $this->belongsTo(User::class,'area_id','id');
+    }
+
     /*
      * 获取所有地区
      */
@@ -50,12 +55,13 @@ class AreaCity extends Model
      */
     public static function GetAreaDoctorOrHospital()
     {
-        $all = Db::table('areacity')
-            ->join('user', 'user.AreaId = areacity.ID')
-            ->where('user.IsDoctor',StatusCode::USER_DOCTOR)
-            ->visible(['ID','UserAvatar','CityName', 'RealName', 'PhoneNumber','AreaId'])
-            ->select();
-//        halt($all);
-        return $all;
+        $all = self::with('user')->select()->toArray();
+//        $all = Db::table('areacity')
+//            ->join('user', 'user.AreaId = areacity.ID')
+//            ->where('user.IsDoctor',StatusCode::USER_DOCTOR)
+//            ->visible(['ID','UserAvatar','CityName', 'RealName', 'PhoneNumber','AreaId'])
+//            ->select();
+        halt($all);
+//        return $all;
     }
 }

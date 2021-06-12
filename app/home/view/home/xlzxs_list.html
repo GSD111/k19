@@ -1,5 +1,19 @@
 ﻿{include file="home/header" /}
-
+<style>
+    .layui-btn {
+        height: 38px;
+        line-height: 38px;
+        border: 1px solid transparent;
+        padding: 0 18px;
+        background-color: #009688;
+        color: #fff;
+        white-space: nowrap;
+        text-align: center;
+        font-size: 14px;
+        border-radius: 2px;
+        cursor: pointer;
+    }
+</style>
 <body style="background:#f5f5f5;">
 <div class="head2">
     <a href="javascript:history.go(-1);"><img src="/home/picture/tb16.png"/></a>
@@ -42,7 +56,7 @@
             <p class="p1">{$v['CityName']}</p>
             <ul>
                 {foreach $v['cityall'] as $k=>$item}
-                    <li> <a href="{:URL('/home/search/'.$item['ID'])}">{$item['CityName']} </a></li>
+                <li><a href="{:URL('/home/search/'.$item['ID'])}">{$item['CityName']} </a></li>
                 {/foreach}
             </ul>
             {/foreach}
@@ -136,19 +150,20 @@
     <ul class="u1">
         {empty name="data"}
         <p>当前该区域暂时没有医师，敬请期待！</p>
+        <a href="{:URL('/home/xlzxs_list')}" class="zx">清空筛选</a>
         {/empty}
-            {foreach $data as $k=>$v}
-            <li>
-                <img src="/home/picture/{$v['UserAvatar']}"/>
-                <div class="rt">
-                    <p class="p1">{$v['RealName']}</p>
-                    <p class="p2">2002年毕业于中山大学临床医学专业。毕业后一直从事精神心理临床工作，先后于急性病区。</p>
-                    <a href="{:URL('/home/xlzxs_arc')}" class="zx">了解更多</a>
-                </div>
-            </li>
+        {foreach $data as $k=>$v}
+        <li>
+            <img src="/home/picture/{$v['UserAvatar']}"/>
+            <div class="rt">
+                <p class="p1">{$v['RealName']}</p>
+                <p class="p2">2002年毕业于中山大学临床医学专业。毕业后一直从事精神心理临床工作，先后于急性病区。</p>
+                <a href="{:URL('/home/xlzxs_arc')}" class="zx">了解更多</a>
+            </div>
+        </li>
         {/foreach}
-
-
+<!--        <button type="button" class="layui-btn">默认按钮</button>-->
+        <a href="{:URL('/home/xlzxs_list')}" class="layui-btn">清空筛选</a>
 
 
         <!--        <li>-->

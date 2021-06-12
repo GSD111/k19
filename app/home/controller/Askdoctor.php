@@ -20,7 +20,8 @@ class Askdoctor extends BaseController
     {
         $searchID = Request::param('id');
         $keywords = Request::param('city');
-
+        $data = AreaCityModel::GetAreaDoctorOrHospital();
+        halt($data);
         if (!empty($searchID)) {
             $data = UserService::SearchAreaDoctor($searchID);
         } elseif (!empty($keywords)) {
@@ -30,7 +31,7 @@ class Askdoctor extends BaseController
             $data = UserService::GetDoctorAll();
         }
 
-//        halt($data);
+
         $area = AreaCityModel::GetAreaAll()->toArray();
 //        halt($area);
         $hotcity = AreaCityModel::IsHotCity()->toArray();

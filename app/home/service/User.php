@@ -80,4 +80,16 @@ class User
 
         return $data;
     }
+
+    /*
+     * 根据区域获取对应的医院
+     * @param string $AreaId 区域的ID
+     */
+    public static function SearchAreaHospital($AreaId)
+    {
+        $data = UserModel::where('IsPersion', StatusCode::USER_PERSION)
+            ->where('AreaId', $AreaId)->select();
+
+        return $data;
+    }
 }

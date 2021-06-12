@@ -53,6 +53,7 @@ Route::group('home',function(){
 
 //找医生
     Route::get('/hosp_list','Findhospital/HospList');
+    Route::get('/hosp_search/:id','Findhospital/HospList');
     Route::get('/hosp_arc','Findhospital/HospArc');
 
 //个人中心

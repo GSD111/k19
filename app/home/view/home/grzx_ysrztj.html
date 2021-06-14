@@ -9,25 +9,27 @@
     <div class="swjg">
     	<p>我们正在对您提交的资料进行审核，请您耐心等待。如果显示一直处于等待中，您可以直接拨打400XXXX</p>
     </div>
-    <p class="p1">姓    名：重庆医科大学附属第二医院</p>
-    <p class="p1">机构地址： 重庆市渝中区临江路74号</p>
-    <p class="p1">联系方式：    15923287996</p>
-    <p class="p1">服务时间：    上午9:00-中午12:00    下午2:00-6:00</p>
-    <div class="yyzz">
-    	<p class="p2">营业执照</p>
-        <img src="/home/picture/tp20.png"/>
-    </div>
-	<div class="xzly">
-    	<p class="p2">选择领域：</p>
-        <ul>
-        	<li>婚姻</li>
-            <li>家庭</li>
-            <li>职场</li>
-        </ul>
-    </div>
-    
-    <div class="tjan">
-        <a href="{:URL('/home/grzx_main')}">返回</a>
+
+
+    <p class="p1">姓   名：{$info['Name']}</p>
+    <p class="p1">地   址： {$info['Province']}{$info['City']}{$info['Area']}{$info['Address']}</p>
+    <p class="p1">联系方式：    {$info['UserPhone']}</p>
+    <p class="p1">服务时间：    {$info['BusinessTime']}</p>
+        <div class="yyzz">
+            <p class="p2">执业照</p>
+            <img src="{$info['LicensePermission']}"/>
+        </div>
+        <div class="xzly">
+            <p class="p2">选择领域：</p>
+            <ul>
+                <li>婚姻</li>
+                <li>家庭</li>
+                <li>职场</li>
+            </ul>
+        </div>
+
+    <div class="tjan" style="display: flex;">
+        <a style="margin:auto;margin-top:50px;" href="{:URL('/home/grzx_main')}">返回</a>
 <!--    	<a href="javascript:history.go(-1);">返回修改</a>-->
 <!--        <a href="#" class="a2">确定等待</a>-->
     </div>

@@ -32,11 +32,11 @@ class Findhospital extends BaseController
         }
 
         $area = AreaCityModel::GetAreaAll();
-        $hotcity = AreaCityModel::IsHotCity()->toArray();
+//        $hotcity = AreaCityModel::IsHotCity()->toArray();
 //        halt($hotcity);
         View::assign('keywords',$keywords);
         View::assign('area',$area);
-        View::assign('hotcity',$hotcity);
+//        View::assign('hotcity',$hotcity);
         View::assign('data', $data);
 
         return View::fetch('home/hosp_list');

@@ -26,9 +26,7 @@ Route::group('home',function(){
     Route::get('/wzxqs_list','Index/WzxqsList');
     Route::get('/wzxqs_arc','Index/WzxqsArc');
     Route::get('/wzxqs_qs','Index/WzxqsQs');
-    Route::get('/xlzxs_arc','Index/XlzxsArc');
     Route::get('/jsjb_list','Index/JsjbList');
-    Route::get('/arc_arc','Index/ArcArc');
     Route::get('/gash','Index/Gash');
     Route::get('/gash_zzjg','Index/GashZzjg');
     Route::get('/gash_zx','Index/GashZx');
@@ -49,28 +47,43 @@ Route::group('home',function(){
 //问医生
     Route::get('/xlzxs_list','Askdoctor/XlzxsList');
     Route::get('/search/:id','Askdoctor/XlzxsList');
-    Route::get('/xlzxs_arc','Askdoctor/XlzxsArc');
 
-//找医生
+
+//找医院
     Route::get('/hosp_list','Findhospital/HospList');
     Route::get('/hosp_search/:id','Findhospital/HospList');
-    Route::get('/hosp_arc','Findhospital/HospArc');
+
 
 //个人中心
     Route::get('/grzx_main','Personalcenter/GrzxMain');
+
+
+    //个人认证
+    Route::any('/people_certification','Certification/PeopleCertification');
+    Route::any('/hospital_certification','Certification/HospitalCertification');
+
+    Route::get('/arc_arc/:id','Index/ArcArc');
+    Route::get('/grzx_ysrz','Personalcenter/GrzxYsrz');
+});
+
+/*
+ * 中间件验证
+ */
+Route::group('home',function (){
+    Route::get('/xlzxs_arc','Index/XlzxsArc');
+//    Route::get('/arc_arc','Index/ArcArc');
+    Route::get('/xlzxs_arc','Askdoctor/XlzxsArc');
+    Route::get('/hosp_arc','Findhospital/HospArc');
     Route::get('/grzx_wdzx','Personalcenter/GrzxWdzx');
     Route::get('/grzx_jypj','Personalcenter/GrzxJypj');
     Route::get('/grzx_wdgz','Personalcenter/GrzxWdgz');
     Route::get('/grzx_jgrz','Personalcenter/GrzxJgrz');
-    Route::get('/grzx_ysrz','Personalcenter/GrzxYsrz');
+//    Route::get('/grzx_ysrz','Personalcenter/GrzxYsrz');
     Route::get('/grzx_xtsz','Personalcenter/GrzxXtsz');
     Route::get('/sjzx_main','Personalcenter/SjzxMain');
     Route::get('/grzx_csjg','Personalcenter/GrzxCsjg');
     Route::get('/grzx_cspj','Personalcenter/GrzxCspj');
     Route::get('/grzx_zxspj','Personalcenter/GrzxZxspj');
-    Route::get('/grzx_jgrztj','Personalcenter/GrzxJgrztj');
-    Route::get('/grzx_ysrztj','Personalcenter/GrzxYsrztj');
-
-    //个人认证
-    Route::any('/people_certification','Certification/PeopleCertification');
-});
+    Route::get('/grzx_jgrztj/:id','Personalcenter/GrzxJgrztj');
+    Route::get('/grzx_ysrztj/:id','Personalcenter/GrzxYsrztj');
+})->middleware(\app\middleware\IsLogin::class);

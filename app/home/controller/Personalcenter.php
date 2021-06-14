@@ -5,7 +5,7 @@ namespace app\home\controller;
 
 
 use app\BaseController;
-use think\facade\Request;
+use app\home\model\HospitalApply;
 use think\facade\View;
 
 class Personalcenter extends BaseController
@@ -76,13 +76,21 @@ class Personalcenter extends BaseController
         return View::fetch('home/grzx_zxspj');
     }
 
-    public function GrzxJgrztj()
+    public function GrzxJgrztj($id)
     {
+
+//        halt($id);
+        $result = HospitalApply::GetApplyInfo($id);
+        View::assign('result',$result);
         return View::fetch('home/grzx_jgrztj');
     }
 
-    public function GrzxYsrztj()
+    public function GrzxYsrztj($id)
     {
+
+        $info = HospitalApply::GetApplyInfo($id);
+//        halt($result->toArray());
+        View::assign('info',$info);
         return View::fetch('home/grzx_ysrztj');
 
     }

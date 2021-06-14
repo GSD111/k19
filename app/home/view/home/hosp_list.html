@@ -26,12 +26,10 @@
             <input type="submit" value="搜索" class="ser"/>
         </form>
     </div>
-    <ul>
-        {foreach $hotcity as $k=>$v}
-            <li><a href="{:URL('/home/hosp_search/'.$v['ID'])}">{$v['CityName']}</a></li>
-        {/foreach}
-        <li class="icon">更多</li>
-    </ul>
+
+    <span style="position:fixed;right:20px;top:40px;color:white;" class="icon">更多城市</span>
+
+
     <div style="clear:both;"></div>
 </div>
 
@@ -82,11 +80,12 @@
 
 
 <div class="hosp_list">
-	<ul class="u1">
-        {empty name="data"}
-            <p>当前该区域暂时没有医院，敬请期待！</p>
-        {/empty}
 
+    {empty name="data"}
+        <p style="text-align:center">当前该区域暂时没有医院，敬请期待！</p>
+    {/empty}
+
+	<ul class="u1">
         {foreach $data as $k=>$v}
     	<li>
         	<a href="{:URL('/home/hosp_arc')}">
@@ -101,7 +100,7 @@
         {/foreach}
 
         {notempty name="keywords"}
-        <div style="display:flex;margin-top:8px;">
+        <div style="display:flex;margin-top:30px;">
             <a style="margin:0 auto;" href="{:URL('/home/hosp_list')}" class="layui-btn">清空筛选</a>
         </div>
         {/notempty}

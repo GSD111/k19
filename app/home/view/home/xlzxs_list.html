@@ -20,27 +20,17 @@
     <p>心理咨询师</p>
 </div>
 <div class="zxs_fd">
-    <div class="find" style="float:left;">
+    <div class="find">
         <form>
-            <input style="width:4.5rem;" type="text" placeholder="请输入城市" name="city" class="ct"/>
-            <input style="margin-top:-24px;" type="submit" value="搜索" class="ser"/>
+            <input  type="text" placeholder="请输入城市" name="city" class="ct"/>
+            <input  type="submit" value="搜索" class="ser"/>
         </form>
 
-        <span style="float:right;margin-right:-54px;font-size:13px;" class="icon">更多</span>
+
     </div>
 
-        <!--        {foreach $hotcity as $k=>$v}-->
-        <!--            <li><a href="{:URL('/home/search/'.$v['ID'])}" target="_blank">{$v['CityName']}</a></li>-->
-        <!--        {/foreach}-->
+    <span style="position:fixed;right:20px;top:40px;color:white;" class="icon">更多城市</span>
 
-
-<!--    <ul>-->
-<!--&lt;!&ndash;        {foreach $hotcity as $k=>$v}&ndash;&gt;-->
-<!--&lt;!&ndash;            <li><a href="{:URL('/home/search/'.$v['ID'])}" target="_blank">{$v['CityName']}</a></li>&ndash;&gt;-->
-<!--&lt;!&ndash;        {/foreach}&ndash;&gt;-->
-<!--        <li class="icon">更多</li>-->
-<!--    </ul>-->
-    <div style="clear:both;"></div>
 </div>
 
 
@@ -87,10 +77,12 @@
 
 
 <div class="zxs_list">
+
+    {empty name="data"}
+        <p style="text-align:center;">当前该区域暂时没有医师，敬请期待！</p>
+    {/empty}
+
     <ul class="u1">
-        {empty name="data"}
-            <p>当前该区域暂时没有医师，敬请期待！</p>
-        {/empty}
         {foreach $data as $k=>$v}
         <li>
             <img src="/home/picture/{$v['UserAvatar']}"/>
@@ -103,7 +95,7 @@
         {/foreach}
 
         {notempty name="keywords"}
-           <div style="display:flex;margin-top:8px;">
+           <div style="display:flex;margin-top:30px;">
                 <a style="margin:0 auto;" href="{:URL('/home/xlzxs_list')}" class="layui-btn">清空筛选</a>
            </div>
         {/notempty}

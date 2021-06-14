@@ -16,7 +16,7 @@ class IsLogin
      */
     public function handle($request, \Closure $next)
     {
-        if (Cache::has('users')['phone']) {
+        if (!Cache::has('users')['phone']) {
              redirect('/home/login')->send();
         }
 

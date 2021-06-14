@@ -4,6 +4,12 @@
 {load href="/admin/lib/layui/layui.js"}
 {load href="/admin/js/xadmin.js"}
 {load href="/admin/css/xadmin.css"}
+<style>
+    .layui-form-checkbox[lay-skin=primary] span{
+        height:35px;
+    }
+
+</style>
 <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
 <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
@@ -14,27 +20,19 @@
     <p>心理医生入驻申请</p>
 </div>
 <div class="grzx_ysrz">
-    <form class="layui-form layui-col-md12  layui-form-pane" method="post" action="{:URL('/home/people_certification')}">
+    <form class="layui-form layui-col-md12  layui-form-pane" method="post"
+          action="{:URL('/home/people_certification')}"
+    enctype="multipart/form-data" onsubmit="return CheckSubmit()">
+
         <div class="nr">
             <!--    	<p class="p1">姓    名：</p><input type="text" class="tex01"/>-->
             <div class="layui-form-item">
                 <label class="layui-form-label">姓名</label>
                 <div class="layui-input-block">
-                    <input type="text" name="name"  autocomplete="off" placeholder="请输入机构名称"
+                    <input type="text" name="name"  id="live_name" autocomplete="off" placeholder="请输入姓名"
                            class="layui-input">
                 </div>
             </div>
-            <!--        <div class="kg"></div>-->
-            <!--        <p class="p2">地址:</p>-->
-            <!--        <select>-->
-            <!--        	<option>河南省</option>-->
-            <!--        </select>-->
-            <!--        <select>-->
-            <!--        	<option>郑州市</option>-->
-            <!--        </select>-->
-            <!--        <select>-->
-            <!--        	<option>中原区</option>-->
-            <!--        </select>-->
             <div class="layui-form-item x-city" id="start">
                 <!--                <label class="layui-form-label" style="width:122px;">地址</label>-->
                 <div class="layui-input-inline" style="margin-left:5px;">
@@ -57,7 +55,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">具体地址</label>
                 <div class="layui-input-block">
-                    <input type="text" name="address"  autocomplete="off" placeholder="请输入详细地址"
+                    <input type="text" name="address"  id="live_address" autocomplete="off" placeholder="请输入详细地址"
                            class="layui-input">
                 </div>
             </div>
@@ -67,14 +65,14 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">联系方式</label>
                 <div class="layui-input-block">
-                    <input type="text" name="user_phone" autocomplete="off" placeholder="请输入电话号"
+                    <input type="text" name="user_phone" id="live_phone" autocomplete="off" placeholder="请输入电话号"
                            class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">服务时间</label>
                 <div class="layui-input-block">
-                    <input type="text" name="business_time"  autocomplete="off" placeholder="请输入时间"
+                    <input type="text" name="business_time"  id="live_time" autocomplete="off" placeholder="请输入时间"
                            class="layui-input">
                 </div>
             </div>
@@ -93,7 +91,7 @@
                 </div>
                 <!--                <img src="/home/picture/tp18.png" class="sc"/>-->
             </div>
-            <p class="p3">*请上传清晰、且正面的营业执照图片，不能涂改、修改或污点。文件不能大于500K</p>
+            <p class="p3">*请上传清晰、且正面的执业照图片，不能涂改、修改或污点。文件不能大于500K</p>
             <div class="kg"></div>
             <div class="bg"></div>
             <div class="ly">
@@ -109,17 +107,25 @@
 <!--                    <li>人际</li>-->
 <!--                </ul>-->
 
-                    <div class="layui-input-block">
-                        <input type="checkbox" name="specialty[write]" lay-skin="primary" title="写作" value="写作" checked="">
-                        <input type="checkbox" name="specialty[read]" lay-skin="primary" title="阅读" value="阅读">
-<!--                        <input type="checkbox" name="like1[game]" lay-skin="primary" title="游戏" disabled="">-->
+                    <div class="layui-input-block" style="height: 100px;float: left;width: 98%;margin-left: 10px">
+                        <input type="checkbox" name="specialty[]" lay-skin="primary" title="婚姻" value="1">
+                        <input type="checkbox" name="specialty[]" lay-skin="primary" title="生活" value="2">
+                        <input type="checkbox" name="specialty[]" lay-skin="primary" title="工作" value="3">
+                        <input type="checkbox" name="specialty[]" lay-skin="primary" title="性格" value="4">
+                        <input type="checkbox" name="specialty[]" lay-skin="primary" title="家庭" value="家庭">
+                        <input type="checkbox" name="specialty[]" lay-skin="primary" title="情感" value="情感">
+                        <input type="checkbox" name="specialty[]" lay-skin="primary" title="智商" value="智商">
+                        <input type="checkbox" name="specialty[]" lay-skin="primary" title="人际" value="人际">
+
                     </div>
                 <p class="p6">*最多选择三个擅长领域</p>
             </div>
 
-            <a href="#" class="bc">保存</a>
+<!--            <a href="#" class="bc">保存</a>-->
 <!--            <a href="{:URL('/home/grzx_ysrztj')}" class="tj">提交审核</a>-->
-            <input type="submit" class="tj" value="提交审核" />
+            <div style="display: flex;">
+                <input style="margin:auto;" type="submit" class="tj" value="提交审核" />
+            </div>
             <div class="kg"></div>
         </div>
 
@@ -129,6 +135,7 @@
 
 <div style="height:1rem;"></div>
 {load href="/admin/js/xcity.js"}
+{load href="/home/js/ischeck.js"}
 <script>
     layui.use(['form', 'code'], function () {
         form = layui.form;
@@ -140,6 +147,29 @@
         $('#end').xcity('广东', '广州市', '东山区');
 
     });
+
+    // function CheckSubmit(){
+    //     if($('#live_name').val().length<1){
+    //         $('#live_name').focus();
+    //         layer.msg('请输入您的名字或者商家名字', { icon:5,time:2000})
+    //         return false;
+    //     }
+    //     if($('#live_address').val().length<1){
+    //         $('#live_address').focus();
+    //         layer.msg('请输入您的具体地址', { icon:5,time:2000})
+    //         return false;
+    //     }
+    //     if($('#live_phone').val().length<1){
+    //         $('#live_name').focus();
+    //         layer.msg('、请输入您的手机号', { icon:5,time:2000})
+    //         return false;
+    //     }
+    //     if($('#live_time').val().length<1){
+    //         $('#live_time').focus();
+    //         layer.msg('、请输入您的服务时间', { icon:5,time:2000})
+    //         return false;
+    //     }
+    // }
 </script>
 
 {include file="home/footer" /}

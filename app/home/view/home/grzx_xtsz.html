@@ -1,21 +1,22 @@
 ﻿{include file="home/header" /}
-
+{load href="/home/css/up.css"}
+{load href="/home/js/up.js"}
 <body style="background:#f5f5f5;">
 <div class="head2">
 	<a href="javascript:history.go(-1);"><img src="/home/picture/tb16.png" /></a>
     <p>系统设置</p>
 </div>
 <div class="grzx_xtsz">
-	<div class="xl">
-    	<p class="p1"><span></span>更改密码<img src="/home/picture/tb50.png" /></p>
-        <div class="kg"></div>
-        <p class="p2">原密码：</p><input type="text" class="ipt01"/>
-        <div class="kg"></div>
-        <p class="p2">新密码：</p><input type="text" class="ipt01" />
-        <div class="kg"></div>
-        <p class="p2">确认密码：</p><input type="text" class="ipt01" />
-        <div class="kg"></div>
-    </div>
+<!--	<div class="xl">-->
+<!--    	<p class="p1"><span></span>更改密码<img src="/home/picture/tb50.png" /></p>-->
+<!--        <div class="kg"></div>-->
+<!--        <p class="p2">原密码：</p><input type="text" class="ipt01"/>-->
+<!--        <div class="kg"></div>-->
+<!--        <p class="p2">新密码：</p><input type="text" class="ipt01" />-->
+<!--        <div class="kg"></div>-->
+<!--        <p class="p2">确认密码：</p><input type="text" class="ipt01" />-->
+<!--        <div class="kg"></div>-->
+<!--    </div>-->
 <!--    <div class="xl">-->
 <!--    	<p class="p1"><span></span>更改联系方式<img src="picture/tb50.png" /></p>-->
 <!--        <div class="tel">-->
@@ -31,12 +32,25 @@
 <!--    </div>-->
     <div class="xl">
     	<p class="p1"><span></span>更改头像<img src="/home/picture/tb50.png" /></p>
-        <div class="ghtx">
-        	<p>更改效果</p>
-            <img src="/home/picture/tp14.png"  style="margin-right:0.4rem;"/>
-            <p>更改效果</p>
-            <img src="/home/picture/tp14.png" />
+        <div style="width:76%;display:flex;margin:auto;margin-top:20px;">
+            <div class="id_img_wp">
+                <input type="file" name="license_permission" onchange="getzImg(this)" style="display:none" value="" id="img_z"/>
+                <div class="img_wp" onclick="upload()">
+                    <img style="width:204px;height:130px;" src="/home/picture/upload.png" id="zmz">
+                </div>
+            </div>
+            <!--                <img src="/home/picture/tp18.png" class="sc"/>-->
         </div>
+
+<!--        <div style="display: flex;">-->
+<!--            <input style="margin:auto;" type="submit" class="tj" value="上传" />-->
+<!--        </div>-->
+<!--        <div class="ghtx">-->
+<!--        	<p>更改效果</p>-->
+<!--            <img src="/home/picture/tp14.png"  style="margin-right:0.4rem;"/>-->
+<!--            <p>更改效果</p>-->
+<!--            <img src="/home/picture/tp14.png" />-->
+<!--        </div>-->
     </div>
     
     <div class="gntj">

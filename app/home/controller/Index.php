@@ -10,7 +10,6 @@ use app\home\service\FontMenu as FrontMenuService;
 use app\home\service\User as UserService;
 use think\facade\Cache;
 use think\facade\Request;
-use think\facade\Session;
 use think\facade\View;
 
 class Index extends BaseController
@@ -22,7 +21,8 @@ class Index extends BaseController
     public function Index()
     {
 
-//        halt(Session::get('id'));
+//        halt(Cache::get('users')['id'],
+//            Cache::get('users')['phone'],Cache::get('users')['type']);
         //头部导航栏目按钮
         $result = FrontMenuModel::TopMenu();
 
@@ -32,11 +32,7 @@ class Index extends BaseController
         $article = ArticleModel::RecommendArticle();
 //        halt($article);
         $bottommenu = FrontMenu::BottomMenu();
-//        halt($bottommenu->toArray());
-//        dump(Request::get('id'));
-//        $info = ArticleModel::GetByArticle(Request::get('id'));
-//        dump($info);
-//        View::assign('info', $info);
+
         View::assign('result', $result);
         View::assign('doctor', $doctor);
         View::assign('hospital', $hospital);
@@ -46,15 +42,7 @@ class Index extends BaseController
         return View::fetch('home/index');
     }
 
-//    public function GetArticle($id)
-//    {
-//        $info = ArticleModel::GetByArticle($id);
-////        halt($info);
-////        View::assign('info', $info);
-////        return View::fetch();
-//
-//        return json($info);
-//    }
+
 
     public function Xlzx($id)
     {
@@ -112,8 +100,12 @@ class Index extends BaseController
         return View::fetch('home/xlzxs_arc');
     }
 
-    public function ArcArc()
+    public function ArcArc($id)
     {
+        $article = ArticleModel::where('ID',$id)->find();
+//        halt($article);
+        View::assign('article',$article);
+
         return View::fetch('home/arc_arc');
     }
 
@@ -174,8 +166,5 @@ class Index extends BaseController
         return View::fetch('home/ylcs04');
     }
 
-//    public function footer(){
-//
-//        return View::fetch('home/footer');
-//    }
+
 }

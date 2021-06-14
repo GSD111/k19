@@ -41,13 +41,13 @@ class AreaCity extends Model
     }
 
     /*
-     * 是否是热门城市
-     */
-    public static function IsHotCity()
-    {
-        return AreaCity::where('ParentsID', '<>', 0)
-            ->where('IsHot', 1)->limit(7)->select();
-    }
+//     * 是否是热门城市
+//     */
+//    public static function IsHotCity()
+//    {
+//        return AreaCity::where('ParentsID', '<>', 0)
+//            ->where('IsHot', 1)->limit(7)->select();
+//    }
 
     /*
      * 查询所在城市区域的医师和医院

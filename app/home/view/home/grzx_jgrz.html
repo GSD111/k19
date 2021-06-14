@@ -14,25 +14,13 @@
     <p>机构入驻申请</p>
 </div>
 <div class="grzx_jgrz">
-    <form class="layui-form layui-col-md12  layui-form-pane">
+    <form class="layui-form layui-col-md12  layui-form-pane" method="post"
+          action="{:URL('/home/hospital_certification')}" enctype="multipart/form-data" onsubmit="return CheckSubmit()">
         <div class="nr">
-            <!--            <p class="p1">机构名称：</p><input type="text" class="tex01"/>-->
-            <!--        <div class="kg"></div>-->
-            <!--        <p class="p2">地址:</p>-->
-            <!--        <select>-->
-            <!--            <option>河南省</option>-->
-            <!--        </select>-->
-            <!--        <select>-->
-            <!--            <option>郑州市</option>-->
-            <!--        </select>-->
-            <!--        <select>-->
-            <!--            <option>中原区</option>-->
-            <!--        </select>-->
-
             <div class="layui-form-item">
                 <label class="layui-form-label">机构名称</label>
                 <div class="layui-input-block">
-                    <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入机构名称"
+                    <input type="text" name="name" id="live_name" autocomplete="off" placeholder="请输入机构名称"
                            class="layui-input">
                 </div>
             </div>
@@ -58,28 +46,28 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">具体地址</label>
                 <div class="layui-input-block">
-                    <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入详细地址"
-                           class="layui-input">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">联系方式</label>
-                <div class="layui-input-block">
-                    <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入联系方式"
+                    <input type="text" name="address" id="live_address" autocomplete="off" placeholder="请输入详细地址"
                            class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">联系人</label>
                 <div class="layui-input-block">
-                    <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入联系人"
+                    <input type="text" name="user_name" id="live_username" autocomplete="off" placeholder="请输入联系人"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">联系方式</label>
+                <div class="layui-input-block">
+                    <input type="text" name="user_phone" id="live_phone" autocomplete="off" placeholder="请输入联系方式"
                            class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">营业时间</label>
                 <div class="layui-input-block">
-                    <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入营业时间"
+                    <input type="text" name="business_time" id="live_time" autocomplete="off" placeholder="请输入营业时间"
                            class="layui-input">
                 </div>
             </div>
@@ -90,11 +78,11 @@
             <!--            <div class="kg"></div>-->
             <!--            <p class="p1">营业时间：</p><input type="text" class="tex01"/>-->
             <div class="kg"></div>
-            <p class="p1">执照上传：</p>
+            <p class="p1">营业执照：</p>
             <!--            <img src="picture/tp17.png" class="sc"/>-->
             <div style="width:76%;display:flex;">
                 <div class="id_img_wp">
-                    <input type="file" name="img" onchange="getzImg(this)" style="display:none" value="" id="img_z"/>
+                    <input type="file" name="business_license" onchange="getzImg(this)" style="display:none" value="" id="img_z"/>
                     <div class="img_wp" onclick="upload()">
                         <img style="width:204px;height:130px;"  src="/home/picture/upload.png" id="zmz">
                     </div>
@@ -103,23 +91,24 @@
             </div>
             <p class="p3">*请上传清晰、且正面的营业执照图片，不能涂改、修改或污点。文件不能大于500K</p>
             <div class="kg"></div>
-            <p class="p1">执照许可：</p>
-            <div style="width:76%;display:flex;">
-                <div class="id_img_wp">
-                    <input type="file" name="img" onchange="getzImg(this)" style="display:none" value="" id="img_z"/>
-                    <div class="img_wp" onclick="upload()">
-                        <img style="width:204px;height:130px;"  src="/home/picture/upload.png" id="zmz">
-                    </div>
-                </div>
-<!--                <img src="/home/picture/tp18.png" class="sc"/>-->
-            </div>
-            <!--            <img src="picture/tp17.png" class="sc"/>-->
-            <!--            <img src="picture/tp19.png" class="sc"/>-->
-            <p class="p3">*请上传清晰、且正面的营业执照图片，不能涂改、修改或污点。文件不能大于500K</p>
+<!--            <p class="p1">执照许可：</p>-->
+<!--            <div style="width:76%;display:flex;">-->
+<!--                <div class="id_img_wp">-->
+<!--                    <input type="file" name="img" onchange="getzImg(this)" style="display:none" value="" id="img_z"/>-->
+<!--                    <div class="img_wp" onclick="upload()">-->
+<!--                        <img style="width:204px;height:130px;"  src="/home/picture/upload.png" id="zmz">-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--&lt;!&ndash;                <img src="/home/picture/tp18.png" class="sc"/>&ndash;&gt;-->
+<!--            </div>-->
+<!--            &lt;!&ndash;            <img src="picture/tp17.png" class="sc"/>&ndash;&gt;-->
+<!--            &lt;!&ndash;            <img src="picture/tp19.png" class="sc"/>&ndash;&gt;-->
+<!--            <p class="p3">*请上传清晰、且正面的营业执照图片，不能涂改、修改或污点。文件不能大于500K</p>-->
 
             <!--        <a href="#" class="bc">保存</a>-->
             <div style="text-align: center;display:flex;margin-top:20px;">
-                <a style="margin:auto" href="grzx_jgrztj.html" class="tj">提交</a>
+                <input style="margin:auto" type="submit" value="提交" class="tj" />
+<!--                <a style="margin:auto" href="grzx_jgrztj.html" class="tj">提交</a>-->
             </div>
             <div class="kg"></div>
         </div>
@@ -131,6 +120,7 @@
 <div style="height:1rem;"></div>
 
 {load href="/admin/js/xcity.js"}
+{load href="/home/js/ischeck.js"}
 <script>
     layui.use(['form', 'code'], function () {
         form = layui.form;

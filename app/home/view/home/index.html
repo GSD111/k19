@@ -96,7 +96,7 @@
     <ul>
         {foreach $hospital as $k=>$v}
         <li>
-            <a href="{:URL('/home/hosp_list?id='.$v['ID'])}">
+            <a href="{:URL('/home/hosp_arc')}">
                 <img src="/home/picture/{$v['UserAvatar']}"/>
                 <p>{$v['RealName']}</p>
             </a>
@@ -129,7 +129,7 @@
                 <ul>
 
                         {foreach $v['article'] as $item}
-                            <a href="arc_arc.html" id="article_item">
+                            <a href="{:URL('/home/arc_arc/'.$item['ID'])}" id="article_item">
                                 <li>
                                     <img src="/home/picture/{$item['ArticleImg']}"/>
                                     <div class="nr">

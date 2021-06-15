@@ -6,6 +6,7 @@ namespace app\home\controller;
 
 use app\BaseController;
 use app\home\model\HospitalApply;
+use think\facade\Cache;
 use think\facade\View;
 
 class Personalcenter extends BaseController
@@ -16,6 +17,27 @@ class Personalcenter extends BaseController
      */
     public function GrzxMain()
     {
+        $user_phone = Cache::get('users')['phone'];
+        $user_id = Cache::get('users')['id'];
+        $user_type = Cache::get('users')['type'];
+
+        $user = HospitalApply::where('ID', $user_id)->find();
+
+        if ($user['Status'] == 1) {
+            $status = '审核中';
+        } elseif ($user['Status'] == 2) {
+            $status = '审核完成';
+        } elseif ($user['Status'] == 3) {
+            $status = '驳回';
+        } else {
+            $status = '审核失败';
+        }
+
+        View::assign('user_phone', $user_phone);
+        View::assign('user_id', $user_id);
+        View::assign('user_type', $user_type);
+        View::assign('user', $user);
+        View::assign('status', $status);
 
         return View::fetch('home/grzx_main');
     }
@@ -81,7 +103,7 @@ class Personalcenter extends BaseController
 
 //        halt($id);
         $result = HospitalApply::GetApplyInfo($id);
-        View::assign('result',$result);
+        View::assign('result', $result);
         return View::fetch('home/grzx_jgrztj');
     }
 
@@ -91,8 +113,15 @@ class Personalcenter extends BaseController
         $info = HospitalApply::GetApplyInfo($id);
         $info['Specialty'] = json_decode($info['Specialty']);
 //        halt($info);
-        View::assign('info',$info);
+        View::assign('info', $info);
         return View::fetch('home/grzx_ysrztj');
 
+    }
+
+    public function LoginOut()
+    {
+        Cache::pull('users');
+
+        redirect('/home/login')->send();
     }
 }

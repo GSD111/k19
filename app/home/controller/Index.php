@@ -95,11 +95,11 @@ class Index extends BaseController
         return View::fetch('home/wzxqs_qs');
     }
 
-    public function XlzxsArc()
-    {
-
-        return View::fetch('home/xlzxs_arc');
-    }
+//    public function XlzxsArc()
+//    {
+//
+//        return View::fetch('home/xlzxs_arc');
+//    }
 
     public function ArcArc($id)
     {

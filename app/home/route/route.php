@@ -66,6 +66,11 @@ Route::group('home',function(){
     Route::get('/grzx_ysrz','Personalcenter/GrzxYsrz');
 
     Route::get('/grzx_ysrztj/:id','Personalcenter/GrzxYsrztj');
+    Route::get('/xlzxs_arc','Askdoctor/XlzxsArc');
+    Route::get('/grzx_xtsz','Personalcenter/GrzxXtsz');
+    Route::get('/login_out','Personalcenter/LoginOut');
+
+    Route::get('/hosp_arc','Findhospital/HospArc');
 });
 
 /*
@@ -74,14 +79,14 @@ Route::group('home',function(){
 Route::group('home',function (){
     Route::get('/xlzxs_arc','Index/XlzxsArc');
 //    Route::get('/arc_arc','Index/ArcArc');
-    Route::get('/xlzxs_arc','Askdoctor/XlzxsArc');
-    Route::get('/hosp_arc','Findhospital/HospArc');
+//    Route::get('/xlzxs_arc','Askdoctor/XlzxsArc');
+//    Route::get('/hosp_arc','Findhospital/HospArc');
     Route::get('/grzx_wdzx','Personalcenter/GrzxWdzx');
     Route::get('/grzx_jypj','Personalcenter/GrzxJypj');
     Route::get('/grzx_wdgz','Personalcenter/GrzxWdgz');
     Route::get('/grzx_jgrz','Personalcenter/GrzxJgrz');
 //    Route::get('/grzx_ysrz','Personalcenter/GrzxYsrz');
-    Route::get('/grzx_xtsz','Personalcenter/GrzxXtsz');
+//    Route::get('/grzx_xtsz','Personalcenter/GrzxXtsz');
     Route::get('/sjzx_main','Personalcenter/SjzxMain');
     Route::get('/grzx_csjg','Personalcenter/GrzxCsjg');
     Route::get('/grzx_cspj','Personalcenter/GrzxCspj');

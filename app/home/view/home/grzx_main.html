@@ -5,11 +5,22 @@
 	<div class="top">
     	<img src="/home/picture/tp16.png" class="tx"/>
         <div>
-        	<p class="p1">Fairy</p>
-            <p class="p2">15986499703</p>
+<!--        	<p class="p1">Fairy</p>-->
+<!--            <p class="p2">15986499703</p>-->
+            {if $user['Status'] == 2}
+               <p class="p1">{$user['Name']}</p>
+            {/if}
+            {if empty($user_phone)}
+                <p><a style="color:white;" href="{:URL('/home/login')}">请登录</a></p>
+            {else /}
+                <p class="p2">{$user_phone}</p>
+            {/if}
         </div>
         <!--<img src="picture/tb42.png" class="xx"/>-->
-        <p class="p3">审核中</p>
+        {if empty(!$user_phone)}
+            <p class="p3">{$status}</p>
+        {/if}
+<!--        <p class="p3">审核中</p>-->
     </div>
     <div class="main">
     	<ul>

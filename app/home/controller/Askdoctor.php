@@ -47,9 +47,11 @@ class Askdoctor extends BaseController
 
     }
 
-    public function XlzxsArc()
+    public function XlzxsArc($id)
     {
 
-        return View::fetch('home/xlzx_arc');
+//        dd($id);
+
+        return View::fetch('home/xlzxs_arc');
     }
 }

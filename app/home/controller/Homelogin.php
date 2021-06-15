@@ -31,7 +31,7 @@ class Homelogin extends BaseController
         $captcha = Request::param('captcha');
 //        halt($captcha,Cache::get('mobile_captcha'));
         if (Cache::get('mobile_captcha') != $captcha) {
-            return "<script>alert('验证码有误')window.history.go(-1);</script>";
+            return "<script>alert('验证码有误');window.history.go(-1);</script>";
         }
         if (!empty($phone)) {
             $result = User::where('PhoneNumber', $phone)->find();
@@ -44,15 +44,15 @@ class Homelogin extends BaseController
                 redirect('/home/index')->send();
             }
             if ($result->UserStatus != StatusCode::USER_STATUS) {
-                return "<script>alert('您的账号存在异常无法登录，请联系管理进行处理')window.history.go(-1);</script>";
+                return "<script>alert('您的账号存在异常无法登录，请联系管理进行处理');window.history.go(-1);</script>";
             }
             $result->PhoneNumber = $phone;
             $result->LastLoginTime = time();
             $result->save();
             Cache::set('users', ['id' => $result->ID, 'phone' => $result->PhoneNumber, 'type' => $result->UserType]);
             redirect('/home/index')->send();
-        }else{
-            return "<script>alert('手机号有误')window.history.go(-1);</script>";
+        } else {
+            return "<script>alert('手机号有误');window.history.go(-1);</script>";
         }
     }
 
@@ -67,11 +67,11 @@ class Homelogin extends BaseController
 //            halt($phone);
         $code = random_int(100000, 999999);
         Cache::set('mobile_captcha', $code, 600);
-         $info = CaptchaLogs::where('PhoneNumber',$phone)->order('CreateTime desc')->find();
+        $info = CaptchaLogs::where('PhoneNumber', $phone)->order('CreateTime desc')->find();
 //         halt(strtotime($info['CreateTime']),time());
-         $last = strtotime($info['CreateTime']);
-         $now = time();
-        if($now - $last <  60){
+        $last = strtotime($info['CreateTime']);
+        $now = time();
+        if ($now - $last < 60) {
             return $data = ['status' => 500, 'msg' => '一分钟之内只能发送一次'];
         }
         $easySms = new EasySms(config('sms'));
@@ -90,9 +90,9 @@ class Homelogin extends BaseController
                 'CreateTime' => time()
             ]);
 
-           if($result){
-               return $data = ['status' => 200, 'msg' => '发送成功'];
-           }
+            if ($result) {
+                return $data = ['status' => 200, 'msg' => '发送成功'];
+            }
 
         } catch (\Overtrue\EasySms\Exceptions\NoGatewayAvailableException $exception) {
 //            $msg = $exception->getException('aliyun')->getMessage();

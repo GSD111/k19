@@ -64,6 +64,8 @@ Route::group('home',function(){
 
     Route::get('/arc_arc/:id','Index/ArcArc');
     Route::get('/grzx_ysrz','Personalcenter/GrzxYsrz');
+
+    Route::get('/grzx_ysrztj/:id','Personalcenter/GrzxYsrztj');
 });
 
 /*

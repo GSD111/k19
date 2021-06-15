@@ -4,6 +4,7 @@ namespace app\home\controller;
 
 use app\BaseController;
 use app\home\model\Article as ArticleModel;
+use app\home\service\Article as ArticleService;
 use app\home\model\FrontMenu;
 use app\home\model\FrontMenu as FrontMenuModel;
 use app\home\service\FontMenu as FrontMenuService;
@@ -102,7 +103,7 @@ class Index extends BaseController
 
     public function ArcArc($id)
     {
-        $article = ArticleModel::where('ID',$id)->find();
+        $article = ArticleService::GetArticleDetail($id);
 //        halt($article);
         View::assign('article',$article);
 

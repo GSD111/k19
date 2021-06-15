@@ -5,6 +5,7 @@ namespace app\middleware;
 
 use think\facade\Cache;
 
+
 class IsLogin
 {
     /**
@@ -17,7 +18,9 @@ class IsLogin
     public function handle($request, \Closure $next)
     {
         if (!Cache::has('users')['phone']) {
-             redirect('/home/login')->send();
+
+            redirect('/home/login')->send();
+
         }
 
         return $next($request);

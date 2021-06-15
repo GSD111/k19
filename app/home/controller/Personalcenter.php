@@ -89,7 +89,8 @@ class Personalcenter extends BaseController
     {
 
         $info = HospitalApply::GetApplyInfo($id);
-//        halt($result->toArray());
+        $info['Specialty'] = json_decode($info['Specialty']);
+//        halt($info);
         View::assign('info',$info);
         return View::fetch('home/grzx_ysrztj');
 

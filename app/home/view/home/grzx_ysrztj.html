@@ -22,9 +22,12 @@
         <div class="xzly">
             <p class="p2">选择领域：</p>
             <ul>
-                <li>婚姻</li>
-                <li>家庭</li>
-                <li>职场</li>
+                {foreach $info['Specialty'] as $k=>$v}
+                   <li>{$v}</li>
+                {/foreach}
+<!--                <li>婚姻</li>-->
+<!--                <li>家庭</li>-->
+<!--                <li>职场</li>-->
             </ul>
         </div>
 

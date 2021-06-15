@@ -37,4 +37,6 @@ class Article extends Model
         }
         return $info;
     }
+
+
 }

@@ -4,6 +4,7 @@ namespace app\home\service;
 
 use app\home\model\User as UserModel;
 use app\home\enum\StatusCode;
+use think\facade\Db;
 
 class User
 {
@@ -29,12 +30,18 @@ class User
      */
     public static function RecommendHospital()
     {
-        $hospital = UserModel::where('IsPersion', StatusCode::USER_PERSION)
-//            ->where('IsDoctor', StatusCode::USER_ISDOCTOR)
-            ->limit(4)
-            ->orderRaw('rand()')
-            ->select();
 
+        $hospital = Db::table('user')
+            ->join('hospitalapply','user.ID = hospitalapply.UserId')
+            ->where('Status',2)
+            ->visible(['Name','UserAvatar','UserId','AreaId'])
+            ->select();
+//        $hospital = UserModel::where('IsPersion', StatusCode::USER_PERSION)
+////            ->where('IsDoctor', StatusCode::USER_ISDOCTOR)
+//            ->limit(4)
+//            ->orderRaw('rand()')
+//            ->select();
+//
         if ($hospital->isEmpty()) {
             return false;
         }
@@ -73,11 +80,16 @@ class User
 
     public static function GetHospitalAll()
     {
-        $data = UserModel::where('IsPersion', StatusCode::USER_PERSION)->select();
+        $data = Db::table('user')->join('hospitalapply','user.ID = hospitalapply.UserId')
+            ->where('Status',StatusCode::HOSPITAL_APPLY_SUCCESS)
+            ->visible(['Name','UserAvatar','Province','City','Area','Address','BusinessTime','UserId','AreaId'])
+            ->select();
+//        halt($data);
+//        $data = UserModel::where('IsPersion', StatusCode::USER_PERSION)->select();
         if ($data->isEmpty()) {
             return false;
         }
-
+//
         return $data;
     }
 
@@ -87,8 +99,14 @@ class User
      */
     public static function SearchAreaHospital($AreaId)
     {
-        $data = UserModel::where('IsPersion', StatusCode::USER_PERSION)
-            ->where('AreaId', $AreaId)->select();
+//        $data = UserModel::where('IsPersion', StatusCode::USER_PERSION)
+//            ->where('AreaId', $AreaId)->select();
+
+        $data = Db::table('user')->join('hospitalapply','user.ID = hospitalapply.UserId')
+            ->where('Status',StatusCode::HOSPITAL_APPLY_SUCCESS)
+            ->where('AreaId', $AreaId)
+            ->visible(['Name','UserAvatar','Province','City','Area','Address','BusinessTime','UserId','AreaId'])
+            ->select();
 
         return $data;
     }

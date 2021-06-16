@@ -32,4 +32,9 @@ class StatusCode
     const ARTICEL_STATUS_FAIL = 3;     //审核失败
     const ARTICEL_ISRECOMMEND = 1;     //推荐
     const ARTICEL_RECOMMEND = 2;       //不推荐
+
+    const HOSPITAL_APPLY_STATUS = 1;   //审核中
+    const HOSPITAL_APPLY_SUCCESS = 2;  //审核通过
+    const HOSPITAL_APPLY_FAIL = 3;     //审核失败
+    const HOSPITAL_APPLY_REJECT = 4;   //驳回
 }

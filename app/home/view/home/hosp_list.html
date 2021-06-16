@@ -91,9 +91,9 @@
         	<a href="{:URL('/home/hosp_arc')}">
                 <img src="/home/picture/{$v['UserAvatar']}" />
                 <div class="rt">
-                    <p class="p1">{$v['RealName']}</p>
-                    <p class="p2">医院介绍：重庆医科大学附属第...</p>
-                    <p class="p3">地址：渝中院区位于重庆市渝中区临江路74号</p>
+                    <p class="p1">{$v['Name']}</p>
+                    <p class="p2">营业时间：{$v['BusinessTime']}</p>
+                    <p class="p3">地址：{$v['Province']}{$v['City']}{$v['Area']}{$v['Address']|mb_substr=0,1,'utf-8'}</p>
                 </div>
             </a>
         </li>

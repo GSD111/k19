@@ -39,6 +39,7 @@ class Certification extends BaseController
                 $user->BusinessTime = Request::param('business_time');
                 $user->CreateTime = time();
                 $user->save();
+
 //            dd(json(Request::param('specialty')));
 //            $user = HospitalApply::create([
 //                'Name' => Request::param('name'),

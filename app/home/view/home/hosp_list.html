@@ -49,7 +49,7 @@
             <p class="p1">{$v['CityName']}</p>
             <ul>
                 {foreach $v['cityall'] as $k=>$item}
-                <li><a href="{:URL('/home/hosp_search/'.$v['ID'])}">{$item['CityName']}</a></li>
+                <li><a href="{:URL('/home/hosp_search/'.$item['ID'])}">{$item['CityName']}</a></li>
                 {/foreach}
             </ul>
             {/foreach}
@@ -88,8 +88,8 @@
 	<ul class="u1">
         {foreach $data as $k=>$v}
     	<li>
-        	<a href="{:URL('/home/hosp_arc')}">
-                <img src="/home/picture/{$v['UserAvatar']}" />
+        	<a href="{:URL('/home/hosp_arc/'.$v['UserId'])}">
+                <img src="{$v['UserAvatar']}" />
                 <div class="rt">
                     <p class="p1">{$v['Name']}</p>
                     <p class="p2">营业时间：{$v['BusinessTime']}</p>

@@ -10,31 +10,43 @@
 	<div class="mk01">
     	<img src="/home/picture/tp02.png" />
         <div class="ct">
-        	<p class="p1">贾金鼎</p>
+        	<p class="p1">{$DoctorDetail['RealName']}</p>
             <p class="p2">心理咨询师</p>
-            <p class="p3">信阳心理咨询</p>
+<!--            <p class="p3">信阳心理咨询</p>-->
         </div>
         <a href="#">向他咨询</a>
         <a href="#" class="a2">关注</a>
     </div>
     <div class="mk02">
+        {if empty(!$ParentName)}
     	<p class="p1">任职机构</p>
         <div class="hx"></div>
-        <p class="p2">信阳心理咨询</p>
-        <p class="p3">地址：周口市太清路与中原路交叉口向北150米路东</p>
-        <p class="p4">电话：023-6672899</p>
+            <p class="p2">{$ParentName['Name']}</p>
+        {/if}
+
+        <p class="p3">地址：
+            {$DoctorDetail['Province']}{$DoctorDetail['City']}
+            {$DoctorDetail['Area']}{$DoctorDetail['Address']}
+        </p>
+        <p class="p4">电话：{$DoctorDetail['UserPhone']}</p>
     </div>
     <div class="mk03">
     	<p class="p1">个人擅长</p>
         <div class="hx"></div>
-        <p class="p2">神经症，抑郁症，焦虑症，社交恐惧，疑病症精神病康复等</p>
+        {if empty(!$DoctorDetail['Specialty'])}
+            {foreach $DoctorDetail['Specialty'] as $k=>$v}
+                 <p class="p2">{$v}</p>
+    <!--           <p class="p2">神经症，抑郁症，焦虑症，社交恐惧，疑病症精神病康复等</p>-->
+            {/foreach}
+        {/if}
     </div>
     <div class="mk04">
     	<p class="p1">个人简介</p>
         <div class="hx"></div>
         <div class="nr">
-        	<p>临床医学精神学专家、高级青少年心灵导师、中国资深婚恋专家、国家二级心理咨询师、心理学硕士研究生、心理治疗师</p>
-            <p>国家级著名心理专家，毕业于河南省新乡医学院“临床医学”，硕士毕业于武汉大学“应用心理学”专业。多年临床职场管心理学研究型专家，尤为神经症，抑郁症，焦虑症，社交恐惧，疑病症精神病康复等擅长青少年心理辅导及家庭资深专家。临床医学专业知识与硕士研究生的应用心理学相关知识相结合，潜心研究心理学与医学的精华，并运用于咨询与治疗心理问题的实践，开创了一条以心理辅导为主，以生理调节为辅的咨询道路。参加省市级心</p>
+            <p>{$DoctorDetail['Remark']}</p>
+<!--        	<p>临床医学精神学专家、高级青少年心灵导师、中国资深婚恋专家、国家二级心理咨询师、心理学硕士研究生、心理治疗师</p>-->
+<!--            <p>国家级著名心理专家，毕业于河南省新乡医学院“临床医学”，硕士毕业于武汉大学“应用心理学”专业。多年临床职场管心理学研究型专家，尤为神经症，抑郁症，焦虑症，社交恐惧，疑病症精神病康复等擅长青少年心理辅导及家庭资深专家。临床医学专业知识与硕士研究生的应用心理学相关知识相结合，潜心研究心理学与医学的精华，并运用于咨询与治疗心理问题的实践，开创了一条以心理辅导为主，以生理调节为辅的咨询道路。参加省市级心</p>-->
         </div>
     </div>
     

@@ -59,7 +59,7 @@ class AreaCity extends Model
         $all = Db::table('areacity')
             ->join('user', 'user.AreaId = areacity.ID')
             ->where('user.IsDoctor',$status)
-            ->visible(['ID','UserAvatar','CityName', 'RealName', 'PhoneNumber','AreaId'])
+            ->visible(['ID','UserAvatar','CityName', 'RealName', 'PhoneNumber','AreaId','Remark','HospitalID'])
             ->select();
 //        halt($all);
         return $all;
@@ -76,7 +76,9 @@ class AreaCity extends Model
             ->join('hospitalapply','user.ID = hospitalapply.UserId')
             ->where('user.IsPersion',$status)
             ->where('Status',StatusCode::HOSPITAL_APPLY_SUCCESS)
-            ->visible(['ID','UserAvatar','CityName', 'Name','AreaId','Status','Province','City','Area','Address','BusinessTime'])
+            ->visible(['ID','UserAvatar','CityName',
+                'Name','AreaId','Status','Province',
+                'City','Area','Address','BusinessTime','UserId'])
             ->select();
 //        halt($all);
         return $all;

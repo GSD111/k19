@@ -32,6 +32,7 @@ class Askdoctor extends BaseController
 
         } else {
             $data = UserService::GetDoctorAll();
+//            halt($data);
         }
 
 
@@ -51,10 +52,14 @@ class Askdoctor extends BaseController
     {
 //       halt($user_id);
         $DoctorDetail = HospitalApply::GetDoctorDetail($user_id);
-        if ($DoctorDetail['HospitalID'] != 0) {
-            $ParentName = HospitalApply::where('UserId', $DoctorDetail['HospitalID'])->visible(['Name', 'UserId'])->find();
-
+//        halt($DoctorDetail);
+        $DoctorDetail['Specialty'] = json_decode($DoctorDetail['Specialty'] );
+        $ParentName = HospitalApply::where('UserId', $DoctorDetail['HospitalID'])->visible(['Name', 'UserId'])->find();
+        if ($DoctorDetail['HospitalID'] == 0) {
+            $ParentName = '';
         }
+
+//        halt($DoctorDetail);
         View::assign('DoctorDetail', $DoctorDetail);
         View::assign('ParentName', $ParentName);
 

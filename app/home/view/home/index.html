@@ -56,7 +56,7 @@
         <li>
             <a href="{:URL('/home/hosp_arc/'.$v['UserId'])}">
                 <img src="{$v['UserAvatar']}"/>
-                <p>{$v['Name']}</p>
+                <p>{$v['Name']|mb_substr=0,4,'utf-8'}</p>
             </a>
         </li>
         {/foreach}

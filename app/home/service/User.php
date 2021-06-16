@@ -9,17 +9,19 @@ use think\facade\Db;
 class User
 {
 
-    public static function GetIsRecommendAll()
-    {
-        $IsRecommendAll = Db::table('user')
-            ->join('hospitalapply', 'user.ID = hospitalapply.UserId')
-            ->where('Status', StatusCode::HOSPITAL_APPLY_SUCCESS)
-            ->where('IsRecommend', StatusCode::USER_RECOMMEND)
-            ->visible(['Name', 'UserAvatar', 'UserId', 'AreaId', 'IsDoctor', 'IsRecommend', 'Status','IsPersion','RealName'])
-            ->select();
-
-        return $IsRecommendAll;
-    }
+//    public static function GetIsRecommendAll()
+//    {
+//        $IsRecommendAll = Db::table('user')
+//            ->join('hospitalapply', 'user.ID = hospitalapply.UserId')
+//            ->where('Status', StatusCode::HOSPITAL_APPLY_SUCCESS)
+//            ->where('IsRecommend', StatusCode::USER_RECOMMEND)
+//            ->visible(['Name', 'UserAvatar', 'UserId', 'AreaId', 'IsDoctor',
+//                'IsRecommend', 'Status','IsPersion','RealName','HospitalID'])
+//            ->limit(4)
+//            ->select();
+//
+//        return $IsRecommendAll;
+//    }
 
     /*
      * 首页推荐的医生
@@ -27,20 +29,17 @@ class User
     public static function RecommendDoctor()
     {
 
-//        $user = UserModel::Where('IsDoctor', StatusCode::USER_DOCTOR)
-//            ->limit(4)
-//            ->orderRaw('rand()')
-//            ->select();
-
-        $user = self::GetIsRecommendAll() ->where('IsDoctor', StatusCode::USER_DOCTOR);
+//        $user = self::GetIsRecommendAll()->where('IsDoctor', StatusCode::USER_DOCTOR);
+        $user = Db::table('user')
+        ->join('hospitalapply', 'user.ID = hospitalapply.UserId')
+        ->where('Status', StatusCode::HOSPITAL_APPLY_SUCCESS)
+        ->where('IsRecommend', StatusCode::USER_RECOMMEND)
+        ->where('IsDoctor', StatusCode::USER_DOCTOR)
+        ->visible(['Name', 'UserAvatar', 'UserId', 'AreaId', 'IsDoctor',
+            'IsRecommend', 'Status', 'IsPersion', 'RealName', 'HospitalID'])
+        ->limit(4)
+        ->select();
 //        halt($user);
-//        $user = Db::table('user')
-//            ->join('hospitalapply', 'user.ID = hospitalapply.UserId')
-//            ->where('Status', StatusCode::HOSPITAL_APPLY_SUCCESS)
-//            ->where('IsDoctor', StatusCode::USER_DOCTOR)
-//            ->where('IsRecommend', StatusCode::USER_RECOMMEND)
-//            ->visible(['Name', 'UserAvatar', 'UserId', 'AreaId', 'IsDoctor', 'IsRecommend', 'Status'])
-//            ->select();
         if ($user->isEmpty()) {
             return false;
         }
@@ -53,23 +52,18 @@ class User
     public static function RecommendHospital()
     {
 
-        $hospital = self::GetIsRecommendAll()->where('IsPersion', StatusCode::USER_PERSION);
+//        $hospital = self::GetIsRecommendAll()->where('IsPersion', StatusCode::USER_PERSION);
 
-//        $hospital = Db::table('user')
-//            ->join('hospitalapply', 'user.ID = hospitalapply.UserId')
-//            ->where('Status', StatusCode::HOSPITAL_APPLY_SUCCESS)
-//            ->where('IsPersion', StatusCode::USER_PERSION)
-//            ->where('IsRecommend', StatusCode::USER_RECOMMEND)
-//            ->visible(['Name', 'UserAvatar', 'UserId', 'AreaId', 'IsPersion', 'IsRecommend', 'Status'])
-//            ->limit(4)
-////            ->orderRaw('rand()')
-//            ->select();
-//        $hospital = UserModel::where('IsPersion', StatusCode::USER_PERSION)
-////            ->where('IsDoctor', StatusCode::USER_ISDOCTOR)
-//            ->limit(4)
-//            ->orderRaw('rand()')
-//            ->select();
-//        halt($hospital);
+        $hospital = Db::table('user')
+            ->join('hospitalapply', 'user.ID = hospitalapply.UserId')
+            ->where('Status', StatusCode::HOSPITAL_APPLY_SUCCESS)
+            ->where('IsRecommend', StatusCode::USER_RECOMMEND)
+            ->where('IsPersion', StatusCode::USER_PERSION)
+            ->visible(['Name', 'UserAvatar', 'UserId', 'AreaId', 'IsDoctor',
+                'IsRecommend', 'Status', 'IsPersion', 'RealName', 'HospitalID'])
+            ->limit(4)
+            ->select();
+
         if ($hospital->isEmpty()) {
             return false;
         }
@@ -96,11 +90,13 @@ class User
      */
     public static function SearchAreaDoctor($AreaId)
     {
-        $data = UserModel::where('IsDoctor', StatusCode::USER_DOCTOR)
-            ->where('AreaId', $AreaId)->select();
+        $data = self::GetDoctorAll()->where('AreaId', $AreaId);
+//        $data = UserModel::where('IsDoctor', StatusCode::USER_DOCTOR)
+//            ->where('AreaId', $AreaId)->select();
 
         return $data;
     }
+
 
     /*
      * 获取所有的医院商家
@@ -108,12 +104,14 @@ class User
 
     public static function GetHospitalAll()
     {
+
         $data = Db::table('user')->join('hospitalapply', 'user.ID = hospitalapply.UserId')
             ->where('Status', StatusCode::HOSPITAL_APPLY_SUCCESS)
-            ->visible(['Name', 'UserAvatar', 'Province', 'City', 'Area', 'Address', 'BusinessTime', 'UserId', 'AreaId', 'RealName'])
+            ->where('IsPersion', StatusCode::USER_PERSION)
+            ->visible(['Name', 'UserAvatar', 'Province',
+                'City', 'Area', 'Address', 'BusinessTime',
+                'UserId', 'AreaId', 'RealName', 'IsPersion'])
             ->select();
-//        halt($data);
-//        $data = UserModel::where('IsPersion', StatusCode::USER_PERSION)->select();
         if ($data->isEmpty()) {
             return false;
         }
@@ -127,15 +125,8 @@ class User
      */
     public static function SearchAreaHospital($AreaId)
     {
-//        $data = UserModel::where('IsPersion', StatusCode::USER_PERSION)
-//            ->where('AreaId', $AreaId)->select();
+        $data = self::GetHospitalAll()->where('AreaId', $AreaId);
 
-        $data = Db::table('user')->join('hospitalapply', 'user.ID = hospitalapply.UserId')
-            ->where('Status', StatusCode::HOSPITAL_APPLY_SUCCESS)
-            ->where('AreaId', $AreaId)
-            ->visible(['Name', 'UserAvatar', 'Province', 'City', 'Area', 'Address', 'BusinessTime', 'UserId', 'AreaId', 'RealName'])
-            ->select();
-//        halt($data);
         return $data;
     }
 }

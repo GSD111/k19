@@ -35,7 +35,9 @@ class HospitalApply extends Model
         $ApplayAll = Db::table('hospitalapply')
             ->join('user', 'user.ID = hospitalapply.UserId')
             ->where('UserId', $user_id)
-            ->visible(['Name', 'Province', 'City', 'Area', 'Address', 'UserPhone', 'BusinessTime', 'UserAvatar', 'Remark', 'HospitalID','UserId'])
+            ->visible(['Name', 'Province', 'City', 'Area', 'Address',
+                'UserPhone', 'BusinessTime', 'UserAvatar', 'Remark',
+                'HospitalID','UserId','RealName','Specialty'])
             ->find();
 
         return $ApplayAll;
@@ -69,7 +71,7 @@ class HospitalApply extends Model
 
     /*
      * 获取医院里的医师
-     * @params string  $user_id   医院的id
+     * @params string  $user_id   用户的id
      */
     public static function GetHospitalDoctor($user_id)
     {

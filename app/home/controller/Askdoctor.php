@@ -5,12 +5,12 @@ namespace app\home\controller;
 
 
 use app\BaseController;
+use app\home\enum\StatusCode;
 use app\home\model\AreaCity as AreaCityModel;
+use app\home\model\HospitalApply;
 use app\home\service\User as UserService;
-use think\facade\Cache;
 use think\facade\Request;
 use think\facade\View;
-use app\home\enum\StatusCode;
 
 class Askdoctor extends BaseController
 {
@@ -30,7 +30,7 @@ class Askdoctor extends BaseController
         } elseif (!empty($keywords)) {
             $data = AreaCityModel::GetAreaDoctor(StatusCode::USER_DOCTOR)->whereLike("CityName", $keywords);
 
-        }else{
+        } else {
             $data = UserService::GetDoctorAll();
         }
 
@@ -39,18 +39,24 @@ class Askdoctor extends BaseController
 //        halt($area);
 //        $hotcity = AreaCityModel::IsHotCity()->toArray();
 
-        View::assign('keywords',$keywords);
-        View::assign('area',$area);
+        View::assign('keywords', $keywords);
+        View::assign('area', $area);
 //        View::assign('hotcity',$hotcity);
         View::assign('data', $data);
         return View::fetch('home/xlzxs_list');
 
     }
 
-    public function XlzxsArc($id)
+    public function XlzxsArc($user_id)
     {
+//       halt($user_id);
+        $DoctorDetail = HospitalApply::GetDoctorDetail($user_id);
+        if ($DoctorDetail['HospitalID'] != 0) {
+            $ParentName = HospitalApply::where('UserId', $DoctorDetail['HospitalID'])->visible(['Name', 'UserId'])->find();
 
-//        dd($id);
+        }
+        View::assign('DoctorDetail', $DoctorDetail);
+        View::assign('ParentName', $ParentName);
 
         return View::fetch('home/xlzxs_arc');
     }

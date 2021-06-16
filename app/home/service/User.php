@@ -135,7 +135,7 @@ class User
             ->where('AreaId', $AreaId)
             ->visible(['Name', 'UserAvatar', 'Province', 'City', 'Area', 'Address', 'BusinessTime', 'UserId', 'AreaId', 'RealName'])
             ->select();
-        halt($data);
+//        halt($data);
         return $data;
     }
 }

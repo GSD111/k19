@@ -46,7 +46,7 @@ class Findhospital extends BaseController
     public function HospArc($user_id)
     {
 //        halt($user_id);
-        $HospitalDeatil = HospitalApply::GetApplyDetail($user_id);
+        $HospitalDeatil = HospitalApply::GetHospitalDetail($user_id);
 //        halt($HospitalDeatil);
         $HospitalDoctor = HospitalApply::GetHospitalDoctor($user_id);
 //        halt($HospitalDoctor);

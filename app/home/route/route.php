@@ -70,7 +70,7 @@ Route::group('home',function(){
     Route::get('/grzx_xtsz','Personalcenter/GrzxXtsz');
     Route::get('/login_out','Personalcenter/LoginOut');
 
-    Route::get('/hosp_arc','Findhospital/HospArc');
+    Route::get('/hosp_arc/:user_id','Findhospital/HospArc');
 });
 
 /*

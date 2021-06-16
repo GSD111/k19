@@ -28,7 +28,7 @@ class Askdoctor extends BaseController
         if (!empty($searchID)) {
             $data = UserService::SearchAreaDoctor($searchID);
         } elseif (!empty($keywords)) {
-            $data = AreaCityModel::GetAreaDoctorOrHospital(StatusCode::USER_DOCTOR)->whereLike("CityName", $keywords);
+            $data = AreaCityModel::GetAreaDoctor(StatusCode::USER_DOCTOR)->whereLike("CityName", $keywords);
 
         }else{
             $data = UserService::GetDoctorAll();

@@ -33,7 +33,7 @@ class User
 
         $hospital = Db::table('user')
             ->join('hospitalapply','user.ID = hospitalapply.UserId')
-            ->where('Status',2)
+            ->where('Status',StatusCode::HOSPITAL_APPLY_SUCCESS)
             ->visible(['Name','UserAvatar','UserId','AreaId'])
             ->select();
 //        $hospital = UserModel::where('IsPersion', StatusCode::USER_PERSION)
@@ -41,7 +41,7 @@ class User
 //            ->limit(4)
 //            ->orderRaw('rand()')
 //            ->select();
-//
+//         halt($hospital);
         if ($hospital->isEmpty()) {
             return false;
         }
@@ -82,7 +82,7 @@ class User
     {
         $data = Db::table('user')->join('hospitalapply','user.ID = hospitalapply.UserId')
             ->where('Status',StatusCode::HOSPITAL_APPLY_SUCCESS)
-            ->visible(['Name','UserAvatar','Province','City','Area','Address','BusinessTime','UserId','AreaId'])
+            ->visible(['Name','UserAvatar','Province','City','Area','Address','BusinessTime','UserId','AreaId','RealName'])
             ->select();
 //        halt($data);
 //        $data = UserModel::where('IsPersion', StatusCode::USER_PERSION)->select();
@@ -105,9 +105,9 @@ class User
         $data = Db::table('user')->join('hospitalapply','user.ID = hospitalapply.UserId')
             ->where('Status',StatusCode::HOSPITAL_APPLY_SUCCESS)
             ->where('AreaId', $AreaId)
-            ->visible(['Name','UserAvatar','Province','City','Area','Address','BusinessTime','UserId','AreaId'])
+            ->visible(['Name','UserAvatar','Province','City','Area','Address','BusinessTime','UserId','AreaId','RealName'])
             ->select();
-
+        halt($data);
         return $data;
     }
 }

@@ -6,6 +6,7 @@ namespace app\home\controller;
 
 use app\BaseController;
 use app\home\enum\StatusCode;
+use app\home\model\HospitalApply;
 use think\facade\Request;
 use think\facade\View;
 use app\home\service\User as UserService;
@@ -25,7 +26,7 @@ class Findhospital extends BaseController
         if (!empty($searchID)) {
             $data = UserService::SearchAreaHospital($searchID);
         } elseif (!empty($keywords)) {
-            $data = AreaCityModel::GetAreaDoctorOrHospital(StatusCode::USER_PERSION)->whereLike("CityName", $keywords);
+            $data = AreaCityModel::GetAreaHospital(StatusCode::USER_PERSION)->whereLike("CityName", $keywords);
 
         }else{
             $data = UserService::GetHospitalAll();
@@ -42,9 +43,16 @@ class Findhospital extends BaseController
         return View::fetch('home/hosp_list');
     }
 
-    public function HospArc()
+    public function HospArc($user_id)
     {
+//        halt($user_id);
+        $HospitalDeatil = HospitalApply::GetApplyDetail($user_id);
+//        halt($HospitalDeatil);
+        $HospitalDoctor = HospitalApply::GetHospitalDoctor($user_id);
+//        halt($HospitalDoctor);
 
+        View::assign('HospitalDetail',$HospitalDeatil);
+        View::assign('HospitalDoctor',$HospitalDoctor);
         return View::fetch('home/hosp_arc');
     }
 

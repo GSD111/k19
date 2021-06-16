@@ -40,7 +40,7 @@
         {foreach $doctor as $k=>$v}
         <li>
             <a href="{:URL('/home/xlzxs_arc?id='.$v['ID'])}">
-                <img src="/home/picture/{$v['UserAvatar']}"/>
+                <img src="{$v['UserAvatar']}"/>
                 <p>{$v['RealName']}</p>
             </a>
         </li>
@@ -54,8 +54,8 @@
     <ul>
         {foreach $hospital as $k=>$v}
         <li>
-            <a href="{:URL('/home/hosp_arc')}">
-                <img src="/home/picture/{$v['UserAvatar']}"/>
+            <a href="{:URL('/home/hosp_arc/'.$v['UserId'])}">
+                <img src="{$v['UserAvatar']}"/>
                 <p>{$v['Name']}</p>
             </a>
         </li>

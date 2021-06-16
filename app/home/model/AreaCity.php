@@ -4,6 +4,7 @@
 namespace app\home\model;
 
 
+use app\home\enum\StatusCode;
 use think\facade\Db;
 use think\Model;
 
@@ -50,9 +51,9 @@ class AreaCity extends Model
 //    }
 
     /*
-     * 查询所在城市区域的医师和医院
+     * 查询所在城市区域的医师
      */
-    public static function GetAreaDoctorOrHospital($status)
+    public static function GetAreaDoctor($status)
     {
 
         $all = Db::table('areacity')
@@ -60,6 +61,24 @@ class AreaCity extends Model
             ->where('user.IsDoctor',$status)
             ->visible(['ID','UserAvatar','CityName', 'RealName', 'PhoneNumber','AreaId'])
             ->select();
+//        halt($all);
+        return $all;
+    }
+
+    /*
+    * 查询所在城市区域的医院
+    */
+    public static function GetAreaHospital($status)
+    {
+
+        $all = Db::table('areacity')
+            ->join('user', 'user.AreaId = areacity.ID')
+            ->join('hospitalapply','user.ID = hospitalapply.UserId')
+            ->where('user.IsPersion',$status)
+            ->where('Status',StatusCode::HOSPITAL_APPLY_SUCCESS)
+            ->visible(['ID','UserAvatar','CityName', 'Name','AreaId','Status','Province','City','Area','Address','BusinessTime'])
+            ->select();
+//        halt($all);
         return $all;
     }
 }

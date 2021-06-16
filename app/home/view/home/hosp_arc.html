@@ -3,46 +3,54 @@
 <body style="background:#f5f5f5;">
 <div class="head2">
 	<a href="javascript:history.go(-1);"><img src="/home/picture/tb16.png" /></a>
-    <p>重庆医科大学附属第二医院</p>
+<!--    <p>重庆医科大学附属第二医院</p>-->
+    <p>{$HospitalDetail['Name']}</p>
 </div>
 
 <div class="hosp_arc">
 	<div class="mk01">
-    	<img src="/home/picture/tp12.png" class="img01"/>
+    	<img src="{$HospitalDetail['UserAvatar']}" class="img01"/>
         <div class="ct">
-        	<p class="p1">重庆医科大学附属第二医院</p>
-            <p class="p2"><img src="/home/picture/tb40.png" class="img02"/>重庆市渝中区临江门76号</p>
-            <p class="p3"><img src="/home/picture/tb41.png" class="img03"/>023-63722259</p>
+        	<p class="p1">{$HospitalDetail['Name']}</p>
+            <p class="p2"><img src="/home/picture/tb40.png" class="img02"/>{$HospitalDetail['Province']}{$HospitalDetail['City']}{$HospitalDetail['Area']}{$HospitalDetail['Address']}</p>
+            <p class="p3"><img src="/home/picture/tb41.png" class="img03"/>{$HospitalDetail['UserPhone']}</p>
         </div>
     </div>
     <div class="mk02">
     	<p class="p1">关于我们</p>
         <div class="nr">
-        	<p>重庆医科大学附属第二医院，前身为始建于1892年的宽仁医院，横跨三个世纪，历经一百多年，医院逐步形成了“关怀、专注、创新”的办院理念，是集医疗、教学、科研、预防保健为一体的国家三级甲等综合医院。
-			<p>医院现有渝中和江南两个院区，可开放床位3500余张。渝中院区位于重庆市渝中区临江路74号，坐落于重庆CBD之一的解放碑，建筑面积约8.5万方，为宽仁医院原址；江南院区位于重庆市南岸区天文大道288号，建筑面积约25万方。</p>
-			<p>医院专业设置齐全，学科影响力显著提升，医疗技术水平再上新台阶。现有43个临床医技科室，2个国家级重点学科，5个国家临床重点专科，6个市级临床重点专科，1个国家中医药管理局“十二五”重点专科，13个重庆市临床诊疗研究中心，10个重庆市医疗质量控制中心。牵头申报国家心血管病、呼吸疾病、传染病区域医疗中心。先后成立眼科、呼吸内科、肝胆外科、妇产科等16个专科联盟，共联盟960家单位，范围覆盖重庆及周边省市。建成胸痛、创伤、脑卒中、危重孕产妇救治、房颤、高血压、心衰等7大急危重症救治
-中心。大力发展微创、介入等核心技术和提升重点疾病诊治能力，申请开展新技术新项目143项，其中重庆市及西南地区甚至国内领先技术20项。</p>
+            {$HospitalDetail['Remark']}
+<!--        	<p>重庆医科大学附属第二医院，前身为始建于1892年的宽仁医院，横跨三个世纪，历经一百多年，医院逐步形成了“关怀、专注、创新”的办院理念，是集医疗、教学、科研、预防保健为一体的国家三级甲等综合医院。-->
+<!--			<p>医院现有渝中和江南两个院区，可开放床位3500余张。渝中院区位于重庆市渝中区临江路74号，坐落于重庆CBD之一的解放碑，建筑面积约8.5万方，为宽仁医院原址；江南院区位于重庆市南岸区天文大道288号，建筑面积约25万方。</p>-->
+<!--			<p>医院专业设置齐全，学科影响力显著提升，医疗技术水平再上新台阶。现有43个临床医技科室，2个国家级重点学科，5个国家临床重点专科，6个市级临床重点专科，1个国家中医药管理局“十二五”重点专科，13个重庆市临床诊疗研究中心，10个重庆市医疗质量控制中心。牵头申报国家心血管病、呼吸疾病、传染病区域医疗中心。先后成立眼科、呼吸内科、肝胆外科、妇产科等16个专科联盟，共联盟960家单位，范围覆盖重庆及周边省市。建成胸痛、创伤、脑卒中、危重孕产妇救治、房颤、高血压、心衰等7大急危重症救治-->
+<!--中心。大力发展微创、介入等核心技术和提升重点疾病诊治能力，申请开展新技术新项目143项，其中重庆市及西南地区甚至国内领先技术20项。</p>-->
         </div>
     </div>
 </div>
 <div class="in_zxs" style="margin-bottom:0.8rem; margin-top:0.15rem;">
 	<ul>
-    	<li>
-        	<img src="/home/picture/tb07.png" />
-            <p>贾金鼎</p>
-        </li>
-        <li>
-        	<img src="/home/picture/tb08.png" />
-            <p>范大庆</p>
-        </li>
-        <li>
-        	<img src="/home/picture/tb09.png" />
-            <p>樊凌姿</p>
-        </li>
-        <li>
-        	<img src="/home/picture/tb10.png" />
-            <p>娄渊敏</p>
-        </li>
+        {foreach $HospitalDoctor as $k=>$v}
+            <li>
+                <img src="{$v['UserAvatar']}"/>
+                <p>{$v['RealName']}</p>
+            </li>
+        {/foreach}
+<!--    	<li>-->
+<!--        	<img src="/home/picture/tb07.png" />-->
+<!--            <p>贾金鼎</p>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--        	<img src="/home/picture/tb08.png" />-->
+<!--            <p>范大庆</p>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--        	<img src="/home/picture/tb09.png" />-->
+<!--            <p>樊凌姿</p>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--        	<img src="/home/picture/tb10.png" />-->
+<!--            <p>娄渊敏</p>-->
+<!--        </li>-->
     </ul>
 </div>
 

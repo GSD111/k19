@@ -3,56 +3,64 @@
 <body style="background:#f2f2f2;">
 <div class="sjzx_main">
 	<div class="bann">
-    	<img src="/home/picture/sjbann.png" />
+    	<img src="{$data['UserAvatar']}" />
     </div>
     <div class="yytt">
-    	<p>重庆医科大学附属第二医院</p>
+        <a href="{:URL('/home/hosp_arc/'.$data['UserId'])}">
+            <p>{$data['Name']}</p>
+        </a>
     </div>
     <div class="xxupt">
-    	<p class="p1"><span></span>基本信息修改<img src="/home/picture/tb50.png" /></p>
+    	<p class="p1"><span></span>基本信息<img src="/home/picture/tb50.png" /></p>
         <div class="mk01">
        		<p class="p2">简介：</p>
-        	<textarea>重庆医科大学附属第二医院，前身为始建于1892年的宽仁医院，横跨三个世纪，历经一百多年，医院逐步形成了“关怀、专注、创新”的办院理念，是集医疗、教学、科研、预...</textarea>
+            <textarea disabled>{$data['Remark']}</textarea>
+<!--        	<textarea>重庆医科大学附属第二医院，前身为始建于1892年的宽仁医院，横跨三个世纪，历经一百多年，医院逐步形成了“关怀、专注、创新”的办院理念，是集医疗、教学、科研、预...</textarea>-->
         </div>
        	<div class="mk02">
         	<p class="p2">地址：</p>
-            <input type="text" value="重庆市渝中区临江路74号">
+            <input type="text" value="{$data['Province']}{$data['Area']}{$data['Address']}" disabled>
         </div>
         <div class="mk03">
         	<p class="p2">营业时间：</p>
-            <input type="text" value="07:00-21:00">
+            <input type="text" value="{$data['BusinessTime']}" disabled>
         </div>
         <div class="mk03">
         	<p class="p2">联系人：</p>
-            <input type="text" value="王小姐">
+            <input type="text" value="{$data['UserName']}" disabled>
         </div>
         <div class="mk03">
         	<p class="p2">联系电话：</p>
-            <input type="text" value="15923288796">
+            <input type="text" value="{$data['UserPhone']}" disabled>
         </div>
-        <div class="bott">
-            <a href="#" class="qr">确认更改</a>
-        </div>
+<!--        <div class="bott">-->
+<!--            <a href="#" class="qr">确认更改</a>-->
+<!--        </div>-->
     </div>
     <div class="zxsgl">
     	<p class="p1"><span></span>医生/咨询师管理<img src="/home/picture/tb50.png" /></p>
         <ul>
+            {foreach $HospitalDoctor as $k=>$v}
         	<li>
-            	<img src="/home/picture/tp09.png" />
-                <div class="rt">
-                	<p class="p2">贾金鼎<span>心理科</span><span class="sp1">精神科</span></p>
-                    <p class="p3">简介：</p>
-                    <textarea></textarea>
-                </div>
+                <a href="{:URL('/home/xlzxs_arc/'.$v['ID'])}" >
+                    <img src="{$v['UserAvatar']}" />
+                    <div class="rt">
+                        <p class="p2">{$v['RealName']}</p>
+    <!--                	<p class="p2">{$v['RealName']}<span>心理科</span><span class="sp1">精神科</span></p>-->
+                        <p class="p3">简介：</p>
+                        <textarea disabled>{$v['Remark']|mb_substr=0,16,'utf-8'}</textarea>
+                    </div>
+                </a>
             </li>
-            <li>
-            	<img src="/home/picture/tp09.png" />
-                <div class="rt">
-                	<p class="p2">贾金鼎<span>心理科</span><span class="sp1">精神科</span></p>
-                    <p class="p3">简介：</p>
-                    <textarea></textarea>
-                </div>
-            </li>
+            {/foreach}
+<!--            <li>-->
+<!--            	<img src="/home/picture/tp09.png" />-->
+<!--                <div class="rt">-->
+<!--                	<p class="p2">贾金鼎<span>心理科</span><span class="sp1">精神科</span></p>-->
+<!--                    <p class="p3">简介：</p>-->
+<!--                    <textarea></textarea>-->
+<!--                </div>-->
+<!--            </li>-->
         </ul>
 <!--        <div class="addys">-->
 <!--        	<a href="sjzx_tjys.html"><img src="picture/tp14.png" /></a>-->
@@ -124,7 +132,8 @@
     </div>
     
     <div class="qiehuan">
-    	<a href="{:URL('/home/grzx_main')}">切换个人版本</a>
+<!--    	<a href="{:URL('/home/grzx_main')}">切换个人版本</a>-->
+        <a href="{:URL('/home/login_out')}" >退出登录</a>
         <p>您当前属于商家版本</p>
     </div>
     

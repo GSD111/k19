@@ -30,9 +30,9 @@ class Homelogin extends BaseController
         $phone = Request::param('PhoneNumber');
         $captcha = Request::param('captcha');
 //        halt($captcha,Cache::get('mobile_captcha'));
-        if (Cache::get('mobile_captcha') != $captcha) {
-            return "<script>alert('验证码有误');window.history.go(-1);</script>";
-        }
+//        if (Cache::get('mobile_captcha') != $captcha) {
+//            return "<script>alert('验证码有误');window.history.go(-1);</script>";
+//        }
         if (!empty($phone)) {
             $result = User::where('PhoneNumber', $phone)->find();
 //            dump($result);
@@ -49,7 +49,8 @@ class Homelogin extends BaseController
             $result->PhoneNumber = $phone;
             $result->LastLoginTime = time();
             $result->save();
-            Cache::set('users', ['id' => $result->ID, 'phone' => $result->PhoneNumber, 'type' => $result->UserType]);
+            Cache::set('users', ['id' => $result->ID, 'phone' => $result->PhoneNumber,
+                'doctor' => $result->IsDoctor,'persion'=>$result->IsPersion]);
             redirect('/home/index')->send();
         } else {
             return "<script>alert('手机号有误');window.history.go(-1);</script>";

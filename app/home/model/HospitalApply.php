@@ -37,7 +37,7 @@ class HospitalApply extends Model
             ->where('UserId', $user_id)
             ->visible(['Name', 'Province', 'City', 'Area', 'Address',
                 'UserPhone', 'BusinessTime', 'UserAvatar', 'Remark',
-                'HospitalID', 'UserId', 'RealName', 'Specialty'])
+                'HospitalID', 'UserId', 'RealName', 'Specialty','UserName'])
             ->find();
 
         return $ApplayAll;
@@ -75,7 +75,7 @@ class HospitalApply extends Model
      */
     public static function GetHospitalDoctor($user_id)
     {
-        $data = User::where('HospitalID', $user_id)->visible(['ID', 'UserAvatar', 'RealName'])->select();
+        $data = User::where('HospitalID', $user_id)->visible(['ID', 'UserAvatar', 'RealName','Remark'])->select();
         return $data;
     }
 }

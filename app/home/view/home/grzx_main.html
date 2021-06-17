@@ -2,79 +2,84 @@
 
 <body style="background:#fff;">
 <div class="grzx_main">
-	<div class="top">
-    	<img src="/home/picture/tp16.png" class="tx"/>
+    <div class="top">
+        <img src="/home/picture/tp16.png" class="tx"/>
         <div>
-<!--        	<p class="p1">Fairy</p>-->
-<!--            <p class="p2">15986499703</p>-->
+            <!--        	<p class="p1">Fairy</p>-->
+            <!--            <p class="p2">15986499703</p>-->
             {if $user['Status'] == 2}
-               <p class="p1">{$user['Name']}</p>
+            <p class="p1">{$user['Name']}</p>
             {/if}
             {if empty($user_phone)}
-                <p><a style="color:white;" href="{:URL('/home/login')}">请登录</a></p>
+            <p><a style="color:white;" href="{:URL('/home/login')}">请登录</a></p>
             {else /}
-                <p class="p2">{$user_phone}</p>
+            <p class="p2">{$user_phone}</p>
             {/if}
         </div>
         <!--<img src="picture/tb42.png" class="xx"/>-->
         {if empty(!$user_phone)}
-            <p class="p3">{$status}</p>
+        <p class="p3">{$status}</p>
         {/if}
-<!--        <p class="p3">审核中</p>-->
+        <!--        <p class="p3">审核中</p>-->
     </div>
     <div class="main">
-    	<ul>
-        	<li>
-            	<a href="{:URL('/home/grzx_wdzx')}">
-            	<img src="/home/picture/tb43.png" class="img01"/>我的倾诉<img src="/home/picture/tb26.png" class="rtimg" />
-                </a>
-           </li>
+        <ul>
             <li>
-            	<a href="{:URL('/home/grzx_jypj')}">
-            	<img src="/home/picture/tb44.png" class="img02"/>交易和评价<img src="/home/picture/tb26.png" class="rtimg" />
+                <a href="{:URL('/home/grzx_wdzx')}">
+                    <img src="/home/picture/tb43.png" class="img01"/>我的倾诉<img src="/home/picture/tb26.png"
+                                                                              class="rtimg"/>
                 </a>
             </li>
             <li>
-            	<a href="{:URL('/home/grzx_wdgz')}">
-            	<img src="/home/picture/tb45.png" class="img03"/>我的浏览<img src="/home/picture/tb26.png" class="rtimg" />
-                </a>
-            </li>
-        </ul>
-        <div class="bg"></div>
-        <ul>    
-            <li>
-            	<a href="{:URL('/home/grzx_jgrz')}">
-            	<img src="/home/picture/tb46.png" class="img04"/>医院入驻申请<img src="/home/picture/tb26.png" class="rtimg" />
+                <a href="{:URL('/home/grzx_jypj')}">
+                    <img src="/home/picture/tb44.png" class="img02"/>交易和评价<img src="/home/picture/tb26.png"
+                                                                               class="rtimg"/>
                 </a>
             </li>
             <li>
-            	<a href="{:URL('/home/grzx_ysrz')}">
-            	<img src="/home/picture/tb47.png" class="img05"/>心理医师入驻申请<img src="/home/picture/tb26.png" class="rtimg" />
+                <a href="{:URL('/home/grzx_wdgz')}">
+                    <img src="/home/picture/tb45.png" class="img03"/>我的浏览<img src="/home/picture/tb26.png"
+                                                                              class="rtimg"/>
                 </a>
             </li>
         </ul>
         <div class="bg"></div>
         <ul>
             <li>
-            	<a href="{:URL('/home/grzx_xtsz')}">
-            	<img src="/home/picture/tb48.png" class="img06"/>系统设置<img src="/home/picture/tb26.png" class="rtimg" />
+                <a href="{:URL('/home/grzx_jgrz')}">
+                    <img src="/home/picture/tb46.png" class="img04"/>医院入驻申请<img src="/home/picture/tb26.png"
+                                                                                class="rtimg"/>
+                </a>
+            </li>
+            <li>
+                <a href="{:URL('/home/grzx_ysrz')}">
+                    <img src="/home/picture/tb47.png" class="img05"/>心理医师入驻申请<img src="/home/picture/tb26.png"
+                                                                                  class="rtimg"/>
+                </a>
+            </li>
+        </ul>
+        <div class="bg"></div>
+        <ul>
+            <li>
+                <a href="{:URL('/home/grzx_xtsz')}">
+                    <img src="/home/picture/tb48.png" class="img06"/>系统设置<img src="/home/picture/tb26.png"
+                                                                              class="rtimg"/>
                 </a>
             </li>
         </ul>
         <div class="bg"></div>
     </div>
-    
-    <div class="qiehuan">
-    	<a href="{:URL('/home/sjzx_main')}">切换商家版本</a>
-        <p>您当前属于个人用户版本</p>
-        <div style="height:1rem;"></div>
-    </div>
-    
+
+    {if empty(!$user_phone)}
+        <div class="qiehuan">
+            <a href="{:URL('/home/sjzx_main')}">切换商家版本</a>
+            <p>您当前属于个人用户版本</p>
+            <div style="height:1rem;"></div>
+        </div>
+    {/if}
+
+
 </div>
-
-
-
-
 
 
 <!--底部js-->
@@ -83,12 +88,12 @@
 {include file="home/footer" /}
 
 <script>
-$(".in_wzzx").find(".nav").find("li").find(".p1").click(function(){
-	$(".in_wzzx").find(".nav").find("li").find(".p1").removeClass("chkcs");
-	$(this).addClass("chkcs");
-	$(".in_wzzx").find(".nav").find("li").find(".wzzx").hide();
-	$(this).next(".wzzx").show();
-});	
+    $(".in_wzzx").find(".nav").find("li").find(".p1").click(function () {
+        $(".in_wzzx").find(".nav").find("li").find(".p1").removeClass("chkcs");
+        $(this).addClass("chkcs");
+        $(".in_wzzx").find(".nav").find("li").find(".wzzx").hide();
+        $(this).next(".wzzx").show();
+    });
 </script>
 </body>
 </html>

@@ -5,6 +5,7 @@ namespace app\home\controller;
 
 
 use app\BaseController;
+use app\home\enum\StatusCode;
 use app\home\model\HospitalApply;
 use think\facade\Cache;
 use think\facade\View;
@@ -19,7 +20,21 @@ class Personalcenter extends BaseController
     {
         $user_phone = Cache::get('users')['phone'];
         $user_id = Cache::get('users')['id'];
-        $user_type = Cache::get('users')['type'];
+        $doctor = Cache::get('users')['doctor'];
+        $persion = Cache::get('users')['persion'];
+
+        /*
+         * 检测当前登录者的身份信息
+         */
+        if($persion == StatusCode::USER_PERSION){
+            $data = HospitalApply::GetApplayAll($user_id);
+            $HospitalDoctor = HospitalApply::GetHospitalDoctor($user_id)->toArray();
+//            halt($data);
+            View::assign('data',$data);
+            View::assign('HospitalDoctor',$HospitalDoctor);
+            return View::fetch('home/sjzx_main');
+        }
+
 
         $user = HospitalApply::where('ID', $user_id)->find();
 
@@ -35,7 +50,7 @@ class Personalcenter extends BaseController
 
         View::assign('user_phone', $user_phone);
         View::assign('user_id', $user_id);
-        View::assign('user_type', $user_type);
+        View::assign('doctor', $doctor);
         View::assign('user', $user);
         View::assign('status', $status);
 

@@ -10,7 +10,7 @@ class Article
     public static function GetArticleDetail($id)
     {
         $article = Db::table('article')->join('user', 'user.ID = article.UserID')->where('article.ID', $id)
-            ->visible(['ID','Title','RealName','Content','ReadNum','CreateTimes'])->find();
+            ->visible(['ID','Title','RealName','Content','ReadNum','CreateTimes','ArticleImg'])->find();
 
         return $article;
     }

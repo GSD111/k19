@@ -7,22 +7,26 @@
 </div>
 <div class="zsxg_fd">
 	<div class="find">
-    	<input type="text" value="请输入疾病、症状" name="city" class="ct" />
-        <input type="submit" value="搜索" class="ser"/>
+        <form>
+            <input type="text" placeholder="请输入疾病、症状"  name="keywords" class="ct" />
+            <input type="submit" value="搜索" class="ser"/>
+        </form>
     </div>
-    <div class="xz">
-    	<div class="bg">
-        	<ul>
-            <li><a href="zsxg_list2.html">虐待/忽视</a></li>
-            <li><a href="zsxg_list2.html">成瘾/药物滥用</a></li>
-            <li><a href="zsxg_list2.html">焦虑症/恐惧症</a></li>
-            <li><a href="zsxg_list2.html">虐待/忽视</a></li>
-            <li class="chk"><a href="zsxg_list2.html">成瘾/药物滥用</a></li>
-            <li class="icon">更多</li>
-        </ul>
-        </div>
-    	
-    </div>
+
+    <span style="position:fixed;right:20px;top:40px;color:white;" class="icon">更多分类</span>
+<!--    <div class="xz">-->
+<!--    	<div class="bg">-->
+<!--        	<ul>-->
+<!--            <li><a href="zsxg_list2.html">虐待/忽视</a></li>-->
+<!--            <li><a href="zsxg_list2.html">成瘾/药物滥用</a></li>-->
+<!--            <li><a href="zsxg_list2.html">焦虑症/恐惧症</a></li>-->
+<!--            <li><a href="zsxg_list2.html">虐待/忽视</a></li>-->
+<!--            <li class="chk"><a href="zsxg_list2.html">成瘾/药物滥用</a></li>-->
+<!--            <li class="icon">更多</li>-->
+<!--        </ul>-->
+<!--        </div>-->
+<!--    	-->
+<!--    </div>-->
     
     <div style="clear:both;"></div>
 </div>
@@ -38,18 +42,21 @@
         </div>
         <div class="jb">
         	<ul>
-            	<li><a href="zsxg_list2.html">虐待/忽视</a></li>
-                <li><a href="zsxg_list2.html">成瘾/药物滥用</a></li>
-                <li><a href="zsxg_list2.html">焦虑症/恐惧症</a></li>v
-                <li><a href="zsxg_list2.html">虐待/忽视</a></li>
-                <li><a href="zsxg_list2.html">成瘾/药物滥用</a></li>
-                <li><a href="#">焦虑症/恐惧症</a></li>
-                <li><a href="#">虐待/忽视</a></li>
-                <li><a href="#">成瘾/药物滥用</a></li>
-                <li><a href="#">焦虑症/恐惧症</a></li>
-                <li><a href="#">虐待/忽视</a></li>
-                <li><a href="#">成瘾/药物滥用</a></li>
-                <li><a href="#">焦虑症/恐惧症</a></li>
+                {foreach $ArticleType as $k=>$v}
+                  <li><a href="{:URL('/home/TypeSearch/'.$v['ID'])}">{$v['Name']}</a></li>
+                {/foreach}
+<!--            	<li><a href="zsxg_list2.html">虐待/忽视</a></li>-->
+<!--                <li><a href="zsxg_list2.html">成瘾/药物滥用</a></li>-->
+<!--                <li><a href="zsxg_list2.html">焦虑症/恐惧症</a></li>v-->
+<!--                <li><a href="zsxg_list2.html">虐待/忽视</a></li>-->
+<!--                <li><a href="zsxg_list2.html">成瘾/药物滥用</a></li>-->
+<!--                <li><a href="#">焦虑症/恐惧症</a></li>-->
+<!--                <li><a href="#">虐待/忽视</a></li>-->
+<!--                <li><a href="#">成瘾/药物滥用</a></li>-->
+<!--                <li><a href="#">焦虑症/恐惧症</a></li>-->
+<!--                <li><a href="#">虐待/忽视</a></li>-->
+<!--                <li><a href="#">成瘾/药物滥用</a></li>-->
+<!--                <li><a href="#">焦虑症/恐惧症</a></li>-->
             </ul>
         </div>
     </dl>
@@ -84,52 +91,24 @@
 
 
 <div class="zsxg_list">
+    {empty name="ArticleAll"}
+        <p style="text-align:center;">暂时还没有文章，敬请期待！</p>
+    {/empty}
+
 	<ul class="u1">
+        {foreach $ArticleAll as $k=>$v}
     	<li>
-        	<a href="arc_arc.html">
-                <img src="/home/picture/tp01.png" />
+        	<a href="{:URL('/home/arc_arc/'.$v['ID'])}">
+                <img src="{$v['ArticleImg']}" />
                 <div class="rt">
-                    <p class="p1">精神分裂症如何防治？</p>
-                    <p class="p2"><span>作者：六一</span>&nbsp;&nbsp;<span>时间：2021-05-10</span>&nbsp;&nbsp;<span>阅读：200</span></p>
-                    <p class="p3">精神分裂症从防治的角度来讲，首先强调的是早发现、早诊断、早干预。</p>
+                    <p class="p1">{$v['Title']}</p>
+                    <p class="p2"><span>作者：{$v['RealName']}</span>&nbsp;&nbsp;<span>时间：{$v['CreateTimes']|date="Y-m-d"}</span>&nbsp;&nbsp;<span>阅读：{$v['ReadNum']}</span></p>
+                    <p class="p3">{$v['Content']|mb_substr=0,18,'utf-8'}...</p>
                 </div>
             </a>
         </li>
-        <li>
-        	<a href="arc_arc.html">
-                <img src="/home/picture/tp01.png" />
-                <div class="rt">
-                    <p class="p1">精神分裂症如何防治？</p>
-                    <p class="p2"><span>作者：六一</span>&nbsp;&nbsp;<span>时间：2021-05-10</span>&nbsp;&nbsp;<span>阅读：200</span></p>
-                    <p class="p3">精神分裂症从防治的角度来讲，首先强调的是早发现、早诊断、早干预。</p>
-                </div>
-            </a>
-        </li>
-        <li>
-        	<img src="/home/picture/tp01.png" />
-            <div class="rt">
-            	<p class="p1">精神分裂症如何防治？</p>
-                <p class="p2"><span>作者：六一</span>&nbsp;&nbsp;<span>时间：2021-05-10</span>&nbsp;&nbsp;<span>阅读：200</span></p>
-                <p class="p3">精神分裂症从防治的角度来讲，首先强调的是早发现、早诊断、早干预。</p>
-            </div>
-        </li>
-        <li>
-        	<img src="/home/picture/tp01.png" />
-            <div class="rt">
-            	<p class="p1">精神分裂症如何防治？</p>
-                <p class="p2"><span>作者：六一</span>&nbsp;&nbsp;<span>时间：2021-05-10</span>&nbsp;&nbsp;<span>阅读：200</span></p>
-                <p class="p3">精神分裂症从防治的角度来讲，首先强调的是早发现、早诊断、早干预。</p>
-            </div>
-        </li>
-        <li>
-        	<img src="/home/picture/tp01.png" />
-            <div class="rt">
-            	<p class="p1">精神分裂症如何防治？</p>
-                <p class="p2"><span>作者：六一</span>&nbsp;&nbsp;<span>时间：2021-05-10</span>&nbsp;&nbsp;<span>阅读：200</span></p>
-                <p class="p3">精神分裂症从防治的角度来讲，首先强调的是早发现、早诊断、早干预。</p>
-            </div>
-        </li>
-       
+        {/foreach}
+
     </ul>
 </div>
 

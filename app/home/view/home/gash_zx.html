@@ -2,72 +2,46 @@
 
 <body style="background:#f5f5f5;">
 <div class="head2">
-	<a href="javascript:history.go(-1);"><img src="/home/picture/tb16.png" /></a>
+    <a href="javascript:history.go(-1);"><img src="/home/picture/tb16.png"/></a>
     <p>资讯正文</p>
 </div>
 
 <!--慈善咨询正文-->
 <div class="gash_zx">
-	<div class="tt">
-    	<p class="p1">兰州市慈善总会去年收到捐赠资金1441万元</p>
-    	<p class="p2">来源：人民健慈善新闻网<span>2020-05-14</span></p>
+    <div class="tt">
+        <p class="p1">{$data['Title']}</p>
+        <p class="p2">来源：{$data['Source']}<span>{$data['CreatTime']|date="Y-m-d H:i:s"}</span></p>
     </div>
     <div class="zw">
-    	<img src="/home/picture/tp13.png" />
-        <p>5月13日上午，兰州市慈善总会召开第三届理事会第五次会议。会议审议并通过了《兰州市慈善总会2020年工作报告》《兰州市慈善总会2020年度财务报告》《兰州市慈善总会第三届五次理事会人员增补及变动情况的说明》。</p>
-        <p>据《兰州市慈善总会2020年工作报告》显示，2020年兰州市慈善总会共收到社会各界捐赠资金收入1441万元，捐赠物资价值15万元，助困、助学、助医、助孤、助残、助老、赈灾、扶贫、基金等方面共计支出1239万元，其中善款支出1224万元，物资支出15万元。特别是在这次抗击新冠肺炎疫情和文县灾后重建的工作中，兰州市慈善总会汇集社会力量，持续发力，赢得了社会各界的肯定和赞誉。</p>
+        <img src="{$data['NewImg']}"/>
+        <p>{$data['Content']}</p>
+        <!--    	<img src="/home/picture/tp13.png" />-->
+        <!--        <p>5月13日上午，兰州市慈善总会召开第三届理事会第五次会议。会议审议并通过了《兰州市慈善总会2020年工作报告》《兰州市慈善总会2020年度财务报告》《兰州市慈善总会第三届五次理事会人员增补及变动情况的说明》。</p>-->
+        <!--        <p>据《兰州市慈善总会2020年工作报告》显示，2020年兰州市慈善总会共收到社会各界捐赠资金收入1441万元，捐赠物资价值15万元，助困、助学、助医、助孤、助残、助老、赈灾、扶贫、基金等方面共计支出1239万元，其中善款支出1224万元，物资支出15万元。特别是在这次抗击新冠肺炎疫情和文县灾后重建的工作中，兰州市慈善总会汇集社会力量，持续发力，赢得了社会各界的肯定和赞誉。</p>-->
     </div>
-	
-</div>
 
+</div>
 
 
 <!--慈善咨讯-->
 <div class="gash_cszx">
-	<div class="tt">
-    	<p>相关推荐</p>
+    <div class="tt">
+        <p>相关推荐</p>
     </div>
     <ul>
-    	<li>
-        	<img src="/home/picture/tp11.png" />
-            <div class="rt">
-            	<p>新疆丝绸古老手工艺焕发青春助力</p>
-                <p>四月初，在新疆和田市吉亚乡喀勒塔吐格曼村，第四代新疆艾德莱斯丝...</p>
-            </div>
-        </li>
+        {foreach $info as $k=>$v}
         <li>
-        	<img src="/home/picture/tp11.png" />
-            <div class="rt">
-            	<p>新疆丝绸古老手工艺焕发青春助力</p>
-                <p>四月初，在新疆和田市吉亚乡喀勒塔吐格曼村，第四代新疆艾德莱斯丝...</p>
-            </div>
+            <a href="{:URL('/home/gash_zx/'.$v['ID'])}">
+                <img src="{$v['NewImg']}"/>
+                <div class="rt">
+                    <p>{$v['Title']}</p>
+                    <p>{$v['Content']|mb_substr=0,20,'utf-8'}...</p>
+                </div>
+            </a>
         </li>
-        <li>
-        	<img src="/home/picture/tp11.png" />
-            <div class="rt">
-            	<p>新疆丝绸古老手工艺焕发青春助力</p>
-                <p>四月初，在新疆和田市吉亚乡喀勒塔吐格曼村，第四代新疆艾德莱斯丝...</p>
-            </div>
-        </li>
-        <li>
-        	<img src="/home/picture/tp11.png" />
-            <div class="rt">
-            	<p>新疆丝绸古老手工艺焕发青春助力</p>
-                <p>四月初，在新疆和田市吉亚乡喀勒塔吐格曼村，第四代新疆艾德莱斯丝...</p>
-            </div>
-        </li>
-        <li>
-        	<img src="/home/picture/tp11.png" />
-            <div class="rt">
-            	<p>新疆丝绸古老手工艺焕发青春助力</p>
-                <p>四月初，在新疆和田市吉亚乡喀勒塔吐格曼村，第四代新疆艾德莱斯丝...</p>
-            </div>
-        </li>
+        {/foreach}
     </ul>
 </div>
-
-
-
 
 
 <div style="height:1rem;"></div>

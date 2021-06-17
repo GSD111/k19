@@ -12,10 +12,6 @@ use think\facade\Route;
 
 
 
-//前端index页面
-
-
-
 Route::group('home',function(){
     Route::get('/index','Index/Index');
     Route::get('/index/:id','Index/Index');
@@ -23,13 +19,14 @@ Route::group('home',function(){
     Route::get('/xlzx','Index/Xlzx');
     Route::get('/zczx','Index/Zczx');
     Route::get('/zsxg_list','Index/ZsxgList');
+    Route::get('/TypeSearch/:type_id','Index/ZsxgList');
+    Route::get('/SearchKeywords','Index/ZsxgList');
+    Route::get('/zsxg_list2','Index/ZsxgList2');
     Route::get('/wzxqs_list','Index/WzxqsList');
     Route::get('/wzxqs_arc','Index/WzxqsArc');
     Route::get('/wzxqs_qs','Index/WzxqsQs');
     Route::get('/jsjb_list','Index/JsjbList');
-    Route::get('/gash','Index/Gash');
-    Route::get('/gash_zzjg','Index/GashZzjg');
-    Route::get('/gash_zx','Index/GashZx');
+
     Route::get('/xlzx_dh','Index/ZlzxDh');
     Route::get('/xlzx_qt','Index/XlzxQt');
     Route::get('/xlcs_list','Index/XlcsList');
@@ -39,22 +36,27 @@ Route::group('home',function(){
     Route::get('/ylcs03','Index/Ylcs03');
     Route::get('/ylcs04','Index/Ylcs04');
 
-//首页登录
+    //首页登录
     Route::any('/login','Homelogin/login');
     Route::post('/SendCaptcha','Homelogin/SendCaptcha');
     Route::post('/SingIn','Homelogin/SingIn');
 
-//问医生
+    //关爱社会
+    Route::get('/gash','CaringSociety/Gash');
+    Route::get('/gash_zzjg','CaringSociety/GashZzjg');
+    Route::get('/gash_zx/:id','CaringSociety/GashZx');
+
+    //问医生
     Route::get('/xlzxs_list','Askdoctor/XlzxsList');
     Route::get('/search/:id','Askdoctor/XlzxsList');
 
 
-//找医院
+    //找医院
     Route::get('/hosp_list','Findhospital/HospList');
     Route::get('/hosp_search/:id','Findhospital/HospList');
 
 
-//个人中心
+    //个人中心
     Route::get('/grzx_main','Personalcenter/GrzxMain');
 
 

@@ -4,12 +4,14 @@
 <div class="head3">
 	<div class="top">
     	<a href="javascript:history.go(-1);"><img src="/home/picture/tb38.png" class="fh" /></a>
-        <p><img src="/home/picture/tb39.png" class="rz" />申请入驻</p>
+<!--        <p><img src="/home/picture/tb39.png" class="rz" />申请入驻</p>-->
     </div>
     <div class="zxs_fn">
         <div class="find">
-            <input type="text" value="请输入城市" name="city" class="ct" />
-            <input type="submit" value="搜索" class="ser"/>
+            <form>
+                <input type="text" placeholder="请输入机构名称" name="keywords" class="ct" />
+                <input type="submit" value="搜索" class="ser"/>
+            </form>
         </div>
         <div style="clear:both;"></div>
     </div>
@@ -20,48 +22,15 @@
     	<p>慈善组织</p>
     </div>
     <ul>
-    	<li>
-        	<img src="/home/picture/tp12.png" />
-            <div class="rt">
-            	<p class="p1">信阳心理咨询</p>
-                <p class="p2">厚德使命；让中华儿女更卓越，中国家庭更幸福，中华民族更强大，我们就是...</p>
-            </div>
-        </li>
-        <li>
-        	<img src="/home/picture/tp12.png" />
-            <div class="rt">
-            	<p class="p1">信阳心理咨询</p>
-                <p class="p2">厚德使命；让中华儿女更卓越，中国家庭更幸福，中华民族更强大，我们就是...</p>
-            </div>
-        </li>
-        <li>
-        	<img src="/home/picture/tp12.png" />
-            <div class="rt">
-            	<p class="p1">信阳心理咨询</p>
-                <p class="p2">厚德使命；让中华儿女更卓越，中国家庭更幸福，中华民族更强大，我们就是...</p>
-            </div>
-        </li>
-        <li>
-        	<img src="/home/picture/tp12.png" />
-            <div class="rt">
-            	<p class="p1">信阳心理咨询</p>
-                <p class="p2">厚德使命；让中华儿女更卓越，中国家庭更幸福，中华民族更强大，我们就是...</p>
-            </div>
-        </li>
-        <li>
-        	<img src="/home/picture/tp12.png" />
-            <div class="rt">
-            	<p class="p1">信阳心理咨询</p>
-                <p class="p2">厚德使命；让中华儿女更卓越，中国家庭更幸福，中华民族更强大，我们就是...</p>
-            </div>
-        </li>
-        <li>
-        	<img src="/home/picture/tp12.png" />
-            <div class="rt">
-            	<p class="p1">信阳心理咨询</p>
-                <p class="p2">厚德使命；让中华儿女更卓越，中国家庭更幸福，中华民族更强大，我们就是...</p>
-            </div>
-        </li>
+        {foreach $data as $k=>$v}
+            <li>
+                <img src="{$v['Img']}" />
+                <div class="rt">
+                    <p class="p1">{$v['Title']}</p>
+                    <p class="p2">{$v['Brief']|mb_substr=0,20,'utf-8'}...</p>
+                </div>
+            </li>
+        {/foreach}
     </ul>
 </div>
 

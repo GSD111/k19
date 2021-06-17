@@ -3,13 +3,15 @@
 namespace app\home\controller;
 
 use app\BaseController;
+use app\home\model\Article;
 use app\home\model\Article as ArticleModel;
-use app\home\service\Article as ArticleService;
+use app\home\model\ArticleType;
 use app\home\model\FrontMenu;
 use app\home\model\FrontMenu as FrontMenuModel;
+use app\home\model\News;
+use app\home\service\Article as ArticleService;
 use app\home\service\FontMenu as FrontMenuService;
 use app\home\service\User as UserService;
-use think\facade\Cache;
 use think\facade\Request;
 use think\facade\View;
 
@@ -44,7 +46,6 @@ class Index extends BaseController
     }
 
 
-
     public function Xlzx($id)
     {
         $result = FrontMenuService::IsChildMenu($id);
@@ -75,8 +76,27 @@ class Index extends BaseController
 
     public function ZsxgList()
     {
+        $TypeId = Request::param('type_id');
+        $keywords = Request::param('keywords');
+        $ArticleType = ArticleType::GetArticleType();
 
+        if (empty(!$TypeId)) {
+            $ArticleAll = Article::SearchArticle($TypeId);
+        } elseif (empty(!$keywords)) {
+            $ArticleAll = Article::SearchKeywords($keywords);
+        } else {
+            $ArticleAll = Article::GetArticleAll();
+        }
+
+        View::assign('ArticleType', $ArticleType);
+        View::assign('ArticleAll', $ArticleAll);
         return View::fetch('home/zsxg_list');
+    }
+
+    public function ZsxgList2()
+    {
+//        ArticleType::GetArticleType();
+        return View::fetch('home/zsxg_list2');
     }
 
     public function WzxqsList()
@@ -105,7 +125,7 @@ class Index extends BaseController
     {
         $article = ArticleService::GetArticleDetail($id);
 //        halt($article);
-        View::assign('article',$article);
+        View::assign('article', $article);
 
         return View::fetch('home/arc_arc');
     }
@@ -116,21 +136,7 @@ class Index extends BaseController
         return View::fetch('home/jsjb_list');
     }
 
-    public function Gash()
-    {
 
-        return View::fetch('home/gash');
-    }
-
-    public function GashZzjg()
-    {
-        return View::fetch('home/gash_zzjg');
-    }
-
-    public function GashZx()
-    {
-        return View::fetch('home/gash_zx');
-    }
 
     public function ZlzxDh()
     {

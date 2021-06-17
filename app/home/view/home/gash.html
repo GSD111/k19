@@ -62,51 +62,17 @@
     	<p>慈善资讯</p>
     </div>
     <ul>
+        {foreach $News as $k=>$v}
     	<li>
-        	<a href="{:URL('/home/gash_zx')}">
-                <img src="/home/picture/tp11.png" />
+        	<a href="{:URL('/home/gash_zx/'.$v['ID'])}">
+                <img src="{$v['NewImg']}" />
                 <div class="rt">
-                    <p>新疆丝绸古老手工艺焕发青春助力</p>
-                    <p>四月初，在新疆和田市吉亚乡喀勒塔吐格曼村，第四代新疆艾德莱斯丝...</p>
+                    <p>{$v['Title']}</p>
+                    <p>{$v['Content']|mb_substr=0,20,'utf-8'}...</p>
                 </div>
             </a>
         </li>
-        <li>
-        	<a href="{:URL('/home/gash_zx')}">
-                <img src="/home/picture/tp11.png" />
-                <div class="rt">
-                    <p>新疆丝绸古老手工艺焕发青春助力</p>
-                    <p>四月初，在新疆和田市吉亚乡喀勒塔吐格曼村，第四代新疆艾德莱斯丝...</p>
-                </div>
-            </a>
-        </li>
-        <li>
-        	<a href="{:URL('/home/gash_zx')}">
-                <img src="/home/picture/tp11.png" />
-                <div class="rt">
-                    <p>新疆丝绸古老手工艺焕发青春助力</p>
-                    <p>四月初，在新疆和田市吉亚乡喀勒塔吐格曼村，第四代新疆艾德莱斯丝...</p>
-                </div>
-            </a>
-        </li>
-        <li>
-        	<a href="{:URL('/home/gash_zx')}">
-                <img src="/home/picture/tp11.png" />
-                <div class="rt">
-                    <p>新疆丝绸古老手工艺焕发青春助力</p>
-                    <p>四月初，在新疆和田市吉亚乡喀勒塔吐格曼村，第四代新疆艾德莱斯丝...</p>
-                </div>
-            </a>
-        </li>
-        <li>
-        	<a href="{:URL('/home/gash_zx')}">
-                <img src="/home/picture/tp11.png" />
-                <div class="rt">
-                    <p>新疆丝绸古老手工艺焕发青春助力</p>
-                    <p>四月初，在新疆和田市吉亚乡喀勒塔吐格曼村，第四代新疆艾德莱斯丝...</p>
-                </div>
-            </a>
-        </li>
+        {/foreach}
     </ul>
 </div>
 

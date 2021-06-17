@@ -4,9 +4,9 @@
 namespace app\home\model;
 
 
-use think\Model;
 use app\home\enum\StatusCode;
 use app\home\model\Article as ArticleModel;
+use think\Model;
 
 class FrontMenu extends Model
 {
@@ -35,8 +35,8 @@ class FrontMenu extends Model
         if ($bottommenu->isEmpty()) {
             return false;
         }
-        foreach ($bottommenu as $k=>$v){
-             $bottommenu[$k]['article'] = ArticleModel::GetByArticle($v['ID']);
+        foreach ($bottommenu as $k => $v) {
+            $bottommenu[$k]['article'] = ArticleModel::GetByArticle($v['ID']);
 //             dump($v['ID']);
 //             dd(ArticleModel::GetByArticle($v['ID']));
         }

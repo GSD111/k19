@@ -69,8 +69,8 @@
         <div class="hx"></div>
         <div class="tj">
        		<p class="p4">提交订单即表示您已经同意我们提供的<span>服务协议</span></p>
-            <p class="p5"><span>19.9元</span> /30分钟</p>	
-            <p class="p6" id="reg">提交</p>   
+<!--            <p class="p5"><span>19.9元</span> /30分钟</p>	-->
+            <p style="margin-top:20px;" class="p6" id="reg">提交</p>
         </div>
         
         
@@ -114,7 +114,9 @@
     })
 
     $('.specialty').click(function(){
-        var val = $(this).attr('index')
+        var val = $(this).attr('index');
+        $('.specialty').removeClass('chk');
+        $(this).addClass('chk');
         console.log(val)
     })
 

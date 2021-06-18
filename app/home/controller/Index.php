@@ -8,10 +8,10 @@ use app\home\model\Article as ArticleModel;
 use app\home\model\ArticleType;
 use app\home\model\FrontMenu;
 use app\home\model\FrontMenu as FrontMenuModel;
-use app\home\model\News;
 use app\home\service\Article as ArticleService;
 use app\home\service\FontMenu as FrontMenuService;
 use app\home\service\User as UserService;
+use think\facade\Db;
 use think\facade\Request;
 use think\facade\View;
 
@@ -101,17 +101,42 @@ class Index extends BaseController
 
     public function WzxqsList()
     {
+
+        $data = UserService::DoctorTalk()->toArray();
+        foreach ($data as $k => $v) {
+            $data[$k]['Specialty'] = json_decode($v['Specialty']);
+        }
+//        halt($data);
+        View::assign('data', $data);
+
         return View::fetch('home/wzxqs_list');
     }
 
-    public function WzxqsArc()
+    public function WzxqsArc($id)
     {
+        $info = UserService::DoctorTalk()->where('UserId', $id)->first();
+        $info['Specialty'] = json_decode($info['Specialty']);
+//        halt($info);
 
+        View::assign('info', $info);
         return View::fetch('home/wzxqs_arc');
     }
 
-    public function WzxqsQs()
+    public function WzxqsQs($id)
     {
+        $user_avatar = Request::param('user_avatar');
+        $name = Request::param('name');
+//        halt($name);
+        $info = UserService::DoctorTalkDetail($id)->toArray();
+        $info['Specialty'] = json_decode($info['Specialty']);
+
+        $DoctorPrice = UserService::DoctorPriceList($id);
+
+        View::assign('info',$info);
+        View::assign('DoctorPrice',$DoctorPrice);
+        View::assign('name',$name);
+        View::assign('user_avatar',$user_avatar);
+
         return View::fetch('home/wzxqs_qs');
     }
 
@@ -135,7 +160,6 @@ class Index extends BaseController
 
         return View::fetch('home/jsjb_list');
     }
-
 
 
     public function ZlzxDh()

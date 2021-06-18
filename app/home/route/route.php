@@ -23,8 +23,8 @@ Route::group('home',function(){
     Route::get('/SearchKeywords','Index/ZsxgList');
     Route::get('/zsxg_list2','Index/ZsxgList2');
     Route::get('/wzxqs_list','Index/WzxqsList');
-    Route::get('/wzxqs_arc','Index/WzxqsArc');
-    Route::get('/wzxqs_qs','Index/WzxqsQs');
+    Route::get('/wzxqs_arc/:id','Index/WzxqsArc');
+    Route::get('/wzxqs_qs/:id','Index/WzxqsQs');
     Route::get('/jsjb_list','Index/JsjbList');
 
     Route::get('/xlzx_dh','Index/ZlzxDh');

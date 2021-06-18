@@ -3,22 +3,26 @@
 <body style="background:#f5f5f5;">
 <div class="head2">
 	<a href="javascript:history.go(-1);"><img src="/home/picture/tb16.png" /></a>
-    <p>贾金鼎</p>
+    <p>{$info['Name']}</p>
 </div>
 <div class="wzxqs_arc">
 	<div class="qsdx">
-    	<img src="/home/picture/tp07.png" />
+    	<img src="{$info['UserAvatar']}" />
     	<div class="rt">
-            <p class="p1">贾金鼎<span>语音倾诉</span></p>
-            <p class="p2">倾听是对他人的一种恭敬，一种尊重，一分理解，一分虔诚</p>
-            <p class="p3"><span>婚姻</span><span>职场</span><span>人际</span></p>
-            <p class="p4 clr">服务人数：<span>500</span> &nbsp;&nbsp;&nbsp;好评率：<span>98%</span></p>
+            <p class="p1">{$info['Name']}<span>语音倾诉</span></p>
+            <p class="p2">{$info['Signature']}</p>
+            <p class="p3">
+                {foreach $info['Specialty'] as $k=>$item}
+                    <span>{$item}</span>
+                {/foreach}
+            </p>
+            <p class="p4 clr">服务人数：<span>{$info['ServiceNum']}</span> &nbsp;&nbsp;&nbsp;好评率：<span>{$info['PraiseRate']}%</span></p>
         </div>
     </div>
 	<div class="xz">
-    	<a href="{:URL('/home/wzxqs_qs')}">
+    	<a href="{:URL('/home/wzxqs_qs/'.$info['UserId'].'?user_avatar='.$info['UserAvatar'].'&name='.$info['Name'])}">
         	<p class="p1">语音倾听</p>
-            <p class="p2">10元30分钟</p>
+<!--            <p class="p2">10元30分钟</p>-->
         </a>
 <!--        <a href="#">-->
 <!--        	<p class="p1">文字倾听</p>-->
@@ -27,13 +31,17 @@
     </div>
     <div class="nr">
     	<p class="p1"><img src="/home/picture/tb32.png" />资质</p>
-        <p class="p2">临床医学精神学专家     高级青少年心灵导师     中国资深婚恋专家   </p>
+        <p class="p2">{$info['Qualification']}   </p>
         <p class="p1"><img src="/home/picture/tb32.png" />擅长</p>
-        <p class="p2">神经症，抑郁症，焦虑症，社交恐惧，疑病症精神病康复等</p>
+        <p class="p2">
+            {foreach $info['Specialty'] as $k=>$item}
+              <span>{$item}</span>
+            {/foreach}
+        </p>
         <p class="p1"><img src="/home/picture/tb32.png" />个人简介</p>
-        <p class="p2">国家级著名心理专家，毕业于河南省新乡医学院“临床医学”，硕士毕业于武汉大学“应用心理学”专业。多年临床职场管心理学研究型专家，尤为神经症，抑郁症，焦虑症，社交恐惧，疑病症精神病康复等擅长青少年心理辅导及家庭资深专家。临床医学专业知识与硕士研究生的应用心理学相关知识相结合，潜心研究心理学与医学的精华，并运用于咨询与治疗心理问题的实践，开创了一条以心理辅导为主，以生理调节为辅的咨询道路。参加省市级心理援助计划的社会实践活动近百余次，公益服务时间达千余小时。</p>
+        <p class="p2">{$info['Remark']}</p>
         <p class="p1"><img src="/home/picture/tb32.png" />个人履历</p>
-        <p class="p2">曾经在xxxx咨询机构任职，参与过xxxxxx，海外留学三年，</p>
+        <p class="p2">{$info['Resume']}</p>
     </div>
 </div>
 <!--用户评价-->

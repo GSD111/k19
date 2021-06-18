@@ -17,15 +17,18 @@
         </div>
         <div class="qs_zxs">
         	<div class="lt">
-            	<img src="/home/picture/tp09.png" />
-                <p class="p1">贾金鼎</p>
+            	<img src="{$user_avatar}" />
+                    <p class="p1">{$name}</p>
                 <p class="p2">心理咨询师</p>
             </div>
             <div class="rt">
             	<ul>
-                	<li>15分钟</li>
-                    <li>30分钟</li>
-                    <li>45分钟</li>
+                    {foreach $DoctorPrice as $k=>$v}
+                       <li class="time" index="{$v['ID']}">{$v['Time']}分钟</li>
+                    {/foreach}
+<!--                	<li>15分钟</li>-->
+<!--                    <li>30分钟</li>-->
+<!--                    <li>45分钟</li>-->
                 </ul>
             </div>
         </div>
@@ -36,16 +39,25 @@
         	<p>倾诉方向</p>
         </div>
         <ul>
-        	<li><p>婚恋</p></li>
-            <li><p>职场</p></li>
-            <li><p>婚恋</p></li>
-            <li><p>职场</p></li>
-            <li><p>婚恋</p></li>
-            <li><p>职场</p></li>
-            <li class="chk"><p>婚恋</p></li>
-            <li><p>职场</p></li>
+                {foreach $info['Specialty'] as $k=>$item}
+                    <li>
+                        <p class='specialty' index="{$item}">{$item}</p>
+                    </li>
+                {/foreach}
+<!--        	<li><p>婚恋</p></li>-->
+<!--            <li><p>职场</p></li>-->
+<!--            <li><p>婚恋</p></li>-->
+<!--            <li><p>职场</p></li>-->
+<!--            <li><p>婚恋</p></li>-->
+<!--            <li><p>职场</p></li>-->
+<!--            <li class="chk"><p>婚恋</p></li>-->
+<!--            <li><p>职场</p></li>-->
         </ul>
-        <p class="p1">小计金额：<span>10元</span></p>
+        <p class="p1">小计金额：
+            {foreach $DoctorPrice as $k=>$v}
+                <span class="price" style="display:none;" index-item="{$v['ID']}">{$v['Money']}元</span>
+            {/foreach}
+        </p>
         <div class="xz clr">
         	 <p class="p2">姓名：</p>
         	 <input type="text" class="inp01"/>
@@ -90,6 +102,22 @@
 	$("#reg").click(function(){
 		$(".fftc").css('display','block');
 		});
+
+	$('.price').hide();
+	$('.price').eq(0).show();
+
+    $('.time').click(function(){
+        var indexVal=$(this).attr('index');
+        // console.log(indexVal)
+        $('.price').hide();
+        $('.price[index-item="'+indexVal+'"]').show();
+    })
+
+    $('.specialty').click(function(){
+        var val = $(this).attr('index')
+        console.log(val)
+    })
+
 </script>
 
 

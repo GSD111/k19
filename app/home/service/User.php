@@ -3,6 +3,7 @@
 namespace app\home\service;
 
 use app\home\enum\StatusCode;
+use app\home\model\HospitalApply;
 use app\home\model\User as UserModel;
 use think\facade\Db;
 
@@ -31,14 +32,14 @@ class User
 
 //        $user = self::GetIsRecommendAll()->where('IsDoctor', StatusCode::USER_DOCTOR);
         $user = Db::table('user')
-        ->join('hospitalapply', 'user.ID = hospitalapply.UserId')
-        ->where('Status', StatusCode::HOSPITAL_APPLY_SUCCESS)
-        ->where('IsRecommend', StatusCode::USER_RECOMMEND)
-        ->where('IsDoctor', StatusCode::USER_DOCTOR)
-        ->visible(['Name', 'UserAvatar', 'UserId', 'AreaId', 'IsDoctor',
-            'IsRecommend', 'Status', 'IsPersion', 'RealName', 'HospitalID'])
-        ->limit(4)
-        ->select();
+            ->join('hospitalapply', 'user.ID = hospitalapply.UserId')
+            ->where('Status', StatusCode::HOSPITAL_APPLY_SUCCESS)
+            ->where('IsRecommend', StatusCode::USER_RECOMMEND)
+            ->where('IsDoctor', StatusCode::USER_DOCTOR)
+            ->visible(['Name', 'UserAvatar', 'UserId', 'AreaId', 'IsDoctor',
+                'IsRecommend', 'Status', 'IsPersion', 'RealName', 'HospitalID'])
+            ->limit(4)
+            ->select();
 //        halt($user);
         if ($user->isEmpty()) {
             return false;
@@ -126,6 +127,49 @@ class User
     public static function SearchAreaHospital($AreaId)
     {
         $data = self::GetHospitalAll()->where('AreaId', $AreaId);
+
+        return $data;
+    }
+
+    /*
+     * 倾述一刻所有医生的信息
+     */
+    public static function DoctorTalk()
+    {
+        $data = Db::table('user')
+            ->join('hospitalapply', 'user.ID = hospitalapply.UserId')
+            ->join('usertalk', 'user.ID = usertalk.UserID')
+            ->where('Status', StatusCode::HOSPITAL_APPLY_SUCCESS)
+            ->where('IsDoctor', StatusCode::USER_DOCTOR)
+            ->visible(['RealName', 'UserAvatar', 'IsDoctor', 'Sex', 'Remark', 'Qualification', 'Resume',
+                'Signature', 'Name', 'Specialty', 'Status', 'UserId', 'ServiceNum', 'PraiseRate'])
+            ->select();
+
+        return $data;
+
+    }
+
+    /*
+     * 倾述一刻某一个医师的相关信息
+     * @params string $id医师id
+     */
+
+    public static function DoctorTalkDetail($id)
+    {
+        $data = HospitalApply::where('UserId', $id)->visible(['Name', 'Specialty'])->find();
+
+        return $data;
+    }
+
+    /*
+     * 医师的价格信息
+     * @params string $id医师id
+     */
+    public static function DoctorPriceList($id)
+    {
+        $data = Db::table('doctorprice')
+            ->where('UserID', $id)
+            ->visible(['ID', 'Money', 'Time', 'UserID'])->select();
 
         return $data;
     }

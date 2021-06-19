@@ -140,6 +140,17 @@ class Index extends BaseController
         return View::fetch('home/wzxqs_qs');
     }
 
+    public function GetUserTalkOrder(){
+//       halt(Request::param('doctor_price_id'),Request::param());
+        $data = file_get_contents("php://input");
+        $info = json_decode($data,true);
+        halt($info);
+        //根据前端传递的支付类别请求对应的支付接口
+        //调用相应支付接口
+        //支付成功将订单信息存进订单表，修改订单状态
+        //根据订单状态来给对应的医生发送通知短信
+    }
+
 //    public function XlzxsArc()
 //    {
 //

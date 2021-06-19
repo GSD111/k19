@@ -25,6 +25,9 @@ Route::group('home',function(){
     Route::get('/wzxqs_list','Index/WzxqsList');
     Route::get('/wzxqs_arc/:id','Index/WzxqsArc');
     Route::get('/wzxqs_qs/:id','Index/WzxqsQs');
+    Route::post('/UserTalkOrder','Index/GetUserTalkOrder');
+
+
     Route::get('/jsjb_list','Index/JsjbList');
 
     Route::get('/xlzx_dh','Index/ZlzxDh');

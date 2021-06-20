@@ -9,27 +9,19 @@
 <div class="grzx_wdgz">
 	<div class="gz">
     	<div class="tt">
-        	<p><img src="/home/picture/tb51.png" />我关注的文章</p>
+        	<p><img src="/home/picture/tb51.png" />我浏览的文章</p>
         </div>
         <ul>
-        	<li>
-            	<p class="p1">抑郁症前兆的10个表现</p>
-                <p class="p2">2021-05-10&nbsp;阅读：500</p>
-                <p class="p3"><img src="/home/picture/tb52.png" />取消关注</p>
-                <p class="p4">5月13日上午，兰州市慈善总会召开第三届理事会第五次会议。会议审议并通过了...</p>
-            </li>
-            <li>
-            	<p class="p1">抑郁症前兆的10个表现</p>
-                <p class="p2">2021-05-10&nbsp;阅读：500</p>
-                <p class="p3"><img src="/home/picture/tb52.png" />取消关注</p>
-                <p class="p4">5月13日上午，兰州市慈善总会召开第三届理事会第五次会议。会议审议并通过了...</p>
-            </li>
-            <li>
-            	<p class="p1">抑郁症前兆的10个表现</p>
-                <p class="p2">2021-05-10&nbsp;阅读：500</p>
-                <p class="p3"><img src="/home/picture/tb52.png" />取消关注</p>
-                <p class="p4">5月13日上午，兰州市慈善总会召开第三届理事会第五次会议。会议审议并通过了...</p>
-            </li>
+            {foreach $user_article as $k=>$v}
+            <a href="{:URL('/home/arc_arc/'.$v['ID'])}">
+                <li>
+                    <p class="p1">{$v['Title']}</p>
+                    <p class="p2">{$v['CreateTime']|date="Y-m-d"}&nbsp;阅读：{$v['ReadNum']}</p>
+    <!--                <p class="p3"><img src="/home/picture/tb52.png" />取消关注</p>-->
+                    <p class="p4">{$v['Content']|mb_substr=0,15,'utf-8'}...</p>
+                </li>
+            </a>
+            {/foreach}
         </ul>
     </div>
     <div class="gzys">
@@ -37,42 +29,68 @@
         	<p><img src="/home/picture/tb51.png" />我关注的医生</p>
         </div>
         <ul>
-        	<li>
-            	<img src="/home/picture/tb07.png" class="txtb" />
-                <p class="p1">贾金鼎</p>
-                <p class="p3"><img src="/home/picture/tb52.png" />取消关注</p>
-            </li>
-            <li>
-            	<img src="/home/picture/tb07.png" class="txtb" />
-                <p class="p1">贾金鼎</p>
-                <p class="p3"><img src="/home/picture/tb52.png" />取消关注</p>
-            </li>
-            <li>
-            	<img src="/home/picture/tb07.png" class="txtb" />
-                <p class="p1">贾金鼎</p>
-                <p class="p3"><img src="/home/picture/tb52.png" />取消关注</p>
-            </li>
+            {foreach $user_follow_doctor as $k=>$v}
+                <li>
+                    <a href="{:URL('/home/xlzxs_arc/'.$v['ID'])}">
+                        <img src="{$v['UserAvatar']}" class="txtb" />
+                        <p class="p1">{$v['RealName']}</p>
+                        <p class="p3">
+                            <a href="javascript:" onclick="UnFollow({$v['ID']})">
+                               <img src="/home/picture/tb52.png" />
+                                取消关注
+                            </a>
+                        </p>
+                    </a>
+                </li>
+            {/foreach}
         </ul>
     </div>
-    <div class="gz">
-    	<div class="tt">
-        	<p><img src="/home/picture/tb51.png" />我关注的文章</p>
-        </div>
-        <ul>
-        	<li>
-            	<p class="p1">抑郁症前兆的10个表现</p>
-                <p class="p2">2021-05-10&nbsp;阅读：500</p>
-                <p class="p3"><img src="/home/picture/tb52.png" />取消关注</p>
-                <p class="p4">5月13日上午，兰州市慈善总会召开第三届理事会第五次会议。会议审议并通过了...</p>
-            </li>
-        </ul>
-    </div>
+<!--    <div class="gz">-->
+<!--    	<div class="tt">-->
+<!--        	<p><img src="/home/picture/tb51.png" />我关注的文章</p>-->
+<!--        </div>-->
+<!--        <ul>-->
+<!--        	<li>-->
+<!--            	<p class="p1">抑郁症前兆的10个表现</p>-->
+<!--                <p class="p2">2021-05-10&nbsp;阅读：500</p>-->
+<!--                <p class="p3"><img src="/home/picture/tb52.png" />取消关注</p>-->
+<!--                <p class="p4">5月13日上午，兰州市慈善总会召开第三届理事会第五次会议。会议审议并通过了...</p>-->
+<!--            </li>-->
+<!--        </ul>-->
+<!--    </div>-->
     
     
     <div style="height:2rem; clear:both;"></div>
 </div>
 
+{load href="/admin/lib/layui/layui.js"}
 
+<script>
+
+    layui.use(['form', 'code'], function () {
+        form = layui.form;
+
+    });
+
+    function UnFollow(id){
+        console.log(id)
+        $.ajax({
+            url:'/home/UnFollow/'+id,
+            type:'GET',
+            data:{},
+            dataType:'JSON',
+            success:function (data){
+                if(data['code'] == 200){
+                    layer.msg(data.msg, {icon: 1, time: 1500});
+                    location.reload();
+                }else{
+                    layer.msg(data.msg, {icon: 5, time: 2000});
+                }
+            }
+
+        })
+    }
+</script>
 
 
 

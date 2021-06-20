@@ -7,7 +7,9 @@ namespace app\home\controller;
 use app\BaseController;
 use app\home\enum\StatusCode;
 use app\home\model\HospitalApply;
+use app\home\service\Article;
 use think\facade\Cache;
+use think\facade\Db;
 use think\facade\View;
 
 class Personalcenter extends BaseController
@@ -18,6 +20,7 @@ class Personalcenter extends BaseController
      */
     public function GrzxMain()
     {
+
         $user_phone = Cache::get('users')['phone'];
         $user_id = Cache::get('users')['id'];
         $doctor = Cache::get('users')['doctor'];
@@ -71,8 +74,27 @@ class Personalcenter extends BaseController
 
     public function GrzxWdgz()
     {
+        $user_id = Cache::get('users')['id'];
+        $user_article = Article::GetUserArticle($user_id);
 
+        $user_follow_doctor = Article::GetUserFollowDoctor($user_id);
+
+        View::assign('user_article',$user_article);
+        View::assign('user_follow_doctor',$user_follow_doctor);
         return View::fetch('home/grzx_wdgz');
+    }
+
+    public function DelFollow($user_id){
+
+        $data = Db::table('userfollow')->where('Doctor',$user_id)->delete();
+        if($data){
+            return $data = ['code'=>200 ,'msg'=>'已取消'];
+        }else{
+            return $data = ['code'=>405 ,'msg'=>'取消失败'];
+        }
+//        if($data){
+//            return "<script>alert('已取消');window.history.go(-1);</script>";
+//        }
     }
 
     public function GrzxJgrz()

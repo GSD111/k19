@@ -15,7 +15,14 @@
 <!--            <p class="p3">信阳心理咨询</p>-->
         </div>
         <a href="#">向他咨询</a>
-        <a href="#" class="a2">关注</a>
+
+        {if empty($result)}
+            <a href="javascript:" onclick="UserFollow()" class="a2">关注</a>
+        {else /}
+            <a href="javascript:" class="followed" style="background:gray;margin-top:10px;">已关注</a>
+        {/if}
+
+
     </div>
     <div class="mk02">
         {if empty(!$ParentName)}
@@ -51,6 +58,33 @@
     </div>
     
 </div>
+{load href="/admin/lib/layui/layui.js"}
+
+<script>
+
+    layui.use(['form', 'code'], function () {
+        form = layui.form;
+
+    });
+
+    function UserFollow(){
+        $.ajax({
+            url:'/home/UserFollow/'+{$DoctorDetail['UserId']},
+            type:'POST',
+            data:{},
+            dataType:'JSON',
+            success:function (data){
+                if(data['code'] == 200){
+                    layer.msg(data.msg, {icon: 1, time: 1500});
+                    location.reload();
+                }else{
+                    layer.msg(data.msg, {icon: 5, time: 2000});
+                }
+            }
+
+        })
+    }
+</script>
 
 <!--底部js-->
 <!--<script type="text/javascript" src="js/footer.js"></script>-->

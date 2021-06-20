@@ -173,4 +173,34 @@ class User
 
         return $data;
     }
+
+
+    /*
+     * 用户关注医师
+     */
+
+    public static function UserFollowDoctor($user_id, $doctor_id)
+    {
+        $result = Db::table('userfollow')->where('UserID', $user_id)
+            ->where('Doctor', $doctor_id)
+            ->find();
+
+        if (empty($result)) {
+            $data = Db::table('userfollow')
+                ->save([
+                    'UserID' => $user_id,
+                    'Doctor' => $doctor_id,
+                    "CreateTime" => time()
+                ]);
+        } else {
+            $data = Db::table('userfollow')->where('Doctor', $doctor_id)->save([
+                'UpdateTime' => time(),
+            ]);
+        }
+
+        return $data;
+
+    }
+
+
 }

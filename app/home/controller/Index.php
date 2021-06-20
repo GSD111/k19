@@ -11,6 +11,7 @@ use app\home\model\FrontMenu as FrontMenuModel;
 use app\home\service\Article as ArticleService;
 use app\home\service\FontMenu as FrontMenuService;
 use app\home\service\User as UserService;
+use think\facade\Cache;
 use think\facade\Db;
 use think\facade\Request;
 use think\facade\View;
@@ -157,9 +158,14 @@ class Index extends BaseController
 //        return View::fetch('home/xlzxs_arc');
 //    }
 
+
     public function ArcArc($id)
     {
+//        halt(Cache::get('users')['id']);
+        $user_id = Cache::get('users')['id'];
         $article = ArticleService::GetArticleDetail($id);
+
+        ArticleService::UserArticleRecord($user_id,$id);
 //        halt($article);
         View::assign('article', $article);
 

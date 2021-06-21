@@ -6,6 +6,7 @@ namespace app\home\controller;
 
 use app\BaseController;
 use app\home\model\HospitalApply;
+use think\facade\Cache;
 use think\facade\Filesystem;
 use think\facade\Request;
 
@@ -19,7 +20,7 @@ class Certification extends BaseController
     {
         $file = Request::file('license_permission');
         try {
-            $result = validate(['image' => ['fileSize:1024*1024', 'fileExt:gif,jpg,png']])->check(['image' => $file]);
+            $result = validate(['image' => ['fileExt:gif,jpg,png']])->check(['image' => $file]);
 //        halt($arr);
 //            halt(implode(',', Request::param('specialty')));
             if ($result) {
@@ -35,6 +36,7 @@ class Certification extends BaseController
                 $user->Address = Request::param('address');
                 $user->Specialty = json_encode(Request::param('specialty'));
                 $user->UserPhone = Request::param('user_phone');
+                $user->UserId = Cache::get('users')['id'];
                 $user->LicensePermission = $picCover;
                 $user->BusinessTime = Request::param('business_time');
                 $user->CreateTime = time();
@@ -70,7 +72,7 @@ class Certification extends BaseController
     {
         $files = Request::file('business_license');
         try {
-            $rules = validate(['images' => ['fileSize:1024*1024,fileExt:gif,jpg,png']])->check(['images' => $files]);
+            $rules = validate(['images' => ['fileExt:gif,jpg,png']])->check(['images' => $files]);
 //        halt($arr);
             if ($rules) {
                 $paths = Filesystem::disk('public')->putFile('static', $files);
@@ -84,6 +86,7 @@ class Certification extends BaseController
                 $user->Address = Request::param('address');
                 $user->UserName = Request::param('user_name');
                 $user->UserPhone = Request::param('user_phone');
+                $user->UserId = Cache::get('users')['id'];
                 $user->BusinessLicense = $picCover;
                 $user->BusinessTime = Request::param('business_time');
                 $user->CreateTime = time();

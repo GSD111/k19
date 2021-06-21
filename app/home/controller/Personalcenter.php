@@ -27,19 +27,19 @@ class Personalcenter extends BaseController
         $user_phone = Cache::get('users')['phone'];
         $user_id = Cache::get('users')['id'];
         $doctor = Cache::get('users')['doctor'];
-//        $persion = Cache::get('users')['persion'];
+        $persion = Cache::get('users')['persion'];
 //        halt($persion);
 //        /*
 //         * 检测当前登录者的身份信息
 //         */
-//        if($persion == StatusCode::USER_PERSION){
-//            $data = HospitalApply::GetApplayAll($user_id);
-//            $HospitalDoctor = HospitalApply::GetHospitalDoctor($user_id)->toArray();
-////            halt($data);
-//            View::assign('data',$data);
-//            View::assign('HospitalDoctor',$HospitalDoctor);
-//            return View::fetch('home/sjzx_main');
-//        }
+        if($persion == StatusCode::USER_PERSION){
+            $data = HospitalApply::GetApplayAll($user_id);
+            $HospitalDoctor = HospitalApply::GetHospitalDoctor($user_id)->toArray();
+//            halt($data);
+            View::assign('data',$data);
+            View::assign('HospitalDoctor',$HospitalDoctor);
+            return View::fetch('home/sjzx_main');
+        }
 
 
 //        $user = HospitalApply::where('ID', $user_id)->find();
@@ -104,12 +104,13 @@ class Personalcenter extends BaseController
 
     public function GrzxJgrz()
     {
-
+        halt(Cache::get('users')['id']);
         return View::fetch('home/grzx_jgrz');
     }
 
     public function GrzxYsrz()
     {
+
         return View::fetch('home/grzx_ysrz');
     }
 

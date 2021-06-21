@@ -165,6 +165,7 @@ class Index extends BaseController
         $user_id = Cache::get('users')['id'];
 //        halt($user_id);
         $article = ArticleService::GetArticleDetail($id);
+//        halt($article);
         $article_message = ArticleService::GetUserArticleMessage($id);
 //        halt($article_message);
         ArticleService::UserArticleRecord($user_id,$id);
@@ -184,7 +185,7 @@ class Index extends BaseController
             'UserID' => Cache::get('users')['id'],
             'ArticleID'=> Request::param('article_id'),
             'MessageContent'=>Request::param('message_content'),
-            'is_anonymous'=>Request::param('IsAnonymous'),
+            'IsAnonymous'=>Request::param('is_anonymous'),
             'CreateTimes'=>time()
         ]);
         if($data){

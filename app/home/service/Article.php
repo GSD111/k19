@@ -14,8 +14,11 @@ class Article
      */
     public static function GetArticleDetail($id)
     {
-        $article = Db::table('article')->join('user', 'user.ID = article.UserID')->where('article.ID', $id)
-            ->visible(['ID', 'Title', 'RealName', 'Content', 'ReadNum', 'CreateTimes', 'ArticleImg','IsMessage'])->find();
+        $article = Db::table('article')
+            ->join('user', 'user.ID = article.UserID')
+            ->where('article.ID', $id)
+            ->visible(['ID', 'Title', 'RealName', 'Content', 'ReadNum', 'ArticleImg','IsMessage'])
+            ->find();
 //        Db::table('article')->where('ID',$id)->inc('ReadNum');
 
         return $article;

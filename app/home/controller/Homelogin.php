@@ -39,6 +39,7 @@ class Homelogin extends BaseController
             if (empty($result)) {
                 $result = User::create([
                     'PhoneNumber' => $phone,
+                    'CreateTime'=>time()
                 ]);
                 Cache::set('users', ['id' => $result->ID, 'phone' => $result->PhoneNumber,
                     'doctor' => $result->IsDoctor,'persion'=>$result->IsPersion]);

@@ -37,7 +37,7 @@ class HospitalApply extends Model
             ->where('UserId', $user_id)
             ->visible(['Name', 'Province', 'City', 'Area', 'Address',
                 'UserPhone', 'BusinessTime', 'UserAvatar', 'Remark',
-                'HospitalID', 'UserId', 'RealName', 'Specialty','UserName'])
+                'HospitalID', 'UserId', 'RealName', 'Specialty','UserName','Status'])
             ->find();
 
         return $ApplayAll;

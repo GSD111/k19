@@ -31,16 +31,22 @@
 <!--       <div class="kg"></div>-->
 <!--    </div>-->
     <div class="xl">
+        <form  method="post" action="{:URL('/home/user_avatar')}" enctype="multipart/form-data">
     	<p class="p1"><span></span>更改头像<img src="/home/picture/tb50.png" /></p>
         <div style="width:76%;display:flex;margin:auto;margin-top:20px;">
-            <div class="id_img_wp">
-                <input type="file" name="license_permission" onchange="getzImg(this)" style="display:none" value="" id="img_z"/>
-                <div class="img_wp" onclick="upload()">
-                    <img style="width:204px;height:130px;" src="/home/picture/upload.png" id="zmz">
+
+                <div class="id_img_wp">
+                    <input type="file" name="user_avatar" onchange="getzImg(this)" style="display:none" value="" id="img_z"/>
+                    <div class="img_wp" onclick="upload()">
+                        <img style="width:204px;height:130px;" src="/home/picture/upload.png" id="zmz">
+                    </div>
                 </div>
-            </div>
-            <!--                <img src="/home/picture/tp18.png" class="sc"/>-->
+
         </div>
+            <div style="text-align: center;display:flex;">
+                <input style="margin:auto;background: #6fc750;text-align: center;width:40%;height:40px;color:#fff;margin-bottom:20px;" type="submit" value="提交" class="tj" />
+            </div>
+        </form>
 
 <!--        <div style="display: flex;">-->
 <!--            <input style="margin:auto;" type="submit" class="tj" value="上传" />-->

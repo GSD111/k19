@@ -1,5 +1,51 @@
 ﻿{include file="home/header" /}
-
+{load href="/admin/js/xadmin.js"}
+{load href="/admin/css/xadmin.css"}
+{load href="/admin/lib/layui/layui.js"}
+<style type="text/css">
+    .widget {
+        z-index: 9999;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0,0,0,.5);
+    }
+    .widget .body {
+        width: 300px;
+        background: #fff;
+        padding: 20px 10px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        text-align: center;
+        position: absolute;
+        font-size: 14px;
+        top: 50%;
+        left: 50%;
+        height:215px;
+        transform: translate(-50%, -50%);
+    }
+    .widget .body .btns {
+        margin-top: 13px;
+    }
+    .widget .body .btns a.btn-cancel {
+        color: #fff;
+        background: #FF5722;
+    }
+    .widget .body .btns input {
+        background: inherit;
+        background-color: rgba(68, 181, 73, 1);
+        border: none;
+        border-radius: 2px;
+        color: #fff;
+        font-size: 14px;
+        display: inline-block;
+        padding: 8px 25px;
+        cursor: pointer;
+        margin-left: 10px;
+    }
+</style>
 <body style="background:#f5f5f5;">
 <div class="head2">
 	<a href="javascript:history.go(-1);"><img src="/home/picture/tb16.png" /></a>
@@ -15,11 +61,78 @@
 </div>
 
 
+    <!--用户评价-->
+        <div class="yhpj">
+            <div class="tt">
+                <p>用户评价
+                    <img src="/home/picture/tb33.png" />
+                    <span style="float:right;" id="user_message">马上评论</span>
+                </p>
+
+            </div>
+            <ul>
+                {foreach $article_message as $k=>$v}
+                <li>
+                    <p class="p1">用户：{$v['RealName']}<span>{$v['CreateTimes']|date='Y-m-d'}</span></p>
+                    <p class="p2">{$v['MessageContent']}</p>
+                </li>
+                {/foreach}
+            </ul>
+        </div>
+
+
+
+    <div class="widget widget1"  id="window" style="display:none;">
+       <div class="body">
+        <div class="msg">
+                <form class="layui-form layui-col-md12  layui-form-pane" action="{:URL('/home/user_message')}" method="post">
+                    <div class="layui-form-item layui-form-text">
+                        <div class="layui-input-block">
+                            <textarea placeholder="请输入内容" class="layui-textarea" name="message_content"></textarea>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-input-block" style="width:70%;">
+                            <input type="radio" name="is_anonymous" value="0" title="匿名" checked="">
+                            <input type="radio" name="is_anonymous" value="1" title="不匿名">
+                        </div>
+                    </div>
+                    <div class="btns">
+                        <input type="hidden" value="{$article['ID']}" name="article_id">
+                        <input type="submit" class="btn-cancel" style="background-color:#1E9FFF" id="btn_goto" value="提 交"/>
+                        <input type="button" class="btn-cancel" id="btn_cancel" value="取 消"/>
+                    </div>
+                </form>
+           </div>
+</div>
+    </div>
+
+
+    <script>
+
+        layui.use(['form', 'code'], function () {
+            form = layui.form;
+
+            layui.code();
+
+            $('#start').xcity();
+
+        });
+
+        $('#user_message').click(function () {
+            $("#window").show();
+        })
+        $('#btn_cancel').click(function () {
+            $("#window").hide();
+        })
+    </script>
 
 
 
 
-<!--底部js-->
-<script type="text/javascript" src="js/footer.js"></script>
+
+{include file="home/footer" /}
+</div>
+
 </body>
 </html>

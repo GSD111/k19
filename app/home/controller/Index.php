@@ -25,7 +25,7 @@ class Index extends BaseController
     public function Index()
     {
 
-//        halt(Cache::get('users')['id'],
+
 //            Cache::get('users')['phone'],Cache::get('users')['type']);
         //头部导航栏目按钮
         $result = FrontMenuModel::TopMenu();
@@ -163,13 +163,33 @@ class Index extends BaseController
     {
 //        halt(Cache::get('users')['id']);
         $user_id = Cache::get('users')['id'];
+//        halt($user_id);
         $article = ArticleService::GetArticleDetail($id);
-
+        $article_message = ArticleService::GetUserArticleMessage($id);
+//        halt($article_message);
         ArticleService::UserArticleRecord($user_id,$id);
+        ArticleService::ArticleReadNum($id);
 //        halt($article);
         View::assign('article', $article);
+        View::assign('article_message',$article_message);
 
         return View::fetch('home/arc_arc');
+    }
+
+
+    public function userMessage(){
+
+        halt(Request::param());
+        $data = Db::table('articlemessage')->save([
+            'UserID' => Cache::get('users')['id'],
+            'ArticleID'=> Request::param('article_id'),
+            'MessageContent'=>Request::param('message_content'),
+            'is_anonymous'=>Request::param('IsAnonymous'),
+            'CreateTimes'=>time()
+        ]);
+        if($data){
+            return "<script>alert('评论成功');window.history.back();</script>";
+        }
     }
 
     public function JsjbList()
@@ -187,12 +207,21 @@ class Index extends BaseController
 
     public function XlcsArc()
     {
+        $type_id = Request::param('id');
+//        halt($type_id);
+        View::assign('type_id',$type_id);
         return View::fetch('home/xlcs_arc');
     }
 
     public function Ylcs01()
     {
-
+//        halt(Request::param('type_id'));
+        $data = Db::table('question')->where('TestMenuID',Request::param('type_id'))->select()->toArray();
+        foreach ($data as $k=>$v){
+            $data[$k]['Select'] = json_decode($v['Select']);
+        }
+//        halt($data);
+        View::assign('data',$data);
         return View::fetch('home/ylcs01');
     }
 

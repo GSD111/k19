@@ -15,10 +15,32 @@ class Article
     public static function GetArticleDetail($id)
     {
         $article = Db::table('article')->join('user', 'user.ID = article.UserID')->where('article.ID', $id)
-            ->visible(['ID', 'Title', 'RealName', 'Content', 'ReadNum', 'CreateTimes', 'ArticleImg'])->find();
+            ->visible(['ID', 'Title', 'RealName', 'Content', 'ReadNum', 'CreateTimes', 'ArticleImg','IsMessage'])->find();
 //        Db::table('article')->where('ID',$id)->inc('ReadNum');
 
         return $article;
+    }
+
+    /*
+     * 更新文章的阅读次数
+     * @params string $article_id
+     */
+    public static function ArticleReadNum($article_id){
+        return Db::table('article')->where('ID',$article_id)->inc('ReadNum')->update();
+    }
+
+    /*
+     * 获取文章的用户评论
+     * @params string $article_id
+     */
+    public static function GetUserArticleMessage($article_id){
+        $data = Db::table('articlemessage')
+            ->join('user','user.ID = articlemessage.UserID')
+            ->where('articlemessage.ArticleID',$article_id)
+            ->visible(['RealName','MessageContent','ParsentID','CreateTimes'])
+            ->select();
+
+        return $data;
     }
 
     /*
@@ -27,22 +49,25 @@ class Article
      */
     public static function UserArticleRecord($user_id, $article_id)
     {
-        $result = Db::table('userarticle')
-            ->where('ArticleID', $article_id)
-            ->where('UserID', $user_id)
-            ->find();
-        if (empty($result)) {
-            Db::table('userarticle')->save([
-                'UserID' => $user_id,
-                'ArticleID' => $article_id,
-                'CreateTime' => time()
-            ]);
-        } else {
-            Db::table('userarticle')->where('ArticleID', $article_id)->save([
-                'UpdateTime' => time(),
-            ]);
+        if(!empty($user_id)){
+            $result = Db::table('userarticle')
+                ->where('ArticleID', $article_id)
+                ->where('UserID', $user_id)
+                ->find();
+            if (empty($result)) {
+                Db::table('userarticle')->save([
+                    'UserID' => $user_id,
+                    'ArticleID' => $article_id,
+                    'CreateTime' => time()
+                ]);
+            } else {
+                Db::table('userarticle')->where('ArticleID', $article_id)->save([
+                    'UpdateTime' => time(),
+                ]);
 
+            }
         }
+
 
     }
 

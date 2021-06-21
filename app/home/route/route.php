@@ -63,15 +63,7 @@ Route::group('home',function(){
     Route::get('/grzx_main','Personalcenter/GrzxMain');
 
 
-    //个人认证
-    Route::any('/people_certification','Certification/PeopleCertification');
-    Route::any('/hospital_certification','Certification/HospitalCertification');
 
-//    Route::get('/arc_arc/:id','Index/ArcArc');
-    Route::get('/grzx_ysrz','Personalcenter/GrzxYsrz');
-
-    Route::get('/grzx_ysrztj/:id','Personalcenter/GrzxYsrztj');
-    Route::get('/grzx_xtsz','Personalcenter/GrzxXtsz');
     Route::get('/login_out','Personalcenter/LoginOut');
 
 //    Route::get('/hosp_arc/:user_id','Findhospital/HospArc');
@@ -83,10 +75,22 @@ Route::group('home',function(){
  */
 Route::group('home',function (){
     Route::get('/arc_arc/:id','Index/ArcArc');
+    Route::get('/article_read_num/:id','Index/ArcReadNum');
+    Route::post('user_message','Index/userMessage');
     Route::get('/hosp_arc/:user_id','Findhospital/HospArc');
     Route::get('/xlzxs_arc/:user_id','Askdoctor/XlzxsArc');
     Route::post('/UserFollow/:user_id','Askdoctor/GetFollow');
     Route::get('/UnFollow/:user_id','Personalcenter/DelFollow');
+    //个人认证
+    Route::any('/people_certification','Certification/PeopleCertification');
+    Route::any('/hospital_certification','Certification/HospitalCertification');
+
+//    Route::get('/arc_arc/:id','Index/ArcArc');
+    Route::get('/grzx_ysrz','Personalcenter/GrzxYsrz');
+
+    Route::get('/grzx_ysrztj/:id','Personalcenter/GrzxYsrztj');
+    Route::get('/grzx_xtsz','Personalcenter/GrzxXtsz');
+    Route::post('/user_avatar','Personalcenter/SaveUserAvatar');
 //    Route::get('/arc_arc','Index/ArcArc');
 //    Route::get('/xlzxs_arc','Askdoctor/XlzxsArc');
 //    Route::get('/hosp_arc','Findhospital/HospArc');

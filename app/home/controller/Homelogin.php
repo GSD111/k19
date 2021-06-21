@@ -35,12 +35,13 @@ class Homelogin extends BaseController
 //        }
         if (!empty($phone)) {
             $result = User::where('PhoneNumber', $phone)->find();
-//            dump($result);
+//            halt($result->toArray());
             if (empty($result)) {
                 $result = User::create([
                     'PhoneNumber' => $phone,
                 ]);
-                Cache::set('users', ['id' => $result->ID, 'phone' => $result->PhoneNumber, 'type' => $result->UserType]);
+                Cache::set('users', ['id' => $result->ID, 'phone' => $result->PhoneNumber,
+                    'doctor' => $result->IsDoctor,'persion'=>$result->IsPersion]);
                 redirect('/home/index')->send();
             }
             if ($result->UserStatus != StatusCode::USER_STATUS) {

@@ -37,7 +37,7 @@ class Personalcenter extends BaseController
 //            halt($data);
             $hospital_info = Hospital::where('ID',$data['HospitalID'])->visible(['ID','HospitalInfo'])->find()->toArray();
 
-            $HospitalDoctor = HospitalApply::GetHospitalDoctor($hospital_info['ID'])->toArray();
+            $HospitalDoctor = HospitalApply::GetHospitalDoctor($hospital_info['ID']);
 //            halt($HospitalDoctor);
             View::assign('data',$data);
             View::assign('hospital_info',$hospital_info);

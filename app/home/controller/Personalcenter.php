@@ -6,8 +6,8 @@ namespace app\home\controller;
 
 use app\BaseController;
 use app\home\enum\StatusCode;
+use app\home\model\Hospital;
 use app\home\model\HospitalApply;
-use app\home\model\User;
 use app\home\service\Article;
 use think\facade\Cache;
 use think\facade\Db;
@@ -34,9 +34,13 @@ class Personalcenter extends BaseController
 //         */
         if($persion == StatusCode::USER_PERSION){
             $data = HospitalApply::GetApplayAll($user_id);
-            $HospitalDoctor = HospitalApply::GetHospitalDoctor($user_id)->toArray();
 //            halt($data);
+            $hospital_info = Hospital::where('ID',$data['HospitalID'])->visible(['ID','HospitalInfo'])->find()->toArray();
+
+            $HospitalDoctor = HospitalApply::GetHospitalDoctor($hospital_info['ID'])->toArray();
+//            halt($HospitalDoctor);
             View::assign('data',$data);
+            View::assign('hospital_info',$hospital_info);
             View::assign('HospitalDoctor',$HospitalDoctor);
             return View::fetch('home/sjzx_main');
         }

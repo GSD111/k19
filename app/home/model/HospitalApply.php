@@ -29,7 +29,7 @@ class HospitalApply extends Model
 
 
     /*
-     * 获取提交个人申请入驻者的详细信息
+     * 获取商家申请入驻者的详细信息
      * @params string $id  用户的id
      */
     public static function GetApplayAll($user_id)
@@ -41,7 +41,7 @@ class HospitalApply extends Model
                 'UserPhone', 'BusinessTime', 'UserAvatar', 'Remark',
                 'HospitalID', 'UserId', 'RealName', 'Specialty','UserName','Status'])
             ->find();
-
+//        halt($ApplayAll);
         return $ApplayAll;
     }
 
@@ -68,8 +68,6 @@ class HospitalApply extends Model
     public static function GetDoctorDetail($user_id)
     {
 
-
-//        $info = self::GetApplayAll($user_id);
         $info = Db::table('hospitalapply')
             ->join('user u','u.ID = hospitalapply.UserId')
             ->where('UserId',$user_id)
@@ -91,6 +89,7 @@ class HospitalApply extends Model
         $data = User::where('HospitalID', $hospital_id)
             ->where('IsDoctor',StatusCode::USER_DOCTOR)
             ->visible(['ID', 'UserAvatar', 'RealName','Remark'])->select();
+//        halt($data);
         return $data;
     }
 }

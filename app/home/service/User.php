@@ -10,19 +10,6 @@ use think\facade\Db;
 class User
 {
 
-//    public static function GetIsRecommendAll()
-//    {
-//        $IsRecommendAll = Db::table('user')
-//            ->join('hospitalapply', 'user.ID = hospitalapply.UserId')
-//            ->where('Status', StatusCode::HOSPITAL_APPLY_SUCCESS)
-//            ->where('IsRecommend', StatusCode::USER_RECOMMEND)
-//            ->visible(['Name', 'UserAvatar', 'UserId', 'AreaId', 'IsDoctor',
-//                'IsRecommend', 'Status','IsPersion','RealName','HospitalID'])
-//            ->limit(4)
-//            ->select();
-//
-//        return $IsRecommendAll;
-//    }
 
     /*
      * 首页推荐的医生

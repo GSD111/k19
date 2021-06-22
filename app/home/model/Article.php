@@ -12,7 +12,7 @@ class Article extends Model
 {
     protected $table = 'article';
 
-    protected $readonly = ['ID', 'Title', 'Content', 'ArticleImg', 'Status', 'IsRecommend','ReadNum','CreateTimes','ArticleType','UserID'];
+    protected $readonly = ['ID', 'Title', 'Content', 'ArticleImg', 'Status', 'IsRecommend','ReadNum','CreateTime','ArticleType','UserID'];
 
     /*
      * 获取推荐的一片文章文章

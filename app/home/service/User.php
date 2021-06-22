@@ -32,18 +32,18 @@ class User
 
 //        $user = self::GetIsRecommendAll()->where('IsDoctor', StatusCode::USER_DOCTOR);
         $user = Db::table('user')
-            ->join('hospitalapply', 'user.ID = hospitalapply.UserId')
+            ->join('hospitalapply hosp', 'user.ID = hosp.UserId')
+            ->field('user.ID UID,user.UserAvatar,user.RealName,user.IsRecommend,hosp.*')
             ->where('Status', StatusCode::HOSPITAL_APPLY_SUCCESS)
             ->where('IsRecommend', StatusCode::USER_RECOMMEND)
             ->where('IsDoctor', StatusCode::USER_DOCTOR)
-            ->visible(['Name', 'UserAvatar', 'UserId', 'AreaId', 'IsDoctor',
-                'IsRecommend', 'Status', 'IsPersion', 'RealName', 'HospitalID'])
+            ->visible(['UID', 'UserAvatar', 'IsDoctor','IsRecommend', 'Status', 'RealName','Name'])
             ->limit(4)
             ->select();
 //        halt($user);
-        if ($user->isEmpty()) {
-            return false;
-        }
+//        if ($user->isEmpty()) {
+//            return false;
+//        }
         return $user;
     }
 
@@ -56,15 +56,15 @@ class User
 //        $hospital = self::GetIsRecommendAll()->where('IsPersion', StatusCode::USER_PERSION);
 
         $hospital = Db::table('user')
-            ->join('hospitalapply', 'user.ID = hospitalapply.UserId')
-            ->where('Status', StatusCode::HOSPITAL_APPLY_SUCCESS)
-            ->where('IsRecommend', StatusCode::USER_RECOMMEND)
+            ->join('hospital hosp', 'user.HospitalID = hosp.ID')
+//            ->where('Status', StatusCode::HOSPITAL_APPLY_SUCCESS)
+            ->field('user.ID UID,user.UserAvatar,user.RealName,user.IsPersion,user.IsRecommend recommend,hosp.*')
+            ->where('hosp.IsRecommend', StatusCode::USER_RECOMMEND)
             ->where('IsPersion', StatusCode::USER_PERSION)
-            ->visible(['Name', 'UserAvatar', 'UserId', 'AreaId', 'IsDoctor',
-                'IsRecommend', 'Status', 'IsPersion', 'RealName', 'HospitalID'])
+            ->visible(['HospitalName', 'UserAvatar', 'IsRecommend', 'IsPersion', 'RealName', 'HospitalID','UID'])
             ->limit(4)
             ->select();
-
+//        halt($hospital);
         if ($hospital->isEmpty()) {
             return false;
         }
@@ -105,18 +105,26 @@ class User
 
     public static function GetHospitalAll()
     {
-
-        $data = Db::table('user')->join('hospitalapply', 'user.ID = hospitalapply.UserId')
-            ->where('Status', StatusCode::HOSPITAL_APPLY_SUCCESS)
-            ->where('IsPersion', StatusCode::USER_PERSION)
-            ->visible(['Name', 'UserAvatar', 'Province',
-                'City', 'Area', 'Address', 'BusinessTime',
-                'UserId', 'AreaId', 'RealName', 'IsPersion'])
-            ->select();
-        if ($data->isEmpty()) {
-            return false;
-        }
-//
+         $data = DB::table('user')
+             ->join('hospital hosp','user.HospitalID = hosp.ID')
+             ->join('hospitalapply hosapply','user.ID = hosapply.UserId')
+             ->field('hosapply.Status,hosapply.Name,hosapply.BusinessTime,
+             hosapply.Province pro ,hosapply.City city, hosapply.Area area,hosapply.Address,
+             hosp.*,user.RealName,user.HospitalID,user.UserAvatar,user.ID UID')
+             ->where('Status', StatusCode::HOSPITAL_APPLY_SUCCESS)
+             ->where('IsPersion', StatusCode::USER_PERSION)
+             ->select();
+//        $data = Db::table('user')->join('hospitalapply', 'user.ID = hospitalapply.UserId')
+//            ->where('Status', StatusCode::HOSPITAL_APPLY_SUCCESS)
+//            ->where('IsPersion', StatusCode::USER_PERSION)
+//            ->visible(['Name', 'UserAvatar', 'Province',
+//                'City', 'Area', 'Address', 'BusinessTime',
+//                'UserId', 'AreaId', 'RealName', 'IsPersion'])
+//            ->select();
+//        if ($data->isEmpty()) {
+//            return false;
+//        }
+//          halt($data);
         return $data;
     }
 

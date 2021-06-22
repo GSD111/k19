@@ -8,7 +8,7 @@
 
 <div class="zxs_arc">
 	<div class="mk01">
-    	<img src="/home/picture/tp02.png" />
+    	<img src="{$DoctorDetail['UserAvatar']}" />
         <div class="ct">
         	<p class="p1">{$DoctorDetail['RealName']}</p>
             <p class="p2">心理咨询师</p>
@@ -28,7 +28,7 @@
         {if empty(!$ParentName)}
     	<p class="p1">任职机构</p>
         <div class="hx"></div>
-            <p class="p2">{$ParentName['Name']}</p>
+            <p class="p2">{$ParentName['HospitalName']}</p>
         {/if}
 
         <p class="p3">地址：
@@ -69,7 +69,7 @@
 
     function UserFollow(){
         $.ajax({
-            url:'/home/UserFollow/'+{$DoctorDetail['UserId']},
+            url:'/home/UserFollow/'+{$DoctorDetail['UID']},
             type:'POST',
             data:{},
             dataType:'JSON',

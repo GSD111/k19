@@ -42,20 +42,6 @@ class Certification extends BaseController
                 $user->CreateTime = time();
                 $user->save();
 
-//            dd(json(Request::param('specialty')));
-//            $user = HospitalApply::create([
-//                'Name' => Request::param('name'),
-//                'Province' => Request::param('province'),
-//                'City' => Request::param('city'),
-//                'Area' => Request::param('area'),
-//                'Address' => Request::param('address'),
-//                'Specialty' => Request::param('specialty'),
-//                'UserPhone' => Request::param('user_phone'),
-//                'LicensePermission' => $picCover,
-//                'BusinessTime' => Request::param('business_time'),
-//                'CreateTime' => time()
-//            ]);
-
 
                 redirect('/home/grzx_ysrztj/' . $user->id)->send();
             }
@@ -70,6 +56,7 @@ class Certification extends BaseController
      */
     public function HospitalCertification()
     {
+
         $files = Request::file('business_license');
         try {
             $rules = validate(['images' => ['fileExt:gif,jpg,png']])->check(['images' => $files]);

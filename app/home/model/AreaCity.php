@@ -42,15 +42,6 @@ class AreaCity extends Model
     }
 
     /*
-//     * 是否是热门城市
-//     */
-//    public static function IsHotCity()
-//    {
-//        return AreaCity::where('ParentsID', '<>', 0)
-//            ->where('IsHot', 1)->limit(7)->select();
-//    }
-
-    /*
      * 查询所在城市区域的医师
      */
     public static function GetAreaDoctor($status)
@@ -58,8 +49,8 @@ class AreaCity extends Model
 
         $all = Db::table('areacity')
             ->join('user', 'user.AreaId = areacity.ID')
-            ->where('user.IsDoctor',$status)
-            ->visible(['ID','UserAvatar','CityName', 'RealName', 'PhoneNumber','AreaId','Remark','HospitalID'])
+            ->where('user.IsDoctor', $status)
+            ->visible(['ID', 'UserAvatar', 'CityName', 'RealName', 'PhoneNumber', 'AreaId', 'Remark', 'HospitalID'])
             ->select();
 //        halt($all);
         return $all;
@@ -68,17 +59,19 @@ class AreaCity extends Model
     /*
     * 查询所在城市区域的医院
     */
-    public static function GetAreaHospital($status)
+    public static function GetAreaHospital()
     {
 
         $all = Db::table('areacity')
-            ->join('user', 'user.AreaId = areacity.ID')
-            ->join('hospitalapply','user.ID = hospitalapply.UserId')
-            ->where('user.IsPersion',$status)
-            ->where('Status',StatusCode::HOSPITAL_APPLY_SUCCESS)
-            ->visible(['ID','UserAvatar','CityName',
-                'Name','AreaId','Status','Province',
-                'City','Area','Address','BusinessTime','UserId'])
+            ->join('hospital hosp', 'hosp.AreaId = areacity.ID')
+            ->join('user u', 'u.HospitalID = hosp.ID')
+            ->join('hospitalapply hosapply', 'u.ID = hosapply.UserId')
+            ->field('u.ID UID,u.UserAvatar,u.RealName,hosapply.Status,hosapply.Name,hosapply.BusinessTime,
+                hosapply.Province pro ,hosapply.City city, hosapply.Area area,hosapply.Address,hosp.*,areacity.*')
+            ->where('u.IsPersion', StatusCode::USER_PERSION)
+            ->where('hosapply.Status', StatusCode::HOSPITAL_APPLY_SUCCESS)
+            ->visible(['UID', 'UserAvatar', 'CityName', 'RealName', 'AreaId', 'Status', 'pro',
+                'city', 'area', 'Address', 'BusinessTime','Name'])
             ->select();
 //        halt($all);
         return $all;

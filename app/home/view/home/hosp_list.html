@@ -88,12 +88,12 @@
 	<ul class="u1">
         {foreach $data as $k=>$v}
     	<li>
-        	<a href="{:URL('/home/hosp_arc/'.$v['UserId'])}">
+        	<a href="{:URL('/home/hosp_arc/'.$v['UID'])}">
                 <img src="{$v['UserAvatar']}" />
                 <div class="rt">
                     <p class="p1">{$v['Name']}</p>
                     <p class="p2">营业时间：{$v['BusinessTime']}</p>
-                    <p class="p3">地址：{$v['Province']}{$v['City']}{$v['Area']}{$v['Address']|mb_substr=0,1,'utf-8'}</p>
+                    <p class="p3">地址：{$v['pro']}{$v['city']}{$v['area']}{$v['Address']|mb_substr=0,1,'utf-8'}</p>
                 </div>
             </a>
         </li>

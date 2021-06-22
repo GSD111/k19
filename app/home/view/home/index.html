@@ -39,7 +39,7 @@
     <ul>
         {foreach $doctor as $k=>$v}
         <li>
-            <a href="{:URL('/home/xlzxs_arc/'.$v['UserId'])}">
+            <a href="{:URL('/home/xlzxs_arc/'.$v['UID'])}">
                 <img src="{$v['UserAvatar']}"/>
                 <p>{$v['RealName']}</p>
             </a>
@@ -54,9 +54,9 @@
     <ul>
         {foreach $hospital as $k=>$v}
         <li>
-            <a href="{:URL('/home/hosp_arc/'.$v['UserId'])}">
+            <a href="{:URL('/home/hosp_arc/'.$v['UID'])}">
                 <img src="{$v['UserAvatar']}"/>
-                <p>{$v['Name']|mb_substr=0,4,'utf-8'}</p>
+                <p>{$v['RealName']|mb_substr=0,4,'utf-8'}</p>
             </a>
         </li>
         {/foreach}
@@ -97,7 +97,7 @@
                                     <img src="{$item['ArticleImg']}"/>
                                     <div class="nr">
                                         <p class="p2">{$item['Title']}</p>
-                                        <p class="p3">{$item['Content']}...</p>
+                                        <p class="p3">{$item['Content']|raw|mb_substr=0,15,'utf-8'}...</p>
                                     </div>
                                 </li>
                             </a>

@@ -4,8 +4,10 @@
 namespace app\home\model;
 
 
+use app\home\enum\StatusCode;
 use think\facade\Db;
 use think\Model;
+use app\home\service\User as UserService;
 
 class HospitalApply extends Model
 {
@@ -27,7 +29,7 @@ class HospitalApply extends Model
 
 
     /*
-     * 获取提交个人申请入驻者及商家的详细信息
+     * 获取提交个人申请入驻者的详细信息
      * @params string $id  用户的id
      */
     public static function GetApplayAll($user_id)
@@ -50,7 +52,8 @@ class HospitalApply extends Model
     public static function GetHospitalDetail($user_id)
     {
 
-        $HospitalDeatil = self::GetApplayAll($user_id);
+//        $HospitalDeatil = self::GetApplayAll($user_id);
+        $HospitalDeatil = UserService::GetHospitalAll()->where('UID',$user_id)->first();
 
         return $HospitalDeatil;
 
@@ -58,24 +61,36 @@ class HospitalApply extends Model
 
 
     /*
-     * 获取个人医师及入住商家成员的具体信息
-     * @params string  $user_id   医院的id
+     * 获取个人医师的具体信息
+     * @params string  $user_id   用户的id
      */
 
     public static function GetDoctorDetail($user_id)
     {
-        $info = self::GetApplayAll($user_id);
+
+
+//        $info = self::GetApplayAll($user_id);
+        $info = Db::table('hospitalapply')
+            ->join('user u','u.ID = hospitalapply.UserId')
+            ->where('UserId',$user_id)
+            ->field('u.ID UID ,u.RealName,u.UserAvatar,u.Remark,u.HospitalID,hospitalapply.*')
+            ->visible(['UID','Name', 'Province', 'City', 'Area', 'Address',
+                'UserPhone', 'BusinessTime', 'UserAvatar', 'Remark','HospitalID',
+                'HospitalID', 'UserId', 'RealName', 'Specialty','UserName','Status'])
+            ->find();
 
         return $info;
     }
 
     /*
      * 获取医院里的医师
-     * @params string  $user_id   用户的id
+     * @params string  $user_id   用户的医院id
      */
-    public static function GetHospitalDoctor($user_id)
+    public static function GetHospitalDoctor($hospital_id)
     {
-        $data = User::where('HospitalID', $user_id)->visible(['ID', 'UserAvatar', 'RealName','Remark'])->select();
+        $data = User::where('HospitalID', $hospital_id)
+            ->where('IsDoctor',StatusCode::USER_DOCTOR)
+            ->visible(['ID', 'UserAvatar', 'RealName','Remark'])->select();
         return $data;
     }
 }

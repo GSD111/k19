@@ -7,6 +7,7 @@ namespace app\home\controller;
 use app\BaseController;
 use app\home\enum\StatusCode;
 use app\home\model\AreaCity as AreaCityModel;
+use app\home\model\Hospital;
 use app\home\model\HospitalApply;
 use app\home\service\User as UserService;
 use think\facade\Cache;
@@ -59,12 +60,17 @@ class Askdoctor extends BaseController
     {
 
         $DoctorDetail = HospitalApply::GetDoctorDetail($user_id);
-//        halt($DoctorDetail);
+        if(empty($DoctorDetail)){
+            return "<script>alert('该医师的信息还未完善快去完善吧！');window.history.back();</script>";
+        }
         $DoctorDetail['Specialty'] = json_decode($DoctorDetail['Specialty']);
-        $ParentName = HospitalApply::where('UserId', $DoctorDetail['HospitalID'])->visible(['Name', 'UserId'])->find();
-        if ($DoctorDetail['HospitalID'] == 0) {
+        if($DoctorDetail['HospitalID'] != 0){
+            $ParentName = Hospital::GetDoctorParent($user_id)->toArray();
+        }else{
             $ParentName = '';
         }
+
+//        $ParentName = HospitalApply::where('UserId', $DoctorDetail['HospitalID'])->visible(['Name', 'UserId'])->find();
 
         $result = Db::table('userfollow')->where('UserID',Cache::get('users')['id'])
             ->where('Doctor',$user_id)
@@ -72,9 +78,10 @@ class Askdoctor extends BaseController
 //        halt($result);
 
 //        halt($DoctorDetail);
+        View::assign('ParentName', $ParentName);
         View::assign('result',$result);
         View::assign('DoctorDetail', $DoctorDetail);
-        View::assign('ParentName', $ParentName);
+
 
         return View::fetch('home/xlzxs_arc');
     }

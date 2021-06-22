@@ -180,13 +180,13 @@ class Index extends BaseController
 
     public function userMessage(){
 
-        halt(Request::param());
+//        halt(Request::param());
         $data = Db::table('articlemessage')->save([
             'UserID' => Cache::get('users')['id'],
             'ArticleID'=> Request::param('article_id'),
             'MessageContent'=>Request::param('message_content'),
             'IsAnonymous'=>Request::param('is_anonymous'),
-            'CreateTimes'=>time()
+            'CreateTime'=>time()
         ]);
         if($data){
             return "<script>alert('评论成功');window.history.back();</script>";

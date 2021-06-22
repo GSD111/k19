@@ -56,9 +56,9 @@
 	<div class="nr">
     	<p class="p1">{$article['Title']}</p>
 
-        <p class="p2">作者：{$article['RealName']}&nbsp;&nbsp;&nbsp;&nbsp;   阅读：{$article['ReadNum']}</p>
+        <p class="p2">作者：{$article['RealName']}&nbsp;&nbsp;&nbsp;&nbsp;   阅读：{$article['ReadNum']}<span>{$article['CreateTime']|date='Y-m-d'}</span></p>
         <img src="{$article['ArticleImg']}" />
-        <p class="p3">{$article['Content']}</p>
+        <p class="p3">{$article['Content']|raw}</p>
 </div>
 
 
@@ -67,14 +67,23 @@
             <div class="tt">
                 <p>用户评价
                     <img src="/home/picture/tb33.png" />
-                    <span style="float:right;" id="user_message">马上评论</span>
+                    {if $article['IsMessage'] == 1}
+                     <span style="float:right;" id="user_message">马上评论</span>
+                    {/if}
                 </p>
 
             </div>
             <ul>
                 {foreach $article_message as $k=>$v}
                 <li>
-                    <p class="p1">用户：{$v['RealName']}<span>{$v['CreateTimes']|date='Y-m-d'}</span></p>
+                    <p class="p1">
+                        {if $v['IsAnonymous'] == 1}
+                         用户：{$v['RealName']}
+                        {else /}
+                         用户：******
+                        {/if}
+                        <span>{$v['CreateTime']|date='Y-m-d'}</span>
+                    </p>
                     <p class="p2">{$v['MessageContent']}</p>
                 </li>
                 {/foreach}

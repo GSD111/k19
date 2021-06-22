@@ -47,7 +47,7 @@ class Article extends Model
         $info = Db::table('article')
             ->join('user','user.ID = article.UserID')
             ->where('Status',StatusCode::ARTICEL_STATUS_SUCCESS)
-            ->visible(['ID','Title','Content','ReadNum','CreateTimes','Status','RealName','ArticleType','ArticleImg'])
+//            ->visible(['ID','Title','Content','ReadNum','CreateTimes','Status','RealName','ArticleType','ArticleImg'])
             ->select();
 //        halt($info);
         return $info;

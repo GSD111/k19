@@ -51,7 +51,7 @@ class Personalcenter extends BaseController
             $status = '审核完成';
         } elseif ($user['Status'] == 3) {
             $status = '驳回';
-        } else {
+        } elseif($user['Status'] == 4) {
             $status = '审核失败';
         }
 
@@ -104,7 +104,7 @@ class Personalcenter extends BaseController
 
     public function GrzxJgrz()
     {
-        halt(Cache::get('users')['id']);
+//        halt(Cache::get('users')['id']);
         return View::fetch('home/grzx_jgrz');
     }
 
@@ -147,21 +147,9 @@ class Personalcenter extends BaseController
 
     public function SjzxMain()
     {
-        $user_id = Cache::get('users')['id'];
         $persion = Cache::get('users')['persion'];
         if ($persion != StatusCode::USER_PERSION) {
             return View::fetch('/home/sjzx_pdtzym');
-        }
-        /*
-         * 检测当前登录者的身份信息
-         */
-        if ($persion == StatusCode::USER_PERSION) {
-            $data = HospitalApply::GetApplayAll($user_id);
-            $HospitalDoctor = HospitalApply::GetHospitalDoctor($user_id)->toArray();
-//            halt($data);
-            View::assign('data', $data);
-            View::assign('HospitalDoctor', $HospitalDoctor);
-            return View::fetch('home/sjzx_main');
         }
         return View::fetch('home/sjzx_main');
     }

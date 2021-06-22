@@ -15,9 +15,11 @@ class Article
     public static function GetArticleDetail($id)
     {
         $article = Db::table('article')
+            ->alias('art')
             ->join('user', 'user.ID = article.UserID')
-            ->where('article.ID', $id)
-            ->visible(['ID', 'Title', 'RealName', 'Content', 'ReadNum', 'ArticleImg','IsMessage'])
+            ->field('user.ID UID ,user.CreateTime CreateTimes ,user.RealName,art.*')
+            ->where('art.ID', $id)
+            ->visible(['UID','ID', 'Title', 'RealName', 'Content', 'ReadNum', 'ArticleImg','IsMessage','CreateTime'])
             ->find();
 //        Db::table('article')->where('ID',$id)->inc('ReadNum');
 
@@ -38,9 +40,10 @@ class Article
      */
     public static function GetUserArticleMessage($article_id){
         $data = Db::table('articlemessage')
-            ->join('user','user.ID = articlemessage.UserID')
+            ->join('user u','u.ID = articlemessage.UserID')
+            ->field('u.CreateTime CreateTimes,u.RealName ,articlemessage.*')
             ->where('articlemessage.ArticleID',$article_id)
-            ->visible(['RealName','MessageContent','ParsentID','CreateTimes'])
+            ->visible(['RealName','MessageContent','ParsentID','CreateTime','IsAnonymous'])
             ->select();
 
         return $data;

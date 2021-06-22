@@ -18,7 +18,7 @@
                     <p class="p1">{$v['Title']}</p>
                     <p class="p2">{$v['CreateTime']|date="Y-m-d"}&nbsp;阅读：{$v['ReadNum']}</p>
     <!--                <p class="p3"><img src="/home/picture/tb52.png" />取消关注</p>-->
-                    <p class="p4">{$v['Content']|mb_substr=0,15,'utf-8'}...</p>
+                    <p class="p4">{$v['Content']|raw|mb_substr=0,15,'utf-8'}...</p>
                 </li>
             </a>
             {/foreach}

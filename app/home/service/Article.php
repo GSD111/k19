@@ -90,7 +90,7 @@ class Article
             ->where('userarticle.UserID', $user_id)
             ->visible(['ID', 'Title', 'CreateTime', 'ReadNum', 'Content'])
             ->select()->toArray();
-
+//        halt($data);
         return $data;
     }
 

@@ -9,48 +9,46 @@
 <div class="ylcs_mn">
     <div class="jd">
         <!--<img src="picture/tp03.png" />-->
-        <div class="jdt">
-            <div class="wc"></div>
-            <img src="/home/picture/tb20.png"/>
-        </div>
-        <p class="p1">10%</p>
-        <p class="p2">1/10</p>
+        <!--        <div class="jdt">-->
+        <!--            <div class="wc"></div>-->
+        <!--            <img src="/home/picture/tb20.png"/>-->
+        <!--        </div>-->
+        <!--        <p class="p1">10%</p>-->
+        <p style="float:right;margin-right:15px;margin-top: 18px;" class="p2-num">0/0</p>
     </div>
 
+
     {foreach $data as $k=>$v}
-      <div class="wt">
-            <p class="p1" index="{$v['ID']}" item="num">{$v['Title']}</p>
-            <ul class="question" index-item="{$v['ID']}">
+    <div class="wt">
+        <p class="p1" item="num">{$v['Title']}</p>
+        <ul class="question">
             {foreach $v['Select'] as $key=>$item}
             <li>
-                 <input type="radio" value="{$item->score}" id="choice_1" name="question_1" />
-                 <label for="choice_1">{$item->title}</label>
+                <input type="checkbox" value="{$item->score}" class="cks" name="question_{$k}"/>
+                <label>{$item->title}</label>
             </li>
             {/foreach}
         </ul>
         <div class="xztj">
             <p class="p2">上一题</p>
             <a href="javascript:"><p class="p3">下一题</p></a>
-<!--            <a href="{:URL('/home/ylcs02')}"><p class="p3">下一题</p></a>-->
+            <p style="display:none;float:right;margin-right:30px;" class="p4" onclick="sub()">提交</p>
+            <!--            <a href="{:URL('/home/ylcs02')}"><p class="p3">下一题</p></a>-->
         </div>
         <div style=" height:1rem;clear:both;"></div>
     </div>
     {/foreach}
 </div>
 
+{load href="/admin/lib/layui/layui.js"}
+{load href="/home/js/free_test.js"}
 <script>
-    $('.wt').hide();
-    $('.wt').eq(0).show();
-    $('.question').hide();
-    $('.question').eq(0).show();
 
-    var num = 0;
-    $('.p3').click(function () {
-        var indexVal=$(this).attr('index');
-        $('.question').hide();
-        $('.question[index-item="'+indexVal+'"]').show();
-        $('.p1').attr('num')+1;
-    })
+    layui.use(['form', 'code'], function () {
+        form = layui.form;
+
+    });
+
 </script>
 
 

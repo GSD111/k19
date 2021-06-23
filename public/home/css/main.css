@@ -229,7 +229,7 @@ div.thisyyTree{transform:translateX(0);opacity:1;filter:Alpha(opacity=100);-webk
 .ylcs_mn .wt .p1{ width:5.8rem; font-size:0.26rem; color:#3d3a3a; padding-top:0.2rem; margin-left:0.3rem;}
 .ylcs_mn .wt ul{ padding-top:0.3rem;}
 .ylcs_mn .wt ul li{ width:5.78rem; height:0.75rem; background:#eeeeee; margin-left:0.3rem; border-radius:0.5rem; margin-bottom:0.5rem;}
-.ylcs_mn .wt ul li input{ float:left; margin-top:0.25rem; margin-left:0.3rem; display:none;}
+.ylcs_mn .wt ul li input{ float:left; margin-top:0.25rem; margin-left:0.3rem;}
 .ylcs_mn .wt ul li label{ font-size:0.24rem; color:#3d3a3a; line-height:0.75rem; float:left; margin-left:0.35rem;}
 .ylcs_mn .wt ul li:hover{ background:#c3f0b4;}
 .ylcs_mn .wt ul li:hover label{ color:#358817;}

@@ -8,6 +8,7 @@ use app\BaseController;
 use app\home\enum\StatusCode;
 use app\home\model\Hospital;
 use app\home\model\HospitalApply;
+use app\home\model\User;
 use app\home\service\Article;
 use think\facade\Cache;
 use think\facade\Db;
@@ -27,12 +28,13 @@ class Personalcenter extends BaseController
         $user_phone = Cache::get('users')['phone'];
         $user_id = Cache::get('users')['id'];
         $doctor = Cache::get('users')['doctor'];
-        $persion = Cache::get('users')['persion'];
-//        halt($persion);
+//        $persion = Cache::get('users')['persion'];
+        $user_login = User::where('ID',$user_id)->visible(['ID','IsPersion'])->find();
+//        halt($user_login->toArray());
 //        /*
 //         * 检测当前登录者的身份信息
 //         */
-        if($persion == StatusCode::USER_PERSION){
+        if($user_login['IsPersion'] == StatusCode::USER_PERSION){
             $data = HospitalApply::GetApplayAll($user_id);
 //            halt($data);
             $hospital_info = Hospital::where('ID',$data['HospitalID'])->visible(['ID','HospitalInfo'])->find()->toArray();
@@ -57,7 +59,8 @@ class Personalcenter extends BaseController
             $status = '驳回';
         } elseif($user['Status'] == 4) {
             $status = '审核失败';
-        }
+        }else
+            $status = '';
 
         View::assign('user_phone', $user_phone);
         View::assign('user_id', $user_id);

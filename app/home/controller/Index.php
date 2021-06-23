@@ -222,6 +222,9 @@ class Index extends BaseController
             $data[$k]['Select'] = json_decode($v['Select']);
         }
 //        halt($data);
+        if(empty($data)){
+            return "<script>alert('当前分类下暂时没有题!');window.history.back();</script>";
+        }
         View::assign('data',$data);
         return View::fetch('home/ylcs01');
     }

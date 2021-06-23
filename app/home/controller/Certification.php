@@ -19,6 +19,7 @@ class Certification extends BaseController
     public function PeopleCertification()
     {
         $file = Request::file('license_permission');
+//        halt(Cache::get('users')['id']);
         try {
             $result = validate(['image' => ['fileExt:gif,jpg,png']])->check(['image' => $file]);
 //        halt($arr);
@@ -38,6 +39,7 @@ class Certification extends BaseController
                 $user->UserPhone = Request::param('user_phone');
                 $user->UserId = Cache::get('users')['id'];
                 $user->LicensePermission = $picCover;
+                $user->IsPersion = Request::param('IsPersion');
                 $user->BusinessTime = Request::param('business_time');
                 $user->CreateTime = time();
                 $user->save();
@@ -75,6 +77,7 @@ class Certification extends BaseController
                 $user->UserPhone = Request::param('user_phone');
                 $user->UserId = Cache::get('users')['id'];
                 $user->BusinessLicense = $picCover;
+                $user->IsPersion = Request::param('is_persion');
                 $user->BusinessTime = Request::param('business_time');
                 $user->CreateTime = time();
                 $user->save();

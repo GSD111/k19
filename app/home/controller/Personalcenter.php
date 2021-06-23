@@ -38,7 +38,7 @@ class Personalcenter extends BaseController
         if($user_login['IsPersion'] == StatusCode::USER_PERSION){
             $data = HospitalApply::GetApplayAll($user_id);
 //            halt($data);
-            $hospital_info = Hospital::where('ID',$data['HospitalID'])->visible(['ID','HospitalInfo'])->find()->toArray();
+            $hospital_info = Hospital::where('ID',$data['HospitalID'])->visible(['ID','HospitalInfo'])->find();
 
             $HospitalDoctor = HospitalApply::GetHospitalDoctor($hospital_info['ID']);
 //            halt($HospitalDoctor);

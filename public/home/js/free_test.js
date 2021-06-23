@@ -12,16 +12,19 @@ $('.cks').click(function () {
     } else {
         count -= parseInt(check_val);
     }
-    // console.log(parseInt(count))
+    console.log(parseInt(count))
 })
 
 //提交后所有选项分值根据需求判断呈现
 function sub() {
 
-    if(count != 0 ){
-        layer.msg(count, { icon:5,time:2000})
+    if(count<=0){
+
+        layer.msg('请依次进行选择',{ icon:5,time:2000})
+        return false;
     }
-    layer.msg('请当前没有任何选项',{ icon:5,time:2000})
+    layer.msg(count, { icon:1,time:2000})
+
 
 }
 

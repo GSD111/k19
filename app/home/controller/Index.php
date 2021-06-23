@@ -221,7 +221,10 @@ class Index extends BaseController
     public function Ylcs01()
     {
 //        halt(Request::param('type_id'));
-        $data = Db::table('question')->where('TestMenuID',Request::param('type_id'))->select()->toArray();
+        $data = Db::table('question')
+            ->where('TestMenuID',Request::param('type_id'))
+            ->where('TestType','免费')
+            ->select()->toArray();
         foreach ($data as $k=>$v){
             $data[$k]['Select'] = json_decode($v['Select']);
         }

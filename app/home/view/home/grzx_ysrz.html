@@ -59,9 +59,7 @@
                            class="layui-input">
                 </div>
             </div>
-            <!--        <p class="p1">联系方式：</p><input type="text" class="tex01"/>-->
-            <!--        <div class="kg"></div>-->
-            <!--        <p class="p1">服务时间：</p><input type="text" class="tex01"/>-->
+
             <div class="layui-form-item">
                 <label class="layui-form-label">联系方式</label>
                 <div class="layui-input-block">
@@ -76,6 +74,16 @@
                            class="layui-input">
                 </div>
             </div>
+
+<!--            <div class="ly" style="height:1.8rem;">-->
+<!--                <p class="p5">身份类型：</p>-->
+<!--                <div class="layui-input-block" style="height:48px;float: left;width: 98%;margin-left: 10px">-->
+<!--                    <input type="checkbox" name="IsPersion" lay-skin="primary" title="个人" value="1">-->
+<!--                    <input type="checkbox" name="IsDoctor" lay-skin="primary" title="医生" value="2">-->
+<!--                </div>-->
+<!--                <p class="p6" style="color:red;">*请务必选择身份类型,如不选择将直接影响您的认证结果</p>-->
+<!--            </div>-->
+
             <div class="kg"></div>
             <div class="bg"></div>
             <div class="kg"></div>
@@ -96,17 +104,6 @@
             <div class="bg"></div>
             <div class="ly">
                 <p class="p5">选择领域：</p>
-<!--                <ul>-->
-<!--                    <li>婚姻</li>-->
-<!--                    <li>家庭</li>-->
-<!--                    <li>职场</li>-->
-<!--                    <li>人际</li>-->
-<!--                    <li>婚姻</li>-->
-<!--                    <li>家庭</li>-->
-<!--                    <li>职场</li>-->
-<!--                    <li>人际</li>-->
-<!--                </ul>-->
-
                     <div class="layui-input-block" style="height: 100px;float: left;width: 98%;margin-left: 10px">
                         {foreach $data as $k=>$v}
                              <input type="checkbox" name="specialty[]" lay-skin="primary" title="{$v['Name']}" value="{$v['Name']}">
@@ -124,8 +121,7 @@
                 <p class="p6">*最多选择三个擅长领域,如果多选将直接影响您的审核</p>
             </div>
 
-<!--            <a href="#" class="bc">保存</a>-->
-<!--            <a href="{:URL('/home/grzx_ysrztj')}" class="tj">提交审核</a>-->
+            <input type="hidden" name="is_persion"  value="1">
             <div style="display: flex;">
                 <input style="margin:auto;" type="submit" class="tj" value="提交审核" />
             </div>

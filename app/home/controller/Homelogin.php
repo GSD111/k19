@@ -37,15 +37,17 @@ class Homelogin extends BaseController
             $result = User::where('PhoneNumber', $phone)->find();
 //            halt($result->toArray());
             if (empty($result)) {
-                $result = User::create([
+                $info = User::create([
                     'PhoneNumber' => $phone,
                     'CreateTime'=>time()
                 ]);
-                Cache::set('users', ['id' => $result->ID, 'phone' => $result->PhoneNumber,
-                    'doctor' => $result->IsDoctor,'persion'=>$result->IsPersion]);
+
+//                halt($info->id);
+                Cache::set('users', ['id' => $info->id, 'phone' => $info->PhoneNumber,
+                    'doctor' => $info->IsDoctor,'persion'=>$info->IsPersion]);
                 redirect('/home/index')->send();
             }
-            if ($result->UserStatus != StatusCode::USER_STATUS) {
+            if ($result['UserStatus'] != StatusCode::USER_STATUS) {
                 return "<script>alert('您的账号存在异常无法登录，请联系管理进行处理');window.history.go(-1);</script>";
             }
             $result->PhoneNumber = $phone;

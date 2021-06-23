@@ -68,7 +68,7 @@
                 <img src="{$v['NewImg']}" />
                 <div class="rt">
                     <p>{$v['Title']}</p>
-                    <p>{$v['Content']|mb_substr=0,20,'utf-8'}...</p>
+                    <p>{$v['Content']|raw|mb_substr=0,20,'utf-8'}...</p>
                 </div>
             </a>
         </li>

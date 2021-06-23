@@ -15,14 +15,17 @@
         </select>
         <select style="margin-right:0.3rem;">
         	<option>方向选择</option>
-            <option>家庭</option>
-            <option>婚姻</option>
-            <option>亲子</option>
+            {foreach $good_field as $k=>$v}
+               <option value="{$v['Name']}">{$v['Name']}</option>
+            {/foreach}
+<!--            <option>家庭</option>-->
+<!--            <option>婚姻</option>-->
+<!--            <option>亲子</option>-->
         </select>
         <select>
         	<option>性别</option>
-            <option>男</option>
-            <option>女</option>
+            <option value="1">男</option>
+            <option value="2">女</option>
         </select>
     </div>
 </div>

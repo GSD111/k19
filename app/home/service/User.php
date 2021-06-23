@@ -24,7 +24,7 @@ class User
             ->where('Status', StatusCode::HOSPITAL_APPLY_SUCCESS)
             ->where('IsRecommend', StatusCode::USER_RECOMMEND)
             ->where('IsDoctor', StatusCode::USER_DOCTOR)
-            ->visible(['UID', 'UserAvatar', 'IsDoctor','IsRecommend', 'Status', 'RealName','Name'])
+            ->visible(['UID', 'UserAvatar', 'IsDoctor', 'IsRecommend', 'Status', 'RealName', 'Name'])
             ->limit(4)
             ->select();
 //        halt($user);
@@ -48,7 +48,7 @@ class User
             ->field('user.ID UID,user.UserAvatar,user.RealName,user.IsPersion,user.IsRecommend recommend,hosp.*')
             ->where('hosp.IsRecommend', StatusCode::USER_RECOMMEND)
             ->where('IsPersion', StatusCode::USER_PERSION)
-            ->visible(['HospitalName', 'UserAvatar', 'IsRecommend', 'IsPersion', 'RealName', 'HospitalID','UID'])
+            ->visible(['HospitalName', 'UserAvatar', 'IsRecommend', 'IsPersion', 'RealName', 'HospitalID', 'UID'])
             ->limit(4)
             ->select();
 //        halt($hospital);
@@ -92,15 +92,15 @@ class User
 
     public static function GetHospitalAll()
     {
-         $data = DB::table('user')
-             ->join('hospital hosp','user.HospitalID = hosp.ID')
-             ->join('hospitalapply hosapply','user.ID = hosapply.UserId')
-             ->field('hosapply.Status,hosapply.Name,hosapply.BusinessTime,
+        $data = DB::table('user')
+            ->join('hospital hosp', 'user.HospitalID = hosp.ID')
+            ->join('hospitalapply hosapply', 'user.ID = hosapply.UserId')
+            ->field('hosapply.Status,hosapply.Name,hosapply.BusinessTime,
              hosapply.Province pro ,hosapply.City city, hosapply.Area area,hosapply.Address,
              hosp.*,user.RealName,user.HospitalID,user.UserAvatar,user.ID UID')
-             ->where('Status', StatusCode::HOSPITAL_APPLY_SUCCESS)
-             ->where('IsPersion', StatusCode::USER_PERSION)
-             ->select();
+            ->where('Status', StatusCode::HOSPITAL_APPLY_SUCCESS)
+            ->where('IsPersion', StatusCode::USER_PERSION)
+            ->select();
 //        $data = Db::table('user')->join('hospitalapply', 'user.ID = hospitalapply.UserId')
 //            ->where('Status', StatusCode::HOSPITAL_APPLY_SUCCESS)
 //            ->where('IsPersion', StatusCode::USER_PERSION)
@@ -196,6 +196,16 @@ class User
         return $data;
 
     }
+
+
+    /*
+     * 擅长领域
+     */
+    public static function GetGoodField()
+    {
+        return Db::table('goodfield')->visible(['ID', 'Name'])->select();
+    }
+
 
 
 }

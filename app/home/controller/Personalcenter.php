@@ -14,6 +14,7 @@ use think\facade\Cache;
 use think\facade\Db;
 use think\facade\Filesystem;
 use think\facade\Request;
+use app\home\service\User as UserService;
 use think\facade\View;
 
 class Personalcenter extends BaseController
@@ -117,7 +118,9 @@ class Personalcenter extends BaseController
 
     public function GrzxYsrz()
     {
+        $data = UserService::GetGoodField();
 
+        View::assign('data',$data);
         return View::fetch('home/grzx_ysrz');
     }
 

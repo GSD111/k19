@@ -108,6 +108,10 @@ class Index extends BaseController
             $data[$k]['Specialty'] = json_decode($v['Specialty']);
         }
 //        halt($data);
+
+        $good_field = UserService::GetGoodField();
+
+        View::assign('good_field',$good_field);
         View::assign('data', $data);
 
         return View::fetch('home/wzxqs_list');

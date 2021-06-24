@@ -68,6 +68,10 @@ Route::group('home',function(){
 
 //    Route::get('/hosp_arc/:user_id','Findhospital/HospArc');
 //    Route::get('/xlzxs_arc/:user_id','Askdoctor/XlzxsArc');
+
+
+    Route::any('/user_test','Index/UserTest');
+    Route::any('/question_record','Index/QuestionRecord');
 });
 
 /*

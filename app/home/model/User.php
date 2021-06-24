@@ -13,4 +13,5 @@ class User extends Model
     protected $readonly = ['ID','RealName','UserAvatar','AreaId'];
 
 
+
 }

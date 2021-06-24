@@ -43,8 +43,7 @@ class Homelogin extends BaseController
                 ]);
 
 //                halt($info->id);
-                Cache::set('users', ['id' => $info->id, 'phone' => $info->PhoneNumber,
-                    'doctor' => $info->IsDoctor,'persion'=>$info->IsPersion]);
+                Cache::set('users', ['id' => $info->id, 'phone' => $info->PhoneNumber]);
                 redirect('/home/index')->send();
             }
             if ($result['UserStatus'] != StatusCode::USER_STATUS) {
@@ -53,6 +52,7 @@ class Homelogin extends BaseController
             $result->PhoneNumber = $phone;
             $result->LastLoginTime = time();
             $result->save();
+//            halt($result->ID);
             Cache::set('users', ['id' => $result->ID, 'phone' => $result->PhoneNumber,
                 'doctor' => $result->IsDoctor,'persion'=>$result->IsPersion]);
             redirect('/home/index')->send();

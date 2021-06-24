@@ -207,5 +207,20 @@ class User
     }
 
 
+    /*
+     * 用户测试题
+     * @params string $type_id 测试分类的id
+     * @params string $category 测试题的类别
+     */
+    public static function UserTestQuestion($type_id, $category)
+    {
+        $data = Db::table('question')
+            ->where('TestMenuID', $type_id)
+            ->where('TestType', $category)
+            ->select();
+
+        return $data;
+    }
+
 
 }

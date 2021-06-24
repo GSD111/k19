@@ -40,43 +40,67 @@
 
 <!--专业测试弹出-->
 <div class="tcxxdj">
-	<div class="fk">
-    	<p class="p1"><span>温馨提示：</span>您即将进入专业测试的答题中，我们会由专业的心理医师根据您的回答来给出对应的判断，请您在答题前完成下面基本信息的填写，并在最后答题结束后，支付相应的服务费用。</p>
+    <form action="{:URL('/home/user_test')}" method="post" onsubmit="return UserTest()" enctype="multipart/form-data">
+	<div class="fk" style="height:10.6rem;margin-top:0.5rem;">
+    	<p class="p1"><span>温馨提示：</span>您即将进入专业测试的答题中，请您在答题前认真如实填写相关信息，并在最后答题结束后，支付相应的服务费用，我们会有专业的心理为你解答。</p>
         <div class="dm01">
         	<p>姓名：</p>
-            <input type="text" />
+            <input type="text" name="user_name" id="live_username" placeholder="请输入您的姓名" />
         </div>
         <div class="dm02">
         	<p>性别：</p>
-            <input type="radio" class="nan" name="sex"/><label for="nan">男</label>
-            <input type="radio" class="nv" name="sex"/><label for="nv">女</label>
+            <input type="radio" class="nan" name="sex" value="1"/><label for="nan">男</label>
+            <input type="radio" class="nv" name="sex" value="2"/><label for="nv">女</label>
         </div>
         <div class="dm01">
         	<p>年龄：</p>
-            <input type="text" />
+            <input type="number" name="age" id="live_age" placeholder="请输入年龄"/>
+        </div>
+        <div class="dm01">
+            <p>邮箱：</p>
+            <input type="text" name="user_email" id="live_email" placeholder="请输入邮箱"/>
+        </div>
+        <div class="dm01">
+            <p>微信：</p>
+            <input type="text" name="user_wechat"  placeholder="请输入微信号"/>
         </div>
         <div class="dm03">
         	<p>婚姻：</p>
-            <input type="radio" class="nan" name="sex"/><label for="nan">单身</label>
-            <input type="radio" class="nv" name="sex"/><label for="nv">恋爱</label>
-            <input type="radio" class="nan" name="sex"/><label for="nan">已婚</label>
-            <input type="radio" class="nv" name="sex"/><label for="nv">已婚已育</label>
+            <input type="radio" class="nan" name="marriage" value="单身"/><label for="nan">单身</label>
+            <input type="radio" class="nv" name="marriage" value="恋爱" /><label for="nv">恋爱</label>
+            <input type="radio" class="nan" name="marriage" value="已婚"/><label for="nan">已婚</label>
+            <input type="radio" class="nv" name="marriage" value="已婚已育"/><label for="nv">已婚已育</label>
             <br/>
-            <input type="radio" class="nan" name="sex"/><label for="nan">离异</label>
-            <input type="radio" class="nv" name="sex"/><label for="nv">离异再组</label>
-            <input type="radio" class="nan" name="sex"/><label for="nan">离异再组已育</label>
+            <input type="radio" class="nan" name="marriage" value="离异"/><label for="nan">离异</label>
+            <input type="radio" class="nv" name="marriage" value="离异再组"/><label for="nv">离异再组</label>
+            <input type="radio" class="nan" name="marriage" value="离异再组已育"/><label for="nan">离异再组已育</label>
         </div>
         <div class="dm01">
         	<p>职业：</p>
-            <input type="text" />
+            <input type="text" name="job" id="live_job" placeholder="请输入您的职业"/>
         </div>
-        <a href="{:URL('/home/ylcs03')}" class="a1">确定</a>
+
+        <div class="dm01">
+            <p>自述：</p>
+            <textarea style="height:55px;width:4.5rem;border:solid gray 0.5px;" name="remark" id="live_remark"></textarea>
+        </div>
+
+        <input type="hidden" value="{$type_id}" name="type_id">
+        <input style="margin-top:0.85rem;"  type="submit" class="a1" value="确定" />
+<!--        <a href="{:URL('/home/ylcs03?type_id='.$type_id)}" class="a1">确定</a>-->
         <p class="p2"><input type="radio" name="qd" />点击确定说明您已经同意《测试说明》的相关信息。</p>
     </div>
+    </form>
 </div>
 
 
+{load href="/admin/lib/layui/layui.js"}
+{load href="/home/js/ischeck.js"}
 <script>
+    layui.use(['form', 'code'], function () {
+        form = layui.form;
+
+    });
 	$("#reg").click(function(){
 		$(".tcxxdj").css('display','block');
 		});
@@ -88,7 +112,7 @@
 
 <!--说明-->
 <div class="xlcs_sm">
-	<p>※该测试仅用于信息和参考目的。最后的结果不能替代专业诊断或任何健康状况的治疗。更不能以此为医疗判断。如果您想寻求有执照的心理健康专业人员的建议，您可以直接<a href="#">点击这里</a>进入寻找医师。</p>
+	<p>※该测试仅用于参考目的。最后的结果不能替代专业诊断或任何健康状况的治疗。更不能以此为医疗判断。如果您想寻求有执照的心理健康专业人员的建议，您可以直接<a href="#">点击这里</a>进入寻找医师。</p>
 </div>
 
 <!--底部js-->

@@ -37,4 +37,8 @@ class StatusCode
     const HOSPITAL_APPLY_SUCCESS = 2;  //审核通过
     const HOSPITAL_APPLY_FAIL = 3;     //审核失败
     const HOSPITAL_APPLY_REJECT = 4;   //驳回
+
+
+    const USER_TEST_FREE = "免费";
+    const USER_TEST_PAY= '付费';
 }

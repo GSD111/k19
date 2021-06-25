@@ -105,16 +105,26 @@ class Index extends BaseController
     public function WzxqsList()
     {
 
-        $data = UserService::DoctorTalk()->toArray();
+        $sex = Request::param('sex');
+        if(!empty($sex)){
+            $data = UserService::DoctorTalk()->where('Sex',$sex)->toArray();
+//            halt($data);
+        }else{
+            $data = UserService::DoctorTalk()->toArray();
+        }
+
         foreach ($data as $k => $v) {
             $data[$k]['Specialty'] = json_decode($v['Specialty']);
         }
+
 //        halt($data);
 
+//        $args['Specialty'] = empty($args['Specialty']) ? [] : explode(',', $args['Specialty']);
         $good_field = UserService::GetGoodField();
 
         View::assign('good_field', $good_field);
         View::assign('data', $data);
+
 
         return View::fetch('home/wzxqs_list');
     }

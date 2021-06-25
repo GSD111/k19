@@ -17,7 +17,7 @@ class FontMenu
 
         $result = FontMenuModel::GetChildMenu($id);
         if ($result->isEmpty()) {
-            redirect('http://home.baidu.com')->send();
+            redirect('http://kf.k19ch.com/s/554635lj9')->send();
         }
 
         return $result;

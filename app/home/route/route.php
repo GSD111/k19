@@ -23,6 +23,8 @@ Route::group('home',function(){
     Route::get('/SearchKeywords','Index/ZsxgList');
     Route::get('/zsxg_list2','Index/ZsxgList2');
     Route::get('/wzxqs_list','Index/WzxqsList');
+    Route::get('/talk_order','Index/WzxqsList');
+    Route::get('/good_field','Index/WzxqsList');
     Route::get('/wzxqs_arc/:id','Index/WzxqsArc');
     Route::get('/wzxqs_qs/:id','Index/WzxqsQs');
     Route::post('/UserTalkOrder','Index/GetUserTalkOrder');

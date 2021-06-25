@@ -4,33 +4,73 @@
 <div class="head2">
 	<a href="javascript:history.go(-1);"><img src="/home/picture/tb16.png" /></a>
     <p>我只想倾诉</p>
+    <span style="float:right;margin-right:20px;margin-top:-38px;color:white;" class="icon">筛选</span>
 </div>
 
-<div class="wzxqs_xz">
-	<div class="qs_xz">
-    	<select style="margin-right:0.3rem;">
-        	<option>默认排序</option>
-            <option>倾诉最多</option>
-            <option>评价最高</option>
-        </select>
-        <select style="margin-right:0.3rem;">
-        	<option>方向选择</option>
-            {foreach $good_field as $k=>$v}
-               <option value="{$v['Name']}">{$v['Name']}</option>
-            {/foreach}
-<!--            <option>家庭</option>-->
-<!--            <option>婚姻</option>-->
-<!--            <option>亲子</option>-->
-        </select>
-        <select>
-        	<option>性别</option>
-            <option value="1">男</option>
-            <option value="2">女</option>
-        </select>
+<!--条件筛选-->
+<div class="yyTree" id="yyTree">
+    <div class="yyTrft">
+        <div class="bt">
+            <img src="/home/picture/tb26.png" class="adr"/>
+            <p>全部筛选</p>
+            <img src="/home/picture/tb27.png" class="chk icon"/>
+        </div>
+<!--        <div class="hx"></div>-->
+<!--            <div class="dq">-->
+<!--                <p class="p1">默认排序</p>-->
+<!--                <ul>-->
+<!--                    <li><a href="{:URL('/home/talk_order?service='.'service')}">倾诉最多</a></li>-->
+<!--                    <li><a href="{:URL('/home/talk_order?rate='.'rate')}">评价最高</a></li>-->
+<!--                </ul>-->
+<!--            </div>-->
+        <div class="hx"></div>
+            <div class="dq">
+                <p class="p1">方向选择</p>
+                <ul>
+                    {foreach $good_field as $k=>$v}
+                        <li><a href="{:URL('/home/good_field?name='.$v['Name'])}">{$v['Name']}</a></li>
+                    {/foreach}
+                </ul>
+            </div>
+        <div class="hx"></div>
+            <div class="dq">
+                <p class="p1">性别</p>
+                <ul>
+                    <li><a href="{:URL('/home/talk_order?sex='.'1')}">男</a></li>
+                    <li><a href="{:URL('/home/talk_order?sex='.'2')}">女</a></li>
+                </ul>
+            </div>
     </div>
+    <div class="yyTrRt"></div>
 </div>
 
-<div class="wzxqs_list">
+<!--<div class="wzxqs_xz">-->
+<!--	<div class="qs_xz">-->
+<!--    	<select style="margin-right:0.3rem;">-->
+<!--        	<option>默认排序</option>-->
+<!--            <option>倾诉最多</option>-->
+<!--            <option>评价最高</option>-->
+<!--        </select>-->
+<!--        <select style="margin-right:0.3rem;" id="">-->
+<!--        	<option>方向选择</option>-->
+<!--            {foreach $good_field as $k=>$v}-->
+<!--               <option value="{$v['Name']}">-->
+<!--                   <a href="https://www.baidu.com/" >{$v['Name']}</a>-->
+<!--               </option>-->
+<!--            {/foreach}-->
+<!--&lt;!&ndash;            <option>家庭</option>&ndash;&gt;-->
+<!--&lt;!&ndash;            <option>婚姻</option>&ndash;&gt;-->
+<!--&lt;!&ndash;            <option>亲子</option>&ndash;&gt;-->
+<!--        </select>-->
+<!--        <select id="select_menu">-->
+<!--        	<option>性别</option>-->
+<!--            <option value="1">男</option>-->
+<!--            <option value="2">女</option>-->
+<!--        </select>-->
+<!--    </div>-->
+<!--</div>-->
+
+<div class="wzxqs_list" style="margin-top:0.35rem;">
 	<ul>
         {foreach $data as $k=>$v}
     	<li>
@@ -49,39 +89,30 @@
             </a>
         </li>
         {/foreach}
-<!--        <li>-->
-<!--        	<img src="/home/picture/tp07.png" />-->
-<!--            <div class="rt">-->
-<!--            	<p class="p1">贾金鼎<span>语音倾诉</span></p>-->
-<!--                <p class="p2">倾听是对他人的一种恭敬，一种尊重，一分理解，一分虔诚</p>-->
-<!--                <p class="p3"><span>婚姻</span><span>职场</span><span>人际</span></p>-->
-<!--                <p class="p4 clr">服务人数：<span>500</span> &nbsp;&nbsp;&nbsp;好评率：<span>98%</span></p>-->
-<!--            </div>-->
-<!--        </li>-->
-<!--        <li>-->
-<!--        	<img src="/home/picture/tp07.png" />-->
-<!--            <div class="rt">-->
-<!--            	<p class="p1">贾金鼎<span>语音倾诉</span></p>-->
-<!--                <p class="p2">倾听是对他人的一种恭敬，一种尊重，一分理解，一分虔诚</p>-->
-<!--                <p class="p3"><span>婚姻</span><span>职场</span><span>人际</span></p>-->
-<!--                <p class="p4 clr">服务人数：<span>500</span> &nbsp;&nbsp;&nbsp;好评率：<span>98%</span></p>-->
-<!--            </div>-->
-<!--        </li>-->
-<!--        <li>-->
-<!--        	<img src="/home/picture/tp07.png" />-->
-<!--            <div class="rt">-->
-<!--            	<p class="p1">贾金鼎<span>语音倾诉</span></p>-->
-<!--                <p class="p2">倾听是对他人的一种恭敬，一种尊重，一分理解，一分虔诚</p>-->
-<!--                <p class="p3"><span>婚姻</span><span>职场</span><span>人际</span></p>-->
-<!--                <p class="p4 clr">服务人数：<span>500</span> &nbsp;&nbsp;&nbsp;好评率：<span>98%</span></p>-->
-<!--            </div>-->
-<!--        </li>-->
+
+
     </ul>
 </div>
 
-<!--底部js-->
-<!--<script type="text/javascript" src="js/footer.js"></script>-->
 
+
+<script>
+    $(function () {
+        $(".icon").click(function () {
+            //$(".navTree").show();
+            $(".yyTree").addClass("thisyyTree");
+            $("body").addClass("noScroll");
+        });
+
+        $(".yyTrRt").click(function () {
+            //$(".navTree").hide();
+            $(".yyTree").removeClass("thisyyTree");
+            $("body").removeClass("noScroll");
+        });
+
+    });
+
+</script>
 {include file="home/footer" /}
 </body>
 </html>

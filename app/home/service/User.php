@@ -138,6 +138,7 @@ class User
             ->where('IsDoctor', StatusCode::USER_DOCTOR)
             ->visible(['RealName', 'UserAvatar', 'IsDoctor', 'Sex', 'Remark', 'Qualification', 'Resume',
                 'Signature', 'Name', 'Specialty', 'Status', 'UserId', 'ServiceNum', 'PraiseRate'])
+            ->order('ServiceNum desc')
             ->select();
 
         return $data;

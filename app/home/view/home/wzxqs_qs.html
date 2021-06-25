@@ -97,7 +97,7 @@
         <div style="display:flex;margin-top:20px;">
             <input style="width:40%;margin-left:30px;text-align:center;background:#ef8d6f;color:#fff;line-height:0.8rem;"  class="close"
               value="取消" />
-            <input style="width:40%;margin-left:15px;" class="qr" value="确认" onclick="pay()" />
+            <input style="width:40%;margin-left:15px;" class="qr" value="确认" onclick="pay({$id})" />
         </div>
 
     </div>
@@ -110,7 +110,6 @@
 
 
 {load href="/admin/lib/layui/layui.js"}
-<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 {load href="/home/js/doctor_talk.js"}
 <script>
 
@@ -120,6 +119,7 @@
 
     $("#reg").click(function(){
         doctor_name = $(this).attr('item-name')
+        // console.log(doctor_id)
         $(".fftc").css('display','block');
     });
 

@@ -32,6 +32,9 @@ $('.specialty').click(function(){
     // console.log(val)
 })
 
+
+
+
 //获取对应的支付类别的属性值
 $('#weixin').click(function(){
     pay_way = $(this).attr('index-pay')
@@ -42,15 +45,17 @@ $('#zhifubao').click(function(){
     // console.log(pay_way)
 })
 
-// var doctor_price_id;
+
 var times;        //选择的时长
 var price;        //对应时长的价格
 var specialty;    //倾述的方向
+// var doctor_id     //医生的id
 var doctor_name;  //医生的名字
 var pay_way;      //支付的类别
 
-function pay() {
-    // console.log(specialty);
+
+function pay(id) {
+    // console.log(id)
     var username = $('#username').val();
     var phone_number = $('#phone_number').val();
     // console.log(username,phone_number)
@@ -76,6 +81,7 @@ function pay() {
             'times':times,
             'price':price,
             "pay_way":pay_way,
+            'doctor_id':id,
             'specialty':specialty,
             'doctor_name':doctor_name,
             'username':username,

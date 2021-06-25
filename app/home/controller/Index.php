@@ -9,6 +9,7 @@ use app\home\model\Article as ArticleModel;
 use app\home\model\ArticleType;
 use app\home\model\FrontMenu;
 use app\home\model\FrontMenu as FrontMenuModel;
+use app\home\model\UserOrder;
 use app\home\model\UserTest;
 use app\home\service\Article as ArticleService;
 use app\home\service\FontMenu as FrontMenuService;
@@ -106,10 +107,10 @@ class Index extends BaseController
     {
 
         $sex = Request::param('sex');
-        if(!empty($sex)){
-            $data = UserService::DoctorTalk()->where('Sex',$sex)->toArray();
+        if (!empty($sex)) {
+            $data = UserService::DoctorTalk()->where('Sex', $sex)->toArray();
 //            halt($data);
-        }else{
+        } else {
             $data = UserService::DoctorTalk()->toArray();
         }
 
@@ -145,6 +146,7 @@ class Index extends BaseController
         $name = Request::param('name');
 //        halt($name);
         $info = UserService::DoctorTalkDetail($id)->toArray();
+//        halt($id);
         $info['Specialty'] = json_decode($info['Specialty']);
 
         $DoctorPrice = UserService::DoctorPriceList($id);
@@ -152,6 +154,7 @@ class Index extends BaseController
         View::assign('info', $info);
         View::assign('DoctorPrice', $DoctorPrice);
         View::assign('name', $name);
+        View::assign('id', $id);
         View::assign('user_avatar', $user_avatar);
 
         return View::fetch('home/wzxqs_qs');
@@ -162,7 +165,20 @@ class Index extends BaseController
 //       halt(Request::param('doctor_price_id'),Request::param());
         $data = file_get_contents("php://input");
         $info = json_decode($data, true);
-        halt($info);
+//        halt($info['phone_number']);
+        $result = UserOrder::create([
+            'UserID' => Cache::get('users')['id'],
+            'DoctorName' => $info['doctor_name'],
+            'DoctorID' => $info['doctor_id'],
+            'Time' => $info['times'],
+            'Money' => $info['price'],
+            "UserName" => $info['username'],
+            'Phone' => $info['phone_number'],
+            "PayWay" => $info['pay_way'],
+            "CreateTime" => time()
+        ]);
+
+        return $result;
         //根据前端传递的支付类别请求对应的支付接口
         //调用相应支付接口
         //支付成功将订单信息存进订单表，修改订单状态
@@ -277,45 +293,47 @@ class Index extends BaseController
         return View::fetch('home/ylcs03');
     }
 
-    public function UserTest(){
+    public function UserTest()
+    {
 //        halt(Request::param());
         $type_id = Request::param('type_id');
         $result = UserTest::create([
-            'UserName'=>Request::param('user_name'),
-            'Sex'=>Request::param('sex'),
-            'Age'=>Request::param('age'),
-            "UserEmail"=>Request::param('user_email'),
-            "UserWechat"=>Request::param('user_wechat'),
-            'Marriage'=>Request::param('marriage'),
-            'Job'=>Request::param('job'),
-            "Remark"=>Request::param('remark'),
-            'UserId'=>Cache::get('users')['id'],
-            'CreateTime'=>time()
+            'UserName' => Request::param('user_name'),
+            'Sex' => Request::param('sex'),
+            'Age' => Request::param('age'),
+            "UserEmail" => Request::param('user_email'),
+            "UserWechat" => Request::param('user_wechat'),
+            'Marriage' => Request::param('marriage'),
+            'Job' => Request::param('job'),
+            "Remark" => Request::param('remark'),
+            'UserId' => Cache::get('users')['id'],
+            'CreateTime' => time()
         ]);
 //
-        return redirect('/home/ylcs03?type_id='.$type_id.'&user_test_id='.$result->id);
+        return redirect('/home/ylcs03?type_id=' . $type_id . '&user_test_id=' . $result->id);
     }
+
     public function QuestionRecord()
     {
 //        halt(Request::param());
 //        halt(Cache::get('users')['id']);
         $data = file_get_contents("php://input");
-        $result = json_decode($data,true);
-        halt($result);
-        foreach ($result['arr'] as $k=>$v){
-             $info = Db::table('answerrecord')->insert([
-                 'TestTitle'=>$v['title'],
-                 'TestSelect'=>$v['select'],
-                 'UserID'=>Cache::get('users')['id'],
-                 'UserTestID'=>Request::param('user_test'),
-                 'CreateTime'=>time()
-             ]);
+        $result = json_decode($data, true);
+//        halt($result['pay_way'],$result['user_test_id']);
+        foreach ($result['arr'] as $k => $v) {
+            $info = Db::table('answerrecord')->insert([
+                'TestTitle' => $v['title'],
+                'TestSelect' => $v['select'],
+                'UserID' => Cache::get('users')['id'],
+                'UserTestID' => $result['user_test_id'],
+                'CreateTime' => time()
+            ]);
         }
 
-        if($info){
-            return $info=['code'=>200,'msg'=>'提交成功'];
-        }else{
-            return $info=['code'=>405,'msg'=>'提交失败'];
+        if ($info) {
+            return $info = ['code' => 200, 'msg' => '提交成功'];
+        } else {
+            return $info = ['code' => 405, 'msg' => '提交失败'];
         }
 
 

@@ -71,7 +71,7 @@
         <div style="display:flex;margin-top:20px;">
             <input style="width:40%;margin-left:30px;text-align:center;background:#ef8d6f;color:#fff;line-height:0.8rem;"  class="close"
                    value="取消" />
-            <input style="width:40%;margin-left:15px;" class="qr" value="确认付款" onclick="keep()" />
+            <input style="width:40%;margin-left:15px;" class="qr" value="确认付款" onclick="keep({$user_test})" />
         </div>
     </div>
 </div>
@@ -112,7 +112,7 @@
         }
     })
 
-    function keep() {
+    function keep(user_test_id) {
         if(arr.length == 0){
             layer.msg('请依次进行选择',{ icon:5,time:2000})
             return false
@@ -120,10 +120,11 @@
        console.log(arr)
 
         $.ajax({
-            url:'/home/question_record?user_test='+{$user_test},
+            url:'/home/question_record',
             data:JSON.stringify({
                 'arr':arr,
-                'pay_way':pay_way
+                'pay_way':pay_way,
+                "user_test_id":user_test_id
             }),
             type:'POST',
             dataType:'JSON',

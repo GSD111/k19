@@ -24,10 +24,9 @@ Route::group('home',function(){
     Route::get('/zsxg_list2','Index/ZsxgList2');
     Route::get('/wzxqs_list','Index/WzxqsList');
     Route::get('/talk_order','Index/WzxqsList');
+
     Route::get('/good_field','Index/WzxqsList');
-    Route::get('/wzxqs_arc/:id','Index/WzxqsArc');
-    Route::get('/wzxqs_qs/:id','Index/WzxqsQs');
-    Route::post('/UserTalkOrder','Index/GetUserTalkOrder');
+
 
 
     Route::get('/jsjb_list','Index/JsjbList');
@@ -35,11 +34,7 @@ Route::group('home',function(){
     Route::get('/xlzx_dh','Index/ZlzxDh');
     Route::get('/xlzx_qt','Index/XlzxQt');
     Route::get('/xlcs_list','Index/XlcsList');
-    Route::get('/xlcs_arc','Index/XlcsArc');
-    Route::get('/ylcs01','Index/Ylcs01');
-    Route::get('/ylcs02','Index/Ylcs02');
-    Route::get('/ylcs03','Index/Ylcs03');
-    Route::get('/ylcs04','Index/Ylcs04');
+
 
     //首页登录
     Route::any('/login','Homelogin/login');
@@ -72,8 +67,7 @@ Route::group('home',function(){
 //    Route::get('/xlzxs_arc/:user_id','Askdoctor/XlzxsArc');
 
 
-    Route::any('/user_test','Index/UserTest');
-    Route::any('/question_record','Index/QuestionRecord');
+
 });
 
 /*
@@ -87,6 +81,20 @@ Route::group('home',function (){
     Route::get('/xlzxs_arc/:user_id','Askdoctor/XlzxsArc');
     Route::post('/UserFollow/:user_id','Askdoctor/GetFollow');
     Route::get('/UnFollow/:user_id','Personalcenter/DelFollow');
+
+    Route::get('/xlcs_arc','Index/XlcsArc');
+    Route::get('/ylcs01','Index/Ylcs01');
+    Route::get('/ylcs02','Index/Ylcs02');
+    Route::get('/ylcs03','Index/Ylcs03');
+    Route::get('/ylcs04','Index/Ylcs04');
+
+    Route::any('/user_test','Index/UserTest');
+    Route::any('/question_record','Index/QuestionRecord');
+
+
+    Route::get('/wzxqs_arc/:id','Index/WzxqsArc');
+    Route::get('/wzxqs_qs/:id','Index/WzxqsQs');
+    Route::post('/UserTalkOrder','Index/GetUserTalkOrder');
     //个人认证
     Route::any('/people_certification','Certification/PeopleCertification');
     Route::any('/hospital_certification','Certification/HospitalCertification');

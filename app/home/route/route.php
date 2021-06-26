@@ -118,6 +118,7 @@ Route::group('home',function (){
     Route::get('/grzx_csjg','Personalcenter/GrzxCsjg');
     Route::get('/grzx_cspj','Personalcenter/GrzxCspj');
     Route::get('/grzx_zxspj','Personalcenter/GrzxZxspj');
+    Route::any('/user_comment','Personalcenter/UserComment');
     Route::get('/grzx_jgrztj/:id','Personalcenter/GrzxJgrztj');
     Route::get('/grzx_ysrztj/:id','Personalcenter/GrzxYsrztj');
 })->middleware(\app\middleware\IsLogin::class);

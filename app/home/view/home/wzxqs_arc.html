@@ -2,78 +2,78 @@
 
 <body style="background:#f5f5f5;">
 <div class="head2">
-	<a href="javascript:history.go(-1);"><img src="/home/picture/tb16.png" /></a>
+    <a href="javascript:history.go(-1);"><img src="/home/picture/tb16.png"/></a>
     <p>{$info['Name']}</p>
 </div>
 <div class="wzxqs_arc">
-	<div class="qsdx">
-    	<img src="{$info['UserAvatar']}" />
-    	<div class="rt">
+    <div class="qsdx">
+        <img src="{$info['UserAvatar']}"/>
+        <div class="rt">
             <p class="p1">{$info['Name']}<span>语音倾诉</span></p>
             <p class="p2">{$info['Signature']}</p>
             <p class="p3">
                 {foreach $info['Specialty'] as $k=>$item}
-                    <span>{$item}</span>
+                <span>{$item}</span>
                 {/foreach}
             </p>
-            <p class="p4 clr">服务人数：<span>{$info['ServiceNum']}</span> &nbsp;&nbsp;&nbsp;好评率：<span>{$info['PraiseRate']}%</span></p>
+            <p class="p4 clr">服务人数：<span>{$info['ServiceNum']}</span>
+                &nbsp;&nbsp;&nbsp;好评率：<span>{$info['PraiseRate']}%</span></p>
         </div>
     </div>
-	<div class="xz">
-    	<a href="{:URL('/home/wzxqs_qs/'.$info['UserId'].'?user_avatar='.$info['UserAvatar'].'&name='.$info['Name'])}">
-        	<p class="p1">语音倾听</p>
-<!--            <p class="p2">10元30分钟</p>-->
+    <div class="xz">
+        <a href="{:URL('/home/wzxqs_qs/'.$info['UserId'].'?user_avatar='.$info['UserAvatar'].'&name='.$info['Name'])}">
+            <p class="p1">语音倾听</p>
+            <!--            <p class="p2">10元30分钟</p>-->
         </a>
-<!--        <a href="#">-->
-<!--        	<p class="p1">文字倾听</p>-->
-<!--            <p class="p2">2元30分钟</p>-->
-<!--        </a>-->
+        <!--        <a href="#">-->
+        <!--        	<p class="p1">文字倾听</p>-->
+        <!--            <p class="p2">2元30分钟</p>-->
+        <!--        </a>-->
     </div>
     <div class="nr">
-    	<p class="p1"><img src="/home/picture/tb32.png" />资质</p>
-        <p class="p2">{$info['Qualification']}   </p>
-        <p class="p1"><img src="/home/picture/tb32.png" />擅长</p>
+        <p class="p1"><img src="/home/picture/tb32.png"/>资质</p>
+        <p class="p2">{$info['Qualification']} </p>
+        <p class="p1"><img src="/home/picture/tb32.png"/>擅长</p>
         <p class="p2">
             {foreach $info['Specialty'] as $k=>$item}
-              <span>{$item}</span>
+            <span>{$item}</span>
             {/foreach}
         </p>
-        <p class="p1"><img src="/home/picture/tb32.png" />个人简介</p>
+        <p class="p1"><img src="/home/picture/tb32.png"/>个人简介</p>
         <p class="p2">{$info['Remark']}</p>
-        <p class="p1"><img src="/home/picture/tb32.png" />个人履历</p>
+        <p class="p1"><img src="/home/picture/tb32.png"/>个人履历</p>
         <p class="p2">{$info['Resume']}</p>
     </div>
 </div>
 <!--用户评价-->
 <div class="yhpj">
-	<div class="tt">
-    	<p>用户评价<img src="/home/picture/tb33.png" /></p>
+    <div class="tt">
+        <p>用户评价<img src="/home/picture/tb33.png"/></p>
     </div>
     <ul>
-    	<li>
-        	<p class="p1">用户：lv乐乐喵<span>2021-05-13</span></p>
-            <p class="p2">耐心，讲述清晰，能让人心情放松下来<span><img src="/home/picture/tb19.png" /><img src="/home/picture/tb19.png" /><img src="picture/tb19.png" /><img src="picture/tb18.png" /><img src="picture/tb18.png" /></span></p>
-        </li>
-        <li>
-        	<p class="p1">用户：lv乐乐喵<span>2021-05-13</span></p>
-            <p class="p2">耐心，讲述清晰，能让人心情放松下来<span><img src="/home/picture/tb19.png" /><img src="/home/picture/tb19.png" /><img src="picture/tb19.png" /><img src="picture/tb18.png" /><img src="picture/tb18.png" /></span></p>
-        </li>
-        <li>
-        	<p class="p1">用户：lv乐乐喵<span>2021-05-13</span></p>
-            <p class="p2">耐心，讲述清晰，能让人心情放松下来<span><img src="/home/picture/tb19.png" /><img src="/home/picture/tb19.png" /><img src="picture/tb19.png" /><img src="picture/tb18.png" /><img src="picture/tb18.png" /></span></p>
-        </li>
-        <li>
-        	<p class="p1">用户：lv乐乐喵<span>2021-05-13</span></p>
-            <p class="p2">耐心，讲述清晰，能让人心情放松下来<span><img src="/home/picture/tb19.png" /><img src="/home/picture/tb19.png" /><img src="picture/tb19.png" /><img src="picture/tb18.png" /><img src="picture/tb18.png" /></span></p>
-        </li>
+        {if empty(!$user_comment)}
+            {foreach $user_comment as $k=>$v}
+            <li>
+                <p class="p1">用户：{$v['RealName']}<span>{$v['CreateTime']|date='Y-m-d'}</span></p>
+                <p class="p2">{$v['Content']}<span>
+                   {$v['Grade']}星</span></p>
+            </li>
+            {/foreach}
+        {/if}
+        <!--        <li>-->
+        <!--        	<p class="p1">用户：lv乐乐喵<span>2021-05-13</span></p>-->
+        <!--            <p class="p2">耐心，讲述清晰，能让人心情放松下来<span><img src="/home/picture/tb19.png" /><img src="/home/picture/tb19.png" /><img src="picture/tb19.png" /><img src="picture/tb18.png" /><img src="picture/tb18.png" /></span></p>-->
+        <!--        </li>-->
+        <!--        <li>-->
+        <!--        	<p class="p1">用户：lv乐乐喵<span>2021-05-13</span></p>-->
+        <!--            <p class="p2">耐心，讲述清晰，能让人心情放松下来<span><img src="/home/picture/tb19.png" /><img src="/home/picture/tb19.png" /><img src="picture/tb19.png" /><img src="picture/tb18.png" /><img src="picture/tb18.png" /></span></p>-->
+        <!--        </li>-->
+        <!--        <li>-->
+        <!--        	<p class="p1">用户：lv乐乐喵<span>2021-05-13</span></p>-->
+        <!--            <p class="p2">耐心，讲述清晰，能让人心情放松下来<span><img src="/home/picture/tb19.png" /><img src="/home/picture/tb19.png" /><img src="picture/tb19.png" /><img src="picture/tb18.png" /><img src="picture/tb18.png" /></span></p>-->
+        <!--        </li>-->
     </ul>
 </div>
-
-
-
-
-
-
 
 
 <!--底部js-->

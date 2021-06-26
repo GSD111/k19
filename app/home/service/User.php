@@ -224,4 +224,23 @@ class User
     }
 
 
+
+   /*
+    * 倾诉一刻用户评价
+    * @params string $id 医师的id
+    */
+    public static function GetDoctorCommentInfo($id){
+
+        $data = Db::table('user')
+            ->join('evaluate','user.ID = evaluate.UserID')
+            ->field('user.RealName,evaluate.*')
+            ->where('DoctorID',$id)
+            ->order('CreateTime desc')
+            ->limit(10)
+            ->select();
+
+        return $data;
+    }
+
+
 }

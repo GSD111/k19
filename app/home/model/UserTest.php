@@ -13,4 +13,6 @@ class UserTest extends Model
      protected $type = [
          'CreateTime' => 'timestamp'
      ];
+
+
 }

@@ -9,12 +9,13 @@ use app\home\enum\StatusCode;
 use app\home\model\Hospital;
 use app\home\model\HospitalApply;
 use app\home\model\User;
+use app\home\model\UserOrder;
 use app\home\service\Article;
+use app\home\service\User as UserService;
 use think\facade\Cache;
 use think\facade\Db;
 use think\facade\Filesystem;
 use think\facade\Request;
-use app\home\service\User as UserService;
 use think\facade\View;
 
 class Personalcenter extends BaseController
@@ -30,21 +31,21 @@ class Personalcenter extends BaseController
         $user_id = Cache::get('users')['id'];
         $doctor = Cache::get('users')['doctor'];
 //        $persion = Cache::get('users')['persion'];
-        $user_login = User::where('ID',$user_id)->visible(['ID','IsPersion'])->find();
+        $user_login = User::where('ID', $user_id)->visible(['ID', 'IsPersion'])->find();
 //        halt($user_login->toArray());
 //        /*
 //         * 检测当前登录者的身份信息
 //         */
-        if($user_login['IsPersion'] == StatusCode::USER_PERSION){
+        if ($user_login['IsPersion'] == StatusCode::USER_PERSION) {
             $data = HospitalApply::GetApplayAll($user_id);
 //            halt($data);
-            $hospital_info = Hospital::where('ID',$data['HospitalID'])->visible(['ID','HospitalInfo'])->find();
+            $hospital_info = Hospital::where('ID', $data['HospitalID'])->visible(['ID', 'HospitalInfo'])->find();
 
             $HospitalDoctor = HospitalApply::GetHospitalDoctor($hospital_info['ID']);
 //            halt($HospitalDoctor);
-            View::assign('data',$data);
-            View::assign('hospital_info',$hospital_info);
-            View::assign('HospitalDoctor',$HospitalDoctor);
+            View::assign('data', $data);
+            View::assign('hospital_info', $hospital_info);
+            View::assign('HospitalDoctor', $HospitalDoctor);
             return View::fetch('home/sjzx_main');
         }
 
@@ -58,9 +59,9 @@ class Personalcenter extends BaseController
             $status = '审核完成';
         } elseif ($user['Status'] == 3) {
             $status = '驳回';
-        } elseif($user['Status'] == 4) {
+        } elseif ($user['Status'] == 4) {
             $status = '审核失败';
-        }else
+        } else
             $status = '';
 
         View::assign('user_phone', $user_phone);
@@ -74,13 +75,20 @@ class Personalcenter extends BaseController
 
     public function GrzxWdzx()
     {
-
+        $user_id = Cache::get('users')['id'];
+//        halt($user_id);
+        $data = UserOrder::GetUserOrderInfo($user_id, StatusCode::USER_ORDER_STATUS_PAID);
+//        halt($data->toArray());
+        View::assign('data', $data);
         return View::fetch('home/grzx_wdzx');
     }
 
     public function GrzxJypj()
     {
+        $user_id = Cache::get('users')['id'];
+        $data = UserOrder::GetUserOrderInfo($user_id, StatusCode::USER_ORDER_STATUS_PAID);
 
+        View::assign('data', $data);
         return View::fetch('home/grzx_jypj');
     }
 
@@ -120,7 +128,7 @@ class Personalcenter extends BaseController
     {
         $data = UserService::GetGoodField();
 
-        View::assign('data',$data);
+        View::assign('data', $data);
         return View::fetch('home/grzx_ysrz');
     }
 
@@ -147,7 +155,7 @@ class Personalcenter extends BaseController
 //                $user->UserAvatar = $picCover;
 ////                halt($user->UserAvatar);
 //                $user->save();
-                Db::table('user')->where('ID',$user_id)->update(['UserAvatar'=>$picCover]);
+                Db::table('user')->where('ID', $user_id)->update(['UserAvatar' => $picCover]);
                 redirect('/home/grzx_main')->send();
             }
         } catch (\Exception $e) {
@@ -176,8 +184,29 @@ class Personalcenter extends BaseController
 
     public function GrzxZxspj()
     {
+        $doctor_id = Request::param('doctor_id');
 
+        View::assign('doctor_id', $doctor_id);
         return View::fetch('home/grzx_zxspj');
+    }
+
+    public function UserComment()
+    {
+        $data = file_get_contents("php://input");
+        $result = json_decode($data, true);
+
+        Db::table('evaluate')->insert([
+            'DoctorID' => $result['params']['doctor_id'],
+            'UserID' => Cache::get('users')['id'],
+            'Content' => $result['params']['content'],
+            'Grade' => $result['grade'],
+//            "IsAnonymous" => $result['params']['is_anonymous'],
+            "CreateTime" => time()
+        ]);
+
+            return redirect('/home/grzx_main')->send();
+
+
     }
 
     public function GrzxJgrztj($id)

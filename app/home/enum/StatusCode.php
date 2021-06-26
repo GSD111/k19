@@ -41,4 +41,8 @@ class StatusCode
 
     const USER_TEST_FREE = "免费";
     const USER_TEST_PAY= '付费';
+
+    const USER_ORDER_STATUS_UNPAID = 0; //未支付
+    const USER_ORDER_STATUS_PAID = 1; //已支付
+    const USER_ORDER_STATUS_FAIL = 2; //支付失败
 }

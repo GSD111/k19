@@ -47,7 +47,7 @@ class Findhospital extends BaseController
     {
 //        halt($user_id);
         $HospitalDeatil = HospitalApply::GetHospitalDetail($user_id);
-        halt($HospitalDeatil);
+//        halt($HospitalDeatil);
         $HospitalDoctor = HospitalApply::GetHospitalDoctor($HospitalDeatil['ID']);
 //        halt($HospitalDoctor);
 

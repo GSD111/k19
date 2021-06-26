@@ -19,6 +19,7 @@ use think\facade\Db;
 use think\facade\Request;
 use think\facade\View;
 
+
 class Index extends BaseController
 {
 
@@ -135,8 +136,10 @@ class Index extends BaseController
         $info = UserService::DoctorTalk()->where('UserId', $id)->first();
         $info['Specialty'] = json_decode($info['Specialty']);
 //        halt($info);
-
+        $user_comment = UserService::GetDoctorCommentInfo($id);
+//        halt($user_comment);
         View::assign('info', $info);
+        View::assign('user_comment', $user_comment);
         return View::fetch('home/wzxqs_arc');
     }
 

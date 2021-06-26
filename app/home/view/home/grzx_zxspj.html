@@ -2,31 +2,129 @@
 
 <body style="background:#f5f5f5;">
 <div class="head2">
-	<a href="javascript:history.go(-1);"><img src="/home/picture/tb16.png" /></a>
+    <a href="javascript:history.go(-1);"><img src="/home/picture/tb16.png"/></a>
     <p>心理师评价</p>
 </div>
 <div class="grzx_cspj">
-	<div class="pj">
-    	<p class="p1"><img src="/home/picture/tb44.png" />我的评价</p>
-        <p class="p2"><span>态    度</span><img src="/home/picture/tb19.png" /><img src="/home/picture/tb19.png" /><img src="picture/tb19.png" /><img src="picture/tb18.png" /><img src="picture/tb18.png" /></p>
-        <p class="p2"><span>语    速</span><img src="/home/picture/tb19.png" /><img src="/home/picture/tb19.png" /><img src="picture/tb19.png" /><img src="picture/tb18.png" /><img src="picture/tb18.png" /></p>
-        <p class="p2"><span>专    业</span><img src="/home/picture/tb19.png" /><img src="/home/picture/tb19.png" /><img src="picture/tb19.png" /><img src="picture/tb18.png" /><img src="picture/tb18.png" /></p>
-        <p class="p2"><span>及    时</span><img src="/hopme/picture/tb19.png" /><img src="/home/picture/tb19.png" /><img src="picture/tb19.png" /><img src="picture/tb18.png" /><img src="picture/tb18.png" /></p>
-        <div class="hx"></div>
-        <p class="p2"><span>综合评价</span><img src="/home/picture/tb19.png" /><img src="/home/picture/tb19.png" /><img src="picture/tb19.png" /><img src="picture/tb18.png" /><img src="picture/tb18.png" /></p>
-        <p class="p3">个人评价</p>
-        <textarea></textarea>
-        <p class="p4"><input type="checkbox" />匿名显示</p>
-        <a href="#">提交评价</a>
-        <div style="height:1.5rem; clear:both;"></div>
-    </div>
+<!--    <form  method="post" action="{:URL('/home/user_comment')}" enctype="multipart/form-data">-->
+    <form  id="form">
+        <div class="pj">
+            <p class="p1"><img src="/home/picture/tb44.png"/>我的评价</p>
+<!--            <p class="p2"><span>态    度</span><img src="/home/picture/tb19.png"/><img src="/home/picture/tb19.png"/><img-->
+<!--                    src="picture/tb19.png"/><img src="picture/tb18.png"/><img src="picture/tb18.png"/></p>-->
+<!--            <p class="p2"><span>语    速</span><img src="/home/picture/tb19.png"/><img src="/home/picture/tb19.png"/><img-->
+<!--                    src="picture/tb19.png"/><img src="picture/tb18.png"/><img src="picture/tb18.png"/></p>-->
+<!--            <p class="p2"><span>专    业</span><img src="/home/picture/tb19.png"/><img src="/home/picture/tb19.png"/><img-->
+<!--                    src="picture/tb19.png"/><img src="picture/tb18.png"/><img src="picture/tb18.png"/></p>-->
+<!--            <p class="p2"><span>及    时</span><img src="/hopme/picture/tb19.png"/><img src="/home/picture/tb19.png"/><img-->
+<!--                    src="picture/tb19.png"/><img src="picture/tb18.png"/><img src="picture/tb18.png"/></p>-->
+            <div class="hx"></div>
+            <!--        <p class="p2"><span>综合评价</span><img src="/home/picture/tb19.png" /><img src="/home/picture/tb19.png" /><img src="picture/tb19.png" /><img src="picture/tb18.png" /><img src="picture/tb18.png" /></p>-->
+            <div class="p2">
+                <span>态    度</span>
+                <div id="test7" style="margin-top:-13px;"></div>
+            </div>
+            <div class="p2">
+                <span>语    速</span>
+                <div id="test8" style="margin-top:-13px;"></div>
+            </div>
+            <div class="p2">
+                <span>专    业</span>
+                <div id="test9" style="margin-top:-13px;"></div>
+            </div>
+            <div class="p2">
+                <span>及    时</span>
+                <div id="test10" style="margin-top:-13px;"></div>
+            </div>
+            <div class="p2">
+                <span>综合评价</span>
+                <div id="test1" style="margin-top:-13px;"></div>
+            </div>
+
+
+            <p class="p3">个人评价</p>
+            <textarea name="content"></textarea>
+<!--            <p class="p4"><input type="checkbox" name="is_anonymous" value="1"/>匿名显示</p>-->
+<!--            <p class="p4" style=""><input type="checkbox" name="is_anonymous" value="1"/>不匿名</p>-->
+            <div style="margin-top:45px;text-align:center">
+                <input type="hidden" name="doctor_id" value="{$doctor_id}" />
+            <input style="margin: auto;background: #6fc750;text-align: center;width: 40%;height:40px;color: #fff;
+               margin-bottom: 20px;"   onclick="comment()" value="提交评价"/>
+            </div>
+            <div style="height:1.5rem; clear:both;"></div>
+        </div>
+    </form>
 </div>
 
 
+{load href="/admin/lib/layui/css/layui.css"}
+{load href="/admin/lib/layui/layui.js"}
+
+<script>
 
 
-<!--底部js-->
-<!--<script type="text/javascript" src="js/footer.js"></script>-->
+var grade = 0;
+    layui.use(['rate'], function () {
+        var rate = layui.rate;
+        rate.render({
+            elem: '#test7'
+            ,length: 5
+        });
+        rate.render({
+            elem: '#test8'
+            ,length: 5
+        });
+        rate.render({
+            elem: '#test9'
+            ,length: 5
+        });
+        rate.render({
+            elem: '#test10'
+            ,length: 5
+        });
+
+
+        rate.render({
+            elem: '#test1',
+            choose: function(value){
+                // if(value > 4) alert( '么么哒' )
+                grade = value
+            }
+        })
+    });
+
+    function comment(){
+        var params = $('#form').serializeArray()
+        var tempObj = {};
+        $.each(params, function(i, obj) {
+            tempObj[obj.name] = obj.value;
+        });
+        console.log(tempObj);
+        $.ajax({
+            url:'/home/user_comment',
+            data:JSON.stringify({
+                'params':tempObj,
+                "grade":grade
+            }),
+            contentType: 'application/x-www-form-urlencoded',
+            type:'POST',
+            success:function (data) {
+                if(data.code == 200){
+                    layer.msg(data.msg, {icon: 1, time: 2000})
+                    window.location='/home/grzx_main'
+                }
+            }
+        })
+    }
+
+
+
+
+
+
+
+</script>
+
 {include file="home/footer" /}
 </body>
 </html>

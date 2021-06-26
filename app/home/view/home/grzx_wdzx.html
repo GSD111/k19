@@ -3,25 +3,29 @@
 <body style="background:#f5f5f5;">
 <div class="head2">
 	<a href="javascript:history.go(-1);"><img src="/home/picture/tb16.png" /></a>
-    <p>我的咨询</p>
+    <p>我的倾诉</p>
 </div>
 <div class="grzx_wdzx">
 	<div class="xl">
-    	<p class="p1"><span></span>心理类咨询<img src="/home/picture/tb50.png" /></p>
+    	<p class="p1"><span></span>倾诉的医师<img src="/home/picture/tb50.png" /></p>
+        {empty name='data'}
+           <p style="margin-top:13px;text-align:center;">您暂时还没有倾诉过</p>
+        {/empty}
         <ul>
-        	<li>张医生<span>2021-05-21</span></li>
-            <li>张医生<span>2021-05-21</span></li>
-            <li>张医生<span>2021-05-21</span></li>
+            {foreach $data as $k=>$v}
+                <li>{$v['DoctorName']}<span>{$v['CreateTime']|date='Y-m-d'}</span></li>
+            {/foreach}
+
         </ul>
     </div>
-    <div class="xl">
-    	<p class="p1"><span></span>精神类咨询<img src="/home/picture/tb50.png" /></p>
-        <p class="p2">没有更多信息展示</p>
-    </div>
-    <div class="xl">
-    	<p class="p1"><span></span>其他类咨询<img src="/home/picture/tb50.png" /></p>
-        <p class="p2">没有更多信息展示</p>
-    </div>
+<!--    <div class="xl">-->
+<!--    	<p class="p1"><span></span>精神类咨询<img src="/home/picture/tb50.png" /></p>-->
+<!--        <p class="p2">没有更多信息展示</p>-->
+<!--    </div>-->
+<!--    <div class="xl">-->
+<!--    	<p class="p1"><span></span>其他类咨询<img src="/home/picture/tb50.png" /></p>-->
+<!--        <p class="p2">没有更多信息展示</p>-->
+<!--    </div>-->
     
 </div>
 

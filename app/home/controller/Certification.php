@@ -6,6 +6,7 @@ namespace app\home\controller;
 
 use app\BaseController;
 use app\home\model\HospitalApply;
+use app\home\model\User;
 use think\facade\Cache;
 use think\facade\Filesystem;
 use think\facade\Request;
@@ -18,8 +19,13 @@ class Certification extends BaseController
      */
     public function PeopleCertification()
     {
+        $data = HospitalApply::where('UserId', Cache::get('users')['id'])->find();
+
+        if(!empty($data)){
+
+            return "<script>alert('您已经认证过了请勿再次提交申请');window.history.back();</script>";
+        }
         $file = Request::file('license_permission');
-//        halt(Cache::get('users')['id']);
         try {
             $result = validate(['image' => ['fileExt:gif,jpg,png']])->check(['image' => $file]);
 //        halt($arr);
@@ -28,6 +34,12 @@ class Certification extends BaseController
                 $path = Filesystem::disk('public')->putFile('static', $file);
 //            dump($path);
                 $picCover = Filesystem::getDiskConfig('public', 'url') . '/' . str_replace('\\', '/', $path);
+
+                User::where('ID',Cache::get('users')['id'])->save([
+                    'RealName'=>Request::param('name'),
+                    "IsPersion"=>Request::param('is_persion'),
+                    "Remark"=>Request::param('Remark'),
+                ]);
 //            halt($picCover);
                 $user = new HospitalApply;
                 $user->Name = Request::param('name');
@@ -39,7 +51,7 @@ class Certification extends BaseController
                 $user->UserPhone = Request::param('user_phone');
                 $user->UserId = Cache::get('users')['id'];
                 $user->LicensePermission = $picCover;
-                $user->IsPersion = Request::param('IsPersion');
+//                $user->IsPersion = Request::param('is_persion');
                 $user->BusinessTime = Request::param('business_time');
                 $user->CreateTime = time();
                 $user->save();
@@ -58,13 +70,24 @@ class Certification extends BaseController
      */
     public function HospitalCertification()
     {
+        $data = HospitalApply::where('UserId', Cache::get('users')['id'])->find();
+//        halt($data);
+        if(!empty($data)){
 
+            return "<script>alert('您已经认证过了请勿再次提交申请');window.history.back();</script>";
+        }
+
+//        halt(Request::param());
         $files = Request::file('business_license');
         try {
             $rules = validate(['images' => ['fileExt:gif,jpg,png']])->check(['images' => $files]);
 //        halt($arr);
             if ($rules) {
                 $paths = Filesystem::disk('public')->putFile('static', $files);
+                User::where('ID',Cache::get('users')['id'])->save([
+                    'RealName'=>Request::param('name'),
+                    "IsPersion"=>Request::param('is_persion')
+                ]);
 //            dump($path);
                 $picCover = Filesystem::getDiskConfig('public', 'url') . '/' . str_replace('\\', '/', $paths);
                 $user = new HospitalApply;
@@ -77,12 +100,12 @@ class Certification extends BaseController
                 $user->UserPhone = Request::param('user_phone');
                 $user->UserId = Cache::get('users')['id'];
                 $user->BusinessLicense = $picCover;
-                $user->IsPersion = Request::param('is_persion');
+//                $user->IsPersion = Request::param('is_persion');
                 $user->BusinessTime = Request::param('business_time');
                 $user->CreateTime = time();
                 $user->save();
 
-                redirect('/home/grzx_jgrztj/' . $user->id);
+                redirect('/home/grzx_jgrztj/'. $user->id)->send();
             }
         } catch (\Exception $e) {
 

@@ -117,11 +117,11 @@ class User
 
     /*
      * 根据区域获取对应的医院
-     * @param string $AreaId 区域的ID
+     * @param string $city_name 区域的ID
      */
-    public static function SearchAreaHospital($AreaId)
+    public static function SearchAreaHospital($city_name)
     {
-        $data = self::GetHospitalAll()->where('AreaId', $AreaId);
+        $data = self::GetHospitalAll()->where('pro', $city_name);
 
         return $data;
     }
@@ -204,7 +204,7 @@ class User
      */
     public static function GetGoodField()
     {
-        return Db::table('goodfield')->visible(['ID', 'Name'])->select();
+        return Db::table('goodfield')->where('IsDelete',0)->visible(['ID', 'Name'])->select();
     }
 
 

@@ -22,8 +22,8 @@
 <div class="zxs_fd">
     <div class="find">
         <form>
-            <input  type="text" placeholder="请输入城市" name="city" class="ct"/>
-            <input  type="submit" value="搜索" class="ser"/>
+            <input type="text" placeholder="请输入城市" name="city" class="ct"/>
+            <input type="submit" value="搜索" class="ser"/>
         </form>
 
 
@@ -44,6 +44,7 @@
         </div>
         <div class="hx"></div>
         <div class="dq">
+            {if empty(!$area)}
             {foreach $area as $k=>$v}
             <p class="p1">{$v['CityName']}</p>
             <ul>
@@ -52,6 +53,7 @@
                 {/foreach}
             </ul>
             {/foreach}
+            {/if}
         </div>
     </div>
     <div class="yyTrRt"></div>
@@ -76,13 +78,12 @@
 </script>
 
 
-<div class="zxs_list">
-
-    {empty name="data"}
-        <p style="text-align:center;">当前该区域暂时没有医师，敬请期待！</p>
-    {/empty}
+<div class="zxs_list" style="margin-top:0;">
 
     <ul class="u1">
+        {if empty($data)}
+            <p style="text-align:center;">当前该区域暂时没有医师，敬请期待！</p>
+        {else /}
         {foreach $data as $k=>$v}
         <li>
             <img src="{$v['UserAvatar']}"/>
@@ -93,11 +94,12 @@
             </div>
         </li>
         {/foreach}
+        {/if}
 
         {notempty name="keywords"}
-           <div style="display:flex;margin-top:30px;">
-                <a style="margin:0 auto;" href="{:URL('/home/xlzxs_list')}" class="layui-btn">清空筛选</a>
-           </div>
+        <div style="display:flex;margin-top:30px;">
+            <a style="margin:0 auto;" href="{:URL('/home/xlzxs_list')}" class="layui-btn">清空筛选</a>
+        </div>
         {/notempty}
 
     </ul>

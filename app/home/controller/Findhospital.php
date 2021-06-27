@@ -20,12 +20,13 @@ class Findhospital extends BaseController
     public function HospList()
     {
 
-        $searchID = Request::param('id');
+        $city_name = Request::param('city_name');
         $keywords = Request::param('city');
         if (!empty($searchID)) {
-            $data = UserService::SearchAreaHospital($searchID);
+            $data = UserService::SearchAreaHospital($city_name);
         } elseif (!empty($keywords)) {
-            $data = AreaCityModel::GetAreaHospital()->whereLike("CityName", $keywords);
+//            $data = AreaCityModel::GetAreaHospital()->whereLike("CityName", $keywords);
+            $data = UserService::GetHospitalAll()->whereLike("pro", $keywords);
 
         } else {
             $data = UserService::GetHospitalAll();

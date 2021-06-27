@@ -28,6 +28,23 @@ class HospitalApply extends Model
     }
 
 
+//    /*
+//     * 检测当前用户是否认证过
+//     * @params string $id 当前用户的id
+//     *
+//     */
+//    public static function IsApply($id)
+//    {
+//
+//        $data = HospitalApply::where('UserId', $id)->find();
+////        halt($data);
+//        if (!empty($data)) {
+//            return "<script>alert('您已经认证过了请勿再次提交申请');window.history.back();</script>";
+//        }
+//        return $data;
+//    }
+
+
     /*
      * 获取商家申请入驻者的详细信息
      * @params string $id  用户的id
@@ -37,7 +54,8 @@ class HospitalApply extends Model
         $ApplayAll = Db::table('hospitalapply')
             ->join('user', 'user.ID = hospitalapply.UserId')
             ->where('UserId', $user_id)
-            ->visible(['Name', 'Province', 'City', 'Area', 'Address',
+            ->field('user.UserAvatar,user.HospitalID,user.ID UID,hospitalapply.*')
+            ->visible(['Name', 'Province', 'City', 'Area', 'Address','UID',
                 'UserPhone', 'BusinessTime', 'UserAvatar', 'Remark',
                 'HospitalID', 'UserId', 'RealName', 'Specialty', 'UserName', 'Status'])
             ->find();
@@ -90,7 +108,7 @@ class HospitalApply extends Model
             ->where('IsDoctor', StatusCode::USER_DOCTOR)
             ->visible(['ID', 'UserAvatar', 'RealName', 'Remark'])->select()->toArray();
 
-        foreach ($data as $k=>$v){
+        foreach ($data as $k => $v) {
             $data[$k]['article_message'] = self::GetArticleMessage($v['ID']);
 //            halt($data);
         }
@@ -106,12 +124,12 @@ class HospitalApply extends Model
     public static function GetArticleMessage($user_id)
     {
         $data = Db::table('articlemessage')
-            ->join('user','user.ID = UserID')
-            ->join('article','article.ID = ArticleID ')
-            ->join('articletype','articletype.ID = article.ArticleType ')
+            ->join('user', 'user.ID = UserID')
+            ->join('article', 'article.ID = ArticleID ')
+            ->join('articletype', 'articletype.ID = article.ArticleType ')
             ->field('user.RealName,article.Title,article.ArticleType,articletype.Name,articlemessage.*')
             ->where('articlemessage.UserID', $user_id)
-            ->visible(['ID','UserID','ArticleID','MessageContent','CreateTime','RealName','Title','Name','ArticleType','IsAnonymous'])
+            ->visible(['ID', 'UserID', 'ArticleID', 'MessageContent', 'CreateTime', 'RealName', 'Title', 'Name', 'ArticleType', 'IsAnonymous'])
             ->order('CreateTime desc')
             ->limit(15)
             ->select()->toArray();

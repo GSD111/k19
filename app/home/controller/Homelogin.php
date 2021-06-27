@@ -39,12 +39,14 @@ class Homelogin extends BaseController
             if (empty($result)) {
                 $info = User::create([
                     'PhoneNumber' => $phone,
+                    "UserType"=>2,
                     'CreateTime'=>time()
                 ]);
 
 //                halt($info->id);
-                Cache::set('users', ['id' => $info->id, 'phone' => $info->PhoneNumber]);
-                redirect('/home/index')->send();
+                Cache::set('users', ['id' => $info->id, 'phone' => $info->PhoneNumber,
+                    'is_persion'=> $info->IsPersion]);
+                redirect('/')->send();
             }
             if ($result['UserStatus'] != StatusCode::USER_STATUS) {
                 return "<script>alert('您的账号存在异常无法登录，请联系管理进行处理');window.history.go(-1);</script>";
@@ -53,9 +55,10 @@ class Homelogin extends BaseController
             $result->LastLoginTime = time();
             $result->save();
 //            halt($result->ID);
+//            halt($result->IsPersion);
             Cache::set('users', ['id' => $result->ID, 'phone' => $result->PhoneNumber,
-                'doctor' => $result->IsDoctor,'persion'=>$result->IsPersion]);
-            redirect('/home/index')->send();
+                'is_persion'=> $result->IsPersion]);
+            redirect('/')->send();
         } else {
             return "<script>alert('手机号有误');window.history.go(-1);</script>";
         }

@@ -45,14 +45,16 @@
         </div>
         <div class="hx"></div>
         <div class="dq">
-            {foreach $area as $k=>$v}
-            <p class="p1">{$v['CityName']}</p>
-            <ul>
-                {foreach $v['cityall'] as $k=>$item}
-                <li><a href="{:URL('/home/hosp_search/'.$item['ID'])}">{$item['CityName']}</a></li>
+            {if empty(!$area)}
+                {foreach $area as $k=>$v}
+                <p class="p1">{$v['CityName']}</p>
+                <ul>
+                    {foreach $v['cityall'] as $k=>$item}
+                    <li><a href="{:URL('/home/hosp_search/'.$item['CityName'])}">{$item['CityName']}</a></li>
+                    {/foreach}
+                </ul>
                 {/foreach}
-            </ul>
-            {/foreach}
+            {/if}
         </div>
     </dl>
     <div class="yyTrRt"></div>
@@ -79,13 +81,12 @@
 
 
 
-<div class="hosp_list">
-
-    {empty name="data"}
-        <p style="text-align:center">当前该区域暂时没有医院，敬请期待！</p>
-    {/empty}
+<div class="hosp_list" stye="margin-top:0;">
 
 	<ul class="u1">
+        {if empty($data)}
+          <p style="text-align:center">当前该区域暂时没有医院，敬请期待！</p>
+        {else /}
         {foreach $data as $k=>$v}
     	<li>
         	<a href="{:URL('/home/hosp_arc/'.$v['UID'])}">
@@ -98,6 +99,7 @@
             </a>
         </li>
         {/foreach}
+        {/if}
 
         {notempty name="keywords"}
         <div style="display:flex;margin-top:30px;">

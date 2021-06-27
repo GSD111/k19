@@ -75,6 +75,31 @@
                 </div>
             </div>
 
+            <div class="layui-form-item">
+<!--                <label class="layui-form-label">个人简介</label>-->
+                <div class="layui-input-block" style="margin-left:4px;">
+                    <textarea style="width:6.3rem;" type="text" name="Remark"  autocomplete="off"
+                              placeholder="请输入个人简介"
+                              class="layui-input"></textarea>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-input-block" style="margin-left:4px;">
+                    <textarea style="width:6.3rem;" type="text" name="Qualification"  autocomplete="off"
+                              placeholder="请输入个人荣誉资质"
+                              class="layui-input"></textarea>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-input-block" style="margin-left:4px;">
+                    <textarea style="width:6.3rem;" type="text" name="Resume"  autocomplete="off"
+                              placeholder="请输入个人履历"
+                              class="layui-input"></textarea>
+                </div>
+            </div>
+
 <!--            <div class="ly" style="height:1.8rem;">-->
 <!--                <p class="p5">身份类型：</p>-->
 <!--                <div class="layui-input-block" style="height:48px;float: left;width: 98%;margin-left: 10px">-->
@@ -104,25 +129,17 @@
             <div class="bg"></div>
             <div class="ly">
                 <p class="p5">选择领域：</p>
-                    <div class="layui-input-block" style="height: 100px;float: left;width: 98%;margin-left: 10px">
+                    <div class="layui-input-block" style="height:auto;float: left;width: 98%;margin-left: 10px">
                         {foreach $data as $k=>$v}
-                             <input type="checkbox" name="specialty[]" lay-skin="primary" title="{$v['Name']}" value="{$v['Name']}">
+                             <input type="checkbox" name="specialty[]" lay-skin="primary" title="{$v['Name']}" value="{$v['ID']}">
                         {/foreach}
-<!--                        <input type="checkbox" name="specialty[]" lay-skin="primary" title="婚姻" value="婚姻">-->
-<!--                        <input type="checkbox" name="specialty[]" lay-skin="primary" title="生活" value="生活">-->
-<!--                        <input type="checkbox" name="specialty[]" lay-skin="primary" title="工作" value="工作">-->
-<!--                        <input type="checkbox" name="specialty[]" lay-skin="primary" title="性格" value="性格">-->
-<!--                        <input type="checkbox" name="specialty[]" lay-skin="primary" title="家庭" value="家庭">-->
-<!--                        <input type="checkbox" name="specialty[]" lay-skin="primary" title="情感" value="情感">-->
-<!--                        <input type="checkbox" name="specialty[]" lay-skin="primary" title="智商" value="智商">-->
-<!--                        <input type="checkbox" name="specialty[]" lay-skin="primary" title="人际" value="人际">-->
 
                     </div>
                 <p class="p6">*最多选择三个擅长领域,如果多选将直接影响您的审核</p>
             </div>
 
             <input type="hidden" name="is_persion"  value="1">
-            <div style="display: flex;">
+            <div style="display: flex;margin-top:50px;">
                 <input style="margin:auto;" type="submit" class="tj" value="提交审核" />
             </div>
             <div class="kg"></div>

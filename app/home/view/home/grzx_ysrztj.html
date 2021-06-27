@@ -22,8 +22,10 @@
         <div class="xzly">
             <p class="p2">选择领域：</p>
             <ul>
-                {foreach $info['Specialty'] as $k=>$v}
-                   <li>{$v}</li>
+                {foreach $good_field as $k=>$v}
+                   {if in_array($v['ID'],$info['Specialty'])}
+                   <li>{$v['Name']}</li>
+                   {/if}
                 {/foreach}
 <!--                <li>婚姻</li>-->
 <!--                <li>家庭</li>-->
@@ -36,7 +38,7 @@
 <!--    	<a href="javascript:history.go(-1);">返回修改</a>-->
 <!--        <a href="#" class="a2">确定等待</a>-->
     </div>
-    
+
 </div>
 
 

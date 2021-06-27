@@ -70,8 +70,10 @@ class AreaCity extends Model
                 hosapply.Province pro ,hosapply.City city, hosapply.Area area,hosapply.Address,hosp.*,areacity.*')
             ->where('u.IsPersion', StatusCode::USER_PERSION)
             ->where('hosapply.Status', StatusCode::HOSPITAL_APPLY_SUCCESS)
-            ->visible(['UID', 'UserAvatar', 'CityName', 'RealName', 'AreaId', 'Status', 'pro',
+            ->visible(['UID', 'UserAvatar', 'CityName', 'RealName',  'Status', 'pro',
                 'city', 'area', 'Address', 'BusinessTime','Name'])
+//            ->visible(['UID', 'UserAvatar', 'CityName', 'RealName', 'AreaId', 'Status', 'pro',
+//                'city', 'area', 'Address', 'BusinessTime','Name'])
             ->select();
 //        halt($all);
         return $all;

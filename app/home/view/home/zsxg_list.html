@@ -102,8 +102,8 @@
                 <img src="{$v['ArticleImg']}" />
                 <div class="rt">
                     <p class="p1">{$v['Title']}</p>
-                    <p class="p2"><span>作者：{$v['RealName']}</span>&nbsp;&nbsp;<span>时间：{$v['CreateTimes']|date="Y-m-d"}</span>&nbsp;&nbsp;<span>阅读：{$v['ReadNum']}</span></p>
-                    <p class="p3">{$v['Content']|mb_substr=0,18,'utf-8'}...</p>
+                    <p class="p2"><span>作者：{$v['RealName']}</span>&nbsp;&nbsp;<span>时间：{$v['CreateTime']|date="Y-m-d"}</span>&nbsp;&nbsp;<span>阅读：{$v['ReadNum']}</span></p>
+                    <p class="p3">{$v['Content']|raw|mb_substr=0,18,'utf-8'}...</p>
                 </div>
             </a>
         </li>

@@ -13,7 +13,7 @@ use think\facade\Route;
 
 
 Route::group('home',function(){
-    Route::get('/index','Index/Index');
+    Route::get('/','Index/Index');
     Route::get('/index/:id','Index/Index');
 //    Route::get('/index','Index/GetArticle');
     Route::get('/xlzx','Index/Xlzx');
@@ -115,6 +115,7 @@ Route::group('home',function (){
 //    Route::get('/grzx_ysrz','Personalcenter/GrzxYsrz');
 //    Route::get('/grzx_xtsz','Personalcenter/GrzxXtsz');
     Route::get('/sjzx_main','Personalcenter/SjzxMain');
+    Route::any('/hospital_info','Personalcenter/UpdateHospitalInfo');
     Route::get('/grzx_csjg','Personalcenter/GrzxCsjg');
     Route::get('/grzx_cspj','Personalcenter/GrzxCspj');
     Route::get('/grzx_zxspj','Personalcenter/GrzxZxspj');

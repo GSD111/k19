@@ -29,7 +29,7 @@ class Personalcenter extends BaseController
 //        halt(Cache::get('users'));
         $user_phone = Cache::get('users')['phone'];
         $user_id = Cache::get('users')['id'];
-        $doctor = Cache::get('users')['doctor'];
+//        $doctor = Cache::get('users')['doctor'];
 //        $persion = Cache::get('users')['persion'];
         $user_login = User::where('ID', $user_id)->visible(['ID', 'IsPersion'])->find();
 //        halt($user_login->toArray());
@@ -40,7 +40,7 @@ class Personalcenter extends BaseController
             $data = HospitalApply::GetApplayAll($user_id);
 //            halt($data);
             $hospital_info = Hospital::where('ID', $data['HospitalID'])->visible(['ID', 'HospitalInfo'])->find();
-
+//            halt($hospital_info);
             $HospitalDoctor = HospitalApply::GetHospitalDoctor($hospital_info['ID']);
 //            halt($HospitalDoctor);
             View::assign('data', $data);
@@ -66,7 +66,7 @@ class Personalcenter extends BaseController
 
         View::assign('user_phone', $user_phone);
         View::assign('user_id', $user_id);
-        View::assign('doctor', $doctor);
+//        View::assign('doctor', $doctor);
         View::assign('user', $user);
         View::assign('status', $status);
 
@@ -127,7 +127,7 @@ class Personalcenter extends BaseController
     public function GrzxYsrz()
     {
         $data = UserService::GetGoodField();
-
+//        halt($data);
         View::assign('data', $data);
         return View::fetch('home/grzx_ysrz');
     }
@@ -165,11 +165,22 @@ class Personalcenter extends BaseController
 
     public function SjzxMain()
     {
-        $persion = Cache::get('users')['persion'];
+        $persion = Cache::get('users')['is_persion'];
         if ($persion != StatusCode::USER_PERSION) {
             return View::fetch('/home/sjzx_pdtzym');
         }
+
+
         return View::fetch('home/sjzx_main');
+    }
+
+    public function UpdateHospitalInfo()
+    {
+        Hospital::where('ID', Request::param('hospital_id'))->save([
+            'HospitalInfo' => Request::param('hospital_info')
+        ]);
+//        halt($data);
+        return "<script>alert('修改完成');window.history.back();</script>";
     }
 
     public function GrzxCsjg()
@@ -204,7 +215,7 @@ class Personalcenter extends BaseController
             "CreateTime" => time()
         ]);
 
-            return redirect('/home/grzx_main')->send();
+        return redirect('/home/grzx_main')->send();
 
 
     }
@@ -222,9 +233,17 @@ class Personalcenter extends BaseController
     {
 
         $info = HospitalApply::GetApplyInfo($id);
+//        halt($info->toArray());
         $info['Specialty'] = json_decode($info['Specialty']);
-//        halt($info);
+        $good_field = Db::table('goodfield')->visible(['ID', 'Name'])->select()->toArray();
+//        foreach ($info['Specialty'] as $k => $v) {
+//            $good_field = Db::table('goodfield')->where('ID', $v)->visible(['ID', 'Name'])->select()->toArray();
+////            dump($good_field);
+//        }
+//        halt($good_field);
         View::assign('info', $info);
+        View::assign('good_field', $good_field);
+
         return View::fetch('home/grzx_ysrztj');
 
     }

@@ -2,7 +2,7 @@
 
 <body style="background:#f5f5f5;">
 <div class="header">
-    <a href="{:URL('/home/index')}"><img src="/home/picture/logo.png" class="logo"/></a>
+    <a href="{:URL('/')}"><img src="/home/picture/logo.png" class="logo"/></a>
     <p>精神康复 心理咨询 上k19</p>
     <a href="{:URL('/home/login')}"><img src="/home/picture/onload.png" class="img01"/></a>
 </div>
@@ -37,14 +37,17 @@
 <!-- RecommendDoctor -->
 <div class="in_zxs">
     <ul>
-        {foreach $doctor as $k=>$v}
-        <li>
-            <a href="{:URL('/home/xlzxs_arc/'.$v['UID'])}">
-                <img src="{$v['UserAvatar']}"/>
-                <p>{$v['RealName']}</p>
-            </a>
-        </li>
-        {/foreach}
+        {if !empty($doctor)}
+            {foreach $doctor as $k=>$v}
+            <li>
+                <a href="{:URL('/home/xlzxs_arc/'.$v['UID'])}">
+                    <img src="{$v['UserAvatar']}"/>
+                    <p>{$v['RealName']}</p>
+                </a>
+            </li>
+            {/foreach}
+        {/if}
+
     </ul>
 </div>
 
@@ -52,6 +55,7 @@
 <!-- RecommendHospital -->
 <div class="in_zxs">
     <ul>
+        {if !empty($hospital)}
         {foreach $hospital as $k=>$v}
         <li>
             <a href="{:URL('/home/hosp_arc/'.$v['UID'])}">
@@ -60,6 +64,7 @@
             </a>
         </li>
         {/foreach}
+        {/if}
     </ul>
 </div>
 

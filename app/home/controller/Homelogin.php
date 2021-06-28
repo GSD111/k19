@@ -51,6 +51,9 @@ class Homelogin extends BaseController
             if ($result['UserStatus'] != StatusCode::USER_STATUS) {
                 return "<script>alert('您的账号存在异常无法登录，请联系管理进行处理');window.history.go(-1);</script>";
             }
+            if ($result['UserType'] != StatusCode::USER_TYPE) {
+                return "<script>alert('您的账号存在异常无法登录，请联系管理进行处理');window.history.go(-1);</script>";
+            }
             $result->PhoneNumber = $phone;
             $result->LastLoginTime = time();
             $result->save();

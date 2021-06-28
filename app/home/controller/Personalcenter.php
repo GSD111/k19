@@ -126,9 +126,11 @@ class Personalcenter extends BaseController
 
     public function GrzxYsrz()
     {
+        $user_phone = Cache::get('users')['phone'];
         $data = UserService::GetGoodField();
 //        halt($data);
         View::assign('data', $data);
+        View::assign('user_phone', $user_phone);
         return View::fetch('home/grzx_ysrz');
     }
 

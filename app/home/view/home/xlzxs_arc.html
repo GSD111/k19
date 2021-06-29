@@ -16,10 +16,12 @@
         </div>
         <a href="http://kf.k19ch.com/s/554635lj9">向他咨询</a>
 
-        {if empty($result)}
-            <a href="javascript:" onclick="UserFollow()" class="a2">关注</a>
-        {else /}
-            <a href="javascript:" class="followed" style="background:gray;margin-top:10px;">已关注</a>
+        {if empty(!$users_id)}
+            {if empty($result)}
+                <a href="javascript:" onclick="UserFollow()" class="a2">关注</a>
+            {else /}
+                <a href="javascript:" class="followed" style="background:gray;margin-top:10px;">已关注</a>
+            {/if}
         {/if}
 
 
@@ -41,9 +43,10 @@
     	<p class="p1">个人擅长</p>
         <div class="hx"></div>
         {if empty(!$DoctorDetail['Specialty'])}
-            {foreach $DoctorDetail['Specialty'] as $k=>$v}
-                 <p class="p2">{$v}</p>
-    <!--           <p class="p2">神经症，抑郁症，焦虑症，社交恐惧，疑病症精神病康复等</p>-->
+            {foreach $good_field as $k=>$v}
+                {if in_array($v['ID'],$DoctorDetail['Specialty'])}
+                      <p class="p2">{$v['Name']}</p>
+                {/if}
             {/foreach}
         {/if}
     </div>

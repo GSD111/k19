@@ -52,7 +52,7 @@ class Personalcenter extends BaseController
 
 //        $user = HospitalApply::where('ID', $user_id)->find();
         $user = HospitalApply::GetApplayAll($user_id);
-//       halt($user);
+//       halt($user_id);
         if ($user['Status'] == 1) {
             $status = '审核中';
         } elseif ($user['Status'] == 2) {

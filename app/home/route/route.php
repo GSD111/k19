@@ -59,7 +59,9 @@ Route::group('home',function(){
     //个人中心
     Route::get('/grzx_main','Personalcenter/GrzxMain');
 
+    Route::get('/hosp_arc/:user_id','Findhospital/HospArc');
     Route::get('/arc_arc/:id','Index/ArcArc');
+    Route::get('/xlzxs_arc/:user_id','Askdoctor/XlzxsArc');
 
     Route::get('/login_out','Personalcenter/LoginOut');
 
@@ -77,8 +79,6 @@ Route::group('home',function (){
 //    Route::get('/arc_arc/:id','Index/ArcArc');
     Route::get('/article_read_num/:id','Index/ArcReadNum');
     Route::post('user_message','Index/userMessage');
-    Route::get('/hosp_arc/:user_id','Findhospital/HospArc');
-    Route::get('/xlzxs_arc/:user_id','Askdoctor/XlzxsArc');
     Route::post('/UserFollow/:user_id','Askdoctor/GetFollow');
     Route::get('/UnFollow/:user_id','Personalcenter/DelFollow');
 

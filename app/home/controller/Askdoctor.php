@@ -58,12 +58,15 @@ class Askdoctor extends BaseController
      */
     public function XlzxsArc($user_id)
     {
-
+        $users_id = Cache::get('users')['id'];
         $DoctorDetail = HospitalApply::GetDoctorDetail($user_id);
+//        halt($DoctorDetail['Specialty']);
         if(empty($DoctorDetail)){
             return "<script>alert('该医师的信息还未完善快去完善吧！');window.history.back();</script>";
         }
         $DoctorDetail['Specialty'] = json_decode($DoctorDetail['Specialty']);
+        $good_field = UserService::GetGoodField();
+
         if($DoctorDetail['HospitalID'] != 0){
             $ParentName = Hospital::GetDoctorParent($user_id)->toArray();
         }else{
@@ -78,6 +81,8 @@ class Askdoctor extends BaseController
 //        halt($result);
 
 //        halt($DoctorDetail);
+        View::assign('good_field', $good_field);
+        View::assign('users_id', $users_id);
         View::assign('ParentName', $ParentName);
         View::assign('result',$result);
         View::assign('DoctorDetail', $DoctorDetail);

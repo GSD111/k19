@@ -53,13 +53,13 @@ Route::group('home',function(){
 
     //找医院
     Route::get('/hosp_list','Findhospital/HospList');
-    Route::get('/hosp_search/:id','Findhospital/HospList');
+    Route::get('/hosp_search/:city_name','Findhospital/HospList');
 
 
     //个人中心
     Route::get('/grzx_main','Personalcenter/GrzxMain');
 
-
+    Route::get('/arc_arc/:id','Index/ArcArc');
 
     Route::get('/login_out','Personalcenter/LoginOut');
 
@@ -74,7 +74,7 @@ Route::group('home',function(){
  * 中间件验证
  */
 Route::group('home',function (){
-    Route::get('/arc_arc/:id','Index/ArcArc');
+//    Route::get('/arc_arc/:id','Index/ArcArc');
     Route::get('/article_read_num/:id','Index/ArcReadNum');
     Route::post('user_message','Index/userMessage');
     Route::get('/hosp_arc/:user_id','Findhospital/HospArc');

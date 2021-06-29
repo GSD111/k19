@@ -67,8 +67,10 @@
             <div class="tt">
                 <p>用户评价
                     <img src="/home/picture/tb33.png" />
-                    {if $article['IsMessage'] == 1}
-                     <span style="float:right;" id="user_message">马上评论</span>
+                    {if empty(!$user_id)}
+                        {if $article['IsMessage'] == 1}
+                         <span style="float:right;" id="user_message">马上评论</span>
+                        {/if}
                     {/if}
                 </p>
 

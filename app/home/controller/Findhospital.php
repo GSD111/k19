@@ -21,9 +21,11 @@ class Findhospital extends BaseController
     {
 
         $city_name = Request::param('city_name');
+//        dump(Request::param('city_name'));
         $keywords = Request::param('city');
-        if (!empty($searchID)) {
+        if (!empty($city_name)) {
             $data = UserService::SearchAreaHospital($city_name);
+
         } elseif (!empty($keywords)) {
 //            $data = AreaCityModel::GetAreaHospital()->whereLike("CityName", $keywords);
             $data = UserService::GetHospitalAll()->whereLike("pro", $keywords);

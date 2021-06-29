@@ -207,6 +207,7 @@ class Index extends BaseController
         ArticleService::UserArticleRecord($user_id, $id);
         ArticleService::ArticleReadNum($id);
 //        halt($article);
+        View::assign('user_id', $user_id);
         View::assign('article', $article);
         View::assign('article_message', $article_message);
 

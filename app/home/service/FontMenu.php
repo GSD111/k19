@@ -3,6 +3,7 @@
 
 namespace app\home\service;
 
+use app\home\enum\StatusCode;
 use app\home\model\FrontMenu as FontMenuModel;
 use think\facade\Db;
 
@@ -15,7 +16,7 @@ class FontMenu
     public static function IsChildMenu($id)
     {
 
-        $result = FontMenuModel::GetChildMenu($id);
+        $result = FontMenuModel::GetChildMenu($id)->where('IsDelete',StatusCode::FRONTMENU_ISDELETE);
         if ($result->isEmpty()) {
             redirect('http://kf.k19ch.com/s/554635lj9')->send();
         }

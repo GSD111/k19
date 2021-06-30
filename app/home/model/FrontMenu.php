@@ -20,8 +20,10 @@ class FrontMenu extends Model
     public static function TopMenu()
     {
         $topmenu = FrontMenu::where('MenuLocation', StatusCode::FRONTMENU_LOCATIONTOP)
-            ->where('ParentID', StatusCode::FRONTMENU_PARENTID)->select()->toArray();
-
+            ->where('ParentID', StatusCode::FRONTMENU_PARENTID)
+            ->where('IsDelete',StatusCode::FRONTMENU_ISDELETE)
+            ->select()->toArray();
+//        halt($topmenu);
         return $topmenu;
     }
 
@@ -31,7 +33,9 @@ class FrontMenu extends Model
     public static function BottomMenu()
     {
         $bottommenu = FrontMenu::where('MenuLocation', StatusCode::FRONTMENU_LOCATIONBOTTOM)
-            ->where('ParentID', StatusCode::FRONTMENU_PARENTID)->select();
+            ->where('ParentID', StatusCode::FRONTMENU_PARENTID)
+            ->where('IsDelete',StatusCode::FRONTMENU_ISDELETE)
+            ->select();
         if ($bottommenu->isEmpty()) {
             return false;
         }

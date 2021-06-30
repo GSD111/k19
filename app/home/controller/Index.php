@@ -73,9 +73,13 @@ class Index extends BaseController
 
     public function XlcsList($id)
     {
+        $title = Request::param('title');
         $data = FrontMenuService::GetTypeListInfo($id);
 //        halt($data);
-        return View::fetch('home/xlcs_list', ['data' => $data]);
+        View::assign('data',$data);
+        View::assign('title',$title);
+
+        return View::fetch('home/xlcs_list');
 
     }
 
@@ -246,9 +250,12 @@ class Index extends BaseController
 
     public function XlcsArc()
     {
+        $title = Request::param('title');
         $type_id = Request::param('id');
 //        halt($type_id);
         View::assign('type_id', $type_id);
+        View::assign('title', $title);
+
         return View::fetch('home/xlcs_arc');
     }
 

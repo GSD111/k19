@@ -30,9 +30,9 @@ class Homelogin extends BaseController
         $phone = Request::param('PhoneNumber');
         $captcha = Request::param('captcha');
 //        halt(Cache::get('mobile_captcha'),$captcha);
-        if (Cache::get('mobile_captcha') != $captcha) {
-            return "<script>alert('验证码有误');window.history.go(-1);</script>";
-        }
+//        if (Cache::get('mobile_captcha') != $captcha) {
+//            return "<script>alert('验证码有误');window.history.go(-1);</script>";
+//        }
         if (!empty($phone)) {
             $result = User::where('PhoneNumber', $phone)->find();
 //            halt($result->toArray());

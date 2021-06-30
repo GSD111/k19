@@ -22,6 +22,7 @@ class StatusCode
     const FRONTMENU_SHOW = 2;          //前台不展示
     const FRONTMENU_LOCATIONTOP = 1;   //页面上部
     const FRONTMENU_LOCATIONBOTTOM = 2;//页面底部
+    const FRONTMENU_ISDELETE = 1;      //未删除
 
     const ARTICLE_ISORIGINAL = 1;      //原创
     const ARTICLE_ORIGINAL = 2;        //转载

@@ -49,7 +49,7 @@
             <p class="p1">{$v['CityName']}</p>
             <ul>
                 {foreach $v['cityall'] as $k=>$item}
-                <li><a href="{:URL('/home/search/'.$item['ID'])}">{$item['CityName']} </a></li>
+                <li><a href="{:URL('/home/search/?city_name='.$item['CityName'])}">{$item['CityName']} </a></li>
                 {/foreach}
             </ul>
             {/foreach}
@@ -86,11 +86,11 @@
         {else /}
         {foreach $data as $k=>$v}
         <li>
-            <img src="{$v['UserAvatar']}"/>
+            <img src="http://admin.gsdblog.cn.{$v['UserAvatar']}"/>
             <div class="rt">
                 <p class="p1">{$v['RealName']}</p>{$v['Remark']|mb_substr=0,16,'utf-8'}
                 <p class="p2"></p>
-                <a href="{:URL('/home/xlzxs_arc/'.$v['ID'])}" class="zx">了解更多</a>
+                <a href="{:URL('/home/xlzxs_arc/'.$v['UID'])}" class="zx">了解更多</a>
             </div>
         </li>
         {/foreach}

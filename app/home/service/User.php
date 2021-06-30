@@ -64,7 +64,14 @@ class User
 
     public static function GetDoctorAll()
     {
-        $data = UserModel::where('IsDoctor', StatusCode::USER_DOCTOR)->select();
+//        $data = UserModel::where('IsDoctor', StatusCode::USER_DOCTOR)->select();
+        $data = DB::table('user')
+            ->join('hospitalapply hosapply', 'user.ID = hosapply.UserId')
+            ->field('user.RealName,user.HospitalID,user.UserAvatar,user.ID UID,user.Remark,user.IsDoctor,hosapply.*')
+            ->where('hosapply.Status', StatusCode::HOSPITAL_APPLY_SUCCESS)
+            ->where('user.IsDoctor', StatusCode::USER_DOCTOR)
+            ->select();
+//        halt($data->toArray());
         if ($data->isEmpty()) {
             return false;
         }
@@ -76,9 +83,9 @@ class User
      * 根据区域获取对应的医生
      * @param string $AreaId 区域的ID
      */
-    public static function SearchAreaDoctor($AreaId)
+    public static function SearchAreaDoctor($city_name)
     {
-        $data = self::GetDoctorAll()->where('AreaId', $AreaId);
+        $data = self::GetDoctorAll()->where('Province', $city_name);
 //        $data = UserModel::where('IsDoctor', StatusCode::USER_DOCTOR)
 //            ->where('AreaId', $AreaId)->select();
 
@@ -87,7 +94,7 @@ class User
 
 
     /*
-     * 获取所有的医院商家
+     * 获取所有的医院商家及用户信息
      */
 
     public static function GetHospitalAll()

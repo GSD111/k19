@@ -104,9 +104,16 @@ class HospitalApply extends Model
      */
     public static function GetHospitalDoctor($hospital_id)
     {
-        $data = User::where('HospitalID', $hospital_id)
-            ->where('IsDoctor', StatusCode::USER_DOCTOR)
-            ->visible(['ID', 'UserAvatar', 'RealName', 'Remark'])->select()->toArray();
+//        $data = User::where('HospitalID', $hospital_id)
+//            ->where('IsDoctor', StatusCode::USER_DOCTOR)
+//            ->visible(['ID', 'UserAvatar', 'RealName', 'Remark'])->select()->toArray();
+        $data = DB::table('user')
+            ->join('hospitalapply hosapply', 'user.ID = hosapply.UserId')
+            ->field('user.RealName,user.HospitalID,user.UserAvatar,user.ID UID,user.Remark,user.IsDoctor,hosapply.*')
+            ->where('HospitalID', $hospital_id)
+            ->where('hosapply.Status', StatusCode::HOSPITAL_APPLY_SUCCESS)
+            ->where('user.IsDoctor', StatusCode::USER_DOCTOR)
+            ->select()->toArray();
 
         foreach ($data as $k => $v) {
             $data[$k]['article_message'] = self::GetArticleMessage($v['ID']);

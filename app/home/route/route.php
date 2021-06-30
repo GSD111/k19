@@ -48,7 +48,7 @@ Route::group('home',function(){
 
     //问医生
     Route::get('/xlzxs_list','Askdoctor/XlzxsList');
-    Route::get('/search/:id','Askdoctor/XlzxsList');
+    Route::get('/search','Askdoctor/XlzxsList');
 
 
     //找医院

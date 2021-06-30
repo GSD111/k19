@@ -41,7 +41,7 @@
             {foreach $doctor as $k=>$v}
             <li>
                 <a href="{:URL('/home/xlzxs_arc/'.$v['UID'])}">
-                    <img src="{$v['UserAvatar']}"/>
+                    <img src="http://admin.gsdblog.cn.{$v['UserAvatar']}"/>
                     <p>{$v['RealName']}</p>
                 </a>
             </li>
@@ -59,7 +59,7 @@
         {foreach $hospital as $k=>$v}
         <li>
             <a href="{:URL('/home/hosp_arc/'.$v['UID'])}">
-                <img src="{$v['UserAvatar']}"/>
+                <img src="http://admin.gsdblog.cn.{$v['UserAvatar']}"/>
                 <p>{$v['RealName']|mb_substr=0,4,'utf-8'}</p>
             </a>
         </li>
@@ -95,18 +95,19 @@
             {foreach $bottommenu as $k=>$v}
             <div class="wzzx" style="display:none;" item-index="{$v['ID']}">
                 <ul>
-
-                        {foreach $v['article'] as $item}
-                            <a href="{:URL('/home/arc_arc/'.$item['ID'])}" id="article_item">
-                                <li>
-                                    <img src="{$item['ArticleImg']}"/>
-                                    <div class="nr">
-                                        <p class="p2">{$item['Title']}</p>
-                                        <p class="p3">{$item['Content']|raw|mb_substr=0,15,'utf-8'}...</p>
-                                    </div>
-                                </li>
-                            </a>
-                        {/foreach}
+                       {if empty(!$v['article'])}
+                            {foreach $v['article'] as $item}
+                                <a href="{:URL('/home/arc_arc/'.$item['ID'])}" id="article_item">
+                                    <li>
+                                        <img src="http://admin.gsdblog.cn.{$item['ArticleImg']}"/>
+                                        <div class="nr">
+                                            <p class="p2">{$item['Title']}</p>
+                                            <p class="p3">{$item['Content']|raw|mb_substr=0,15,'utf-8'}...</p>
+                                        </div>
+                                    </li>
+                                </a>
+                            {/foreach}
+                      {/if}
 
                 </ul>
             </div>

@@ -18,7 +18,7 @@ class Hospital extends Model
     public static function GetDoctorParent($HospitalID)
     {
         $data = Hospital::where('ID', $HospitalID)->visible(['ID', 'HospitalName'])->find();
-
+//        halt($data);
         return $data;
     }
 

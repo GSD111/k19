@@ -90,7 +90,7 @@
         {foreach $data as $k=>$v}
     	<li>
         	<a href="{:URL('/home/hosp_arc/'.$v['UID'])}">
-                <img src="{$v['UserAvatar']}" />
+                <img src="http://admin.gsdblog.cn{$v['UserAvatar']}" />
                 <div class="rt">
                     <p class="p1">{$v['Name']}</p>
                     <p class="p2">营业时间：{$v['BusinessTime']}</p>

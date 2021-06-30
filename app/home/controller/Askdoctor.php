@@ -25,13 +25,14 @@ class Askdoctor extends BaseController
     {
 
 //        halt(Cache::get('users'));
-        $searchID = Request::param('id');
+        $city_name = Request::param('city_name');
         $keywords = Request::param('city');
 
-        if (!empty($searchID)) {
-            $data = UserService::SearchAreaDoctor($searchID);
+        if (!empty($city_name)) {
+            $data = UserService::SearchAreaDoctor($city_name);
         } elseif (!empty($keywords)) {
-            $data = AreaCityModel::GetAreaDoctor(StatusCode::USER_DOCTOR)->whereLike("CityName", $keywords);
+//            $data = AreaCityModel::GetAreaDoctor(StatusCode::USER_DOCTOR)->whereLike("CityName", $keywords);
+            $data = UserService::GetDoctorAll()->whereLike('Province',$keywords);
 
         } else {
             $data = UserService::GetDoctorAll();
@@ -60,7 +61,7 @@ class Askdoctor extends BaseController
     {
         $users_id = Cache::get('users')['id'];
         $DoctorDetail = HospitalApply::GetDoctorDetail($user_id);
-//        halt($DoctorDetail['Specialty']);
+//        halt($DoctorDetail);
         if(empty($DoctorDetail)){
             return "<script>alert('该医师的信息还未完善快去完善吧！');window.history.back();</script>";
         }
@@ -68,7 +69,7 @@ class Askdoctor extends BaseController
         $good_field = UserService::GetGoodField();
 
         if($DoctorDetail['HospitalID'] != 0){
-            $ParentName = Hospital::GetDoctorParent($user_id)->toArray();
+            $ParentName = Hospital::GetDoctorParent($user_id);
         }else{
             $ParentName = '';
         }

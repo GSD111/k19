@@ -9,6 +9,7 @@ use app\home\model\Article as ArticleModel;
 use app\home\model\ArticleType;
 use app\home\model\FrontMenu;
 use app\home\model\FrontMenu as FrontMenuModel;
+use app\home\model\TypeList;
 use app\home\model\UserOrder;
 use app\home\model\UserTest;
 use app\home\service\Article as ArticleService;
@@ -253,6 +254,9 @@ class Index extends BaseController
         $title = Request::param('title');
         $type_id = Request::param('id');
 //        halt($type_id);
+        $data = TypeList::GetTypeInfo($type_id);
+//        halt($data);
+        View::assign('data', $data);
         View::assign('type_id', $type_id);
         View::assign('title', $title);
 

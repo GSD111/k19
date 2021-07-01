@@ -1,5 +1,9 @@
 ﻿{include file="home/header" /}
-
+<style>
+    .nr h2{
+        font-size:16px;
+    }
+</style>
 <body style="background:#f5f5f5;">
 <div class="header">
     <a href="{:URL('/')}"><img src="/home/picture/logo.png" class="logo"/></a>
@@ -28,7 +32,7 @@
             <p>数千名权威心理咨询师 </p>
         </div>
         <div class="m02">
-            <img src=""/>
+            <img src="/home/picture/logo2.png"/>
         </div>
     </div>
 </div>
@@ -81,7 +85,7 @@
     </div>
 </div>
 
-<div class="in_wzzx">
+<div class="in_wzzx" style="height:900px;">
     <ul class="nav">
 
         <li style="display:flex;width:100%;">
@@ -93,13 +97,17 @@
             {/foreach}
 
             {foreach $bottommenu as $k=>$v}
-            <div class="wzzx" style="display:none;" item-index="{$v['ID']}">
+            <div class="wzzx" style="display:none;height:900px;" item-index="{$v['ID']}">
                 <ul>
                        {if empty(!$v['article'])}
                             {foreach $v['article'] as $item}
                                 <a href="{:URL('/home/arc_arc/'.$item['ID'])}" id="article_item">
                                     <li>
-                                        <img src="http://admin.gsdblog.cn.{$item['ArticleImg']}"/>
+                                        {if empty(!$item['ArticleImg'])}
+                                          <img src="http://admin.gsdblog.cn.{$item['ArticleImg']}"/>
+                                        {else /}
+                                           <img src="/home/picture/logo2.png"/>
+                                        {/if}
                                         <div class="nr">
                                             <p class="p2">{$item['Title']}</p>
                                             <p class="p3">{$item['Content']|raw|mb_substr=0,15,'utf-8'}...</p>
@@ -127,10 +135,13 @@
 <script>
     $('.wzzx').hide();
     $('.wzzx').eq(0).show();
+    $(".in_wzzx").find(".nav").find("li").find(".p1").eq(0).addClass("chkcs");
 
     $('.in_wzzx .nav li .p1').click(function(){
         var indexVal=$(this).attr('index');
         $('.wzzx').hide();
+        $(".in_wzzx").find(".nav").find("li").find(".p1").removeClass("chkcs");
+        $(this).addClass("chkcs");
         $('.wzzx[item-index="'+indexVal+'"]').show();
     })
 

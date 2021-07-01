@@ -19,6 +19,11 @@ class Certification extends BaseController
      */
     public function PeopleCertification()
     {
+        $is_exist =  HospitalApply::where('Name',Request::param('name'))->select();
+        if(!empty($is_exist)){
+            return "<script>alert('该名称已被认证占用了,如有疑问请联系客服人员进行处理');window.history.back();</script>";
+        }
+
         $data = HospitalApply::where('UserId', Cache::get('users')['id'])->find();
 
         if(!empty($data)){
@@ -70,12 +75,18 @@ class Certification extends BaseController
      */
     public function HospitalCertification()
     {
+        $is_exist =  HospitalApply::where('Name',Request::param('name'))->select();
+        if(!empty($is_exist)){
+            return "<script>alert('该名称已被认证占用了,如有疑问请联系客服人员进行处理');window.history.back();</script>";
+        }
         $data = HospitalApply::where('UserId', Cache::get('users')['id'])->find();
 //        halt($data);
         if(!empty($data)){
 
             return "<script>alert('您已经认证过了请勿再次提交申请');window.history.back();</script>";
         }
+
+
 
 //        halt(Request::param());
         $files = Request::file('business_license');

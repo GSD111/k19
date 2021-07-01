@@ -24,7 +24,7 @@
         <ul class="question">
             {foreach $v['Select'] as $key=>$item}
             <li>
-                <input type="checkbox" value="{$item->score}" class="cks" name="question_{$k}"/>
+                <input type="radio" value="{$item->score}" class="cks" name="question_{$k}"/>
                 <label>{$item->title}</label>
             </li>
             {/foreach}

@@ -54,7 +54,7 @@ class HospitalApply extends Model
         $ApplayAll = Db::table('hospitalapply')
             ->join('user', 'user.ID = hospitalapply.UserId')
             ->where('UserId', $user_id)
-            ->field('user.UserAvatar,user.HospitalID,user.ID UID,hospitalapply.*')
+            ->field('user.RealName,user.Remark,user.UserAvatar,user.HospitalID,user.ID UID,hospitalapply.*')
             ->visible(['Name', 'Province', 'City', 'Area', 'Address','UID',
                 'UserPhone', 'BusinessTime', 'UserAvatar', 'Remark',
                 'HospitalID', 'UserId', 'RealName', 'Specialty', 'UserName', 'Status'])
@@ -79,21 +79,23 @@ class HospitalApply extends Model
 
 
     /*
-     * 获取个人医师的具体信息
+     * 获取个人入驻医师的具体信息
      * @params string  $user_id   用户的id
      */
 
     public static function GetDoctorDetail($user_id)
     {
 
-        $info = Db::table('hospitalapply')
-            ->join('user u', 'u.ID = hospitalapply.UserId')
-            ->where('UserId', $user_id)
-            ->field('u.ID UID ,u.RealName,u.UserAvatar,u.Remark,u.HospitalID,hospitalapply.*')
-            ->visible(['UID', 'Name', 'Province', 'City', 'Area', 'Address',
-                'UserPhone', 'BusinessTime', 'UserAvatar', 'Remark', 'HospitalID',
-                'HospitalID', 'UserId', 'RealName', 'Specialty', 'UserName', 'Status'])
-            ->find();
+        $info = self::GetApplayAll($user_id);
+
+//        $info = Db::table('hospitalapply')
+//            ->join('user u', 'u.ID = hospitalapply.UserId')
+//            ->where('UserId', $user_id)
+//            ->field('u.ID UID ,u.RealName,u.UserAvatar,u.Remark,u.HospitalID,hospitalapply.*')
+//            ->visible(['UID', 'Name', 'Province', 'City', 'Area', 'Address',
+//                'UserPhone', 'BusinessTime', 'UserAvatar', 'Remark', 'HospitalID',
+//                'HospitalID', 'UserId', 'RealName', 'Specialty', 'UserName', 'Status'])
+//            ->find();
 
         return $info;
     }

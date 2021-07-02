@@ -32,7 +32,7 @@
             <p>数千名权威心理咨询师 </p>
         </div>
         <div class="m02">
-            <img src="/home/picture/logo2.png"/>
+            <img src="/home/picture/logos.png"/>
         </div>
     </div>
 </div>
@@ -63,7 +63,12 @@
         {foreach $hospital as $k=>$v}
         <li>
             <a href="{:URL('/home/hosp_arc/'.$v['UID'])}">
-                <img src="http://admin.gsdblog.cn.{$v['UserAvatar']}"/>
+                {if empty(!$v['UserAvatar'])}
+                  <img src="http://admin.gsdblog.cn.{$v['UserAvatar']}"/>
+                {else /}
+                  <img src="/home/picture/logos.png"/>
+                {/if}
+
                 <p>{$v['RealName']|mb_substr=0,4,'utf-8'}</p>
             </a>
         </li>

@@ -9,7 +9,12 @@
 
 <div class="hosp_arc">
 	<div class="mk01">
-    	<img src="http://admin.gsdblog.cn{$HospitalDetail['UserAvatar']}" class="img01"/>
+        {if empty(!$HospitalDetail['UserAvatar'])}
+           <img src="http://admin.gsdblog.cn{$HospitalDetail['UserAvatar']}" class="img01"/>
+        {else /}
+           <img src="/home/picture/logos.png"/>
+        {/if}
+
         <div class="ct">
         	<p class="p1">{$HospitalDetail['Name']}</p>
             <p class="p2"><img src="/home/picture/tb40.png" class="img02"/>{$HospitalDetail['pro']}{$HospitalDetail['city']}{$HospitalDetail['area']}{$HospitalDetail['Address']}</p>

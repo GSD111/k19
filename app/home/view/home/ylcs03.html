@@ -22,9 +22,11 @@
         <p class="p1" item="num">{$v['Title']}</p>
         <ul class="question">
             {foreach $v['Select'] as $key=>$item}
-            <li>
-                <input type="radio" value="{$item->title}" index-title="{$v['Title']}" class="ck" name="question_{$k}"/>
-                <label>{$item->title}</label>
+            <li class="ck" i="{$k}">
+<!--                <input type="radio" value="{$item->title}" index-title="{$v['Title']}" class="ck" name="question_{$k}"/>-->
+<!--                <label>{$item->title}</label>-->
+                <input id="{$item->score}_{$k}" type="radio" value="{$item->title}" class="rad" index-title="{$v['Title']}" name="question_{$k}" style="display:none;"/>
+                <label for="{$item->score}_{$k}">{$item->title}</label>
             </li>
             {/foreach}
         </ul>
@@ -103,15 +105,39 @@
     var pay_way;
 
     $('.ck').click(function () {
-        var selct = $(this).val();
-        var title = $(this).attr('index-title')
-        console.log(title,selct)
-        if ($(this).is(':checked')) {
-            arr.push({title:title,select:selct})
+        $(this).parent('ul').find('li').removeClass('active');
+        $(this).addClass('active');
+        var selct = $(this).find('input').val();
+        var title = $(this).find('input').attr('index-title');
+        // console.log(title,selct)
+        var i=$(this).attr('i');
+        if ($(this).find('.rad').attr('checked')=='checked') {
+            $(this).find('.rad').attr('checked','');
+            // count -= parseInt(check_val);
+            // arr.push({title:title,select:selct})
         } else {
-            arr.pop({title:title,select:selct})
+            $(this).find('.rad').attr('checked','checked');
+            // arr.pop({title:title,select:selct})
+            // count += parseInt(check_val);
         }
+        arr[i]={title:title,select:selct};
+        // console.log(count_arr);
+
+        // console.log(arr)
     })
+
+    // $('.ck').click(function () {
+    //     var selct = $(this).val();
+    //     var title = $(this).attr('index-title')
+    //     // console.log(title,selct)
+    //     if ($(this).is(':checked')) {
+    //         arr.push({title:title,select:selct})
+    //     } else {
+    //         arr.pop({title:title,select:selct})
+    //     }
+    //
+    //     console.log(arr)
+    // })
 
     function keep(user_test_id) {
         if(arr.length == 0){

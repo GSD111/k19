@@ -85,7 +85,7 @@
     </div>
 </div>
 
-<div class="in_wzzx" style="height:900px;">
+<div class="in_wzzx" style="height:670px;">
     <ul class="nav">
 
         <li style="display:flex;width:100%;">
@@ -97,7 +97,7 @@
             {/foreach}
 
             {foreach $bottommenu as $k=>$v}
-            <div class="wzzx" style="display:none;height:900px;" item-index="{$v['ID']}">
+            <div class="wzzx" style="display:none;height:670px;" item-index="{$v['ID']}">
                 <ul>
                        {if empty(!$v['article'])}
                             {foreach $v['article'] as $item}
@@ -106,7 +106,7 @@
                                         {if empty(!$item['ArticleImg'])}
                                           <img src="http://admin.gsdblog.cn.{$item['ArticleImg']}"/>
                                         {else /}
-                                           <img src="/home/picture/logo2.png"/>
+                                           <img src="/home/picture/logos.png"/>
                                         {/if}
                                         <div class="nr">
                                             <p class="p2">{$item['Title']}</p>

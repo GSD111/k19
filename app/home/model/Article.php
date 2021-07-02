@@ -14,6 +14,9 @@ class Article extends Model
 
     protected $readonly = ['ID', 'Title', 'Content', 'ArticleImg', 'Status', 'IsRecommend','ReadNum','CreateTime','ArticleType','UserID'];
 
+    protected $type = [
+        'CreateTime' => 'timestamp'
+    ];
     /*
      * 获取推荐的一片文章文章
      */
@@ -33,7 +36,7 @@ class Article extends Model
     {
         $info = Article::where('MenuID', $id)
             ->where('Status',2)
-            ->order('ID desc')->limit(15)->select();
+            ->order('ID desc')->limit(7)->select();
         if ($info->isEmpty()) {
             return false;
 //            return $info = Article::where('IsRecommend', StatusCode::ARTICEL_ISRECOMMEND)->select();
@@ -48,9 +51,12 @@ class Article extends Model
     public static function GetArticleAll(){
         $info = Db::table('article')
             ->join('user','user.ID = article.UserID')
+            ->field('user.RealName,article.*')
             ->where('Status',StatusCode::ARTICEL_STATUS_SUCCESS)
+            ->paginate(50);
+//            ->select();
 //            ->visible(['ID','Title','Content','ReadNum','CreateTimes','Status','RealName','ArticleType','ArticleImg'])
-            ->select();
+
 //        halt($info);
         return $info;
     }

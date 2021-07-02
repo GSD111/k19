@@ -1,19 +1,29 @@
 
 var check_val;   //当前选项的值
 
-var count = 0;   //总分值初始化
+var count = 0;   //存储最后的总计算分值
 
+var count_arr=[]; //存储当前选择的分值
 //获取当前点击选项的分值实时计算
 $('.cks').click(function () {
-    check_val = $(this).val();
-    console.log(check_val)
-    if ($(this).is(':checked')) {
-        count += parseInt(check_val);
+    $(this).parent('ul').find('li').removeClass('active');
+    $(this).addClass('active');
+    check_val = $(this).find('input').val();
+    var i=$(this).attr('i');
+    if ($(this).find('.rad').attr('checked')=='checked') {
+        $(this).find('.rad').attr('checked','');
+        // count -= parseInt(check_val);
     } else {
-        count -= parseInt(check_val);
+        $(this).find('.rad').attr('checked','checked');
+        // count += parseInt(check_val);
     }
-    console.log(parseInt(count))
+    count_arr[i]=parseInt(check_val);
+    // console.log(count_arr);
+    count = eval(count_arr.join("+"));
+    // console.log(count)
 })
+
+
 
 //提交后所有选项分值根据需求判断呈现
 function sub() {

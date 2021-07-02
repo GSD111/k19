@@ -1,5 +1,13 @@
 ﻿{include file="home/header" /}
+{load href="/admin/lib/layui/layui.js"}
+{load href="/admin/js/xadmin.js"}
+{load href="/admin/css/xadmin.css"}
 
+<style>
+    .rt h2{
+        font-size:14px;
+    }
+</style>
 <body style="background:#f5f5f5;">
 <div class="head2">
 	<a href="javascript:history.go(-1);"><img src="/home/picture/tb16.png" /></a>
@@ -99,18 +107,33 @@
         {foreach $ArticleAll as $k=>$v}
     	<li>
         	<a href="{:URL('/home/arc_arc/'.$v['ID'])}">
-                <img src="{$v['ArticleImg']}" />
+<!--                <img src="{$v['ArticleImg']}" />-->
+                {if empty(!$v['ArticleImg'])}
+                  <img src="http://admin.gsdblog.cn.{$v['ArticleImg']}"/>
+                {else /}
+                  <img src="/home/picture/logos.png"/>
+                {/if}
                 <div class="rt">
                     <p class="p1">{$v['Title']}</p>
-                    <p class="p2"><span>作者：{$v['RealName']}</span>&nbsp;&nbsp;<span>时间：{$v['CreateTime']|date="Y-m-d"}</span>&nbsp;&nbsp;<span>阅读：{$v['ReadNum']}</span></p>
-                    <p class="p3">{$v['Content']|raw|mb_substr=0,18,'utf-8'}...</p>
+<!--                    <p class="p2" style="margin-top:10px;"><span>作者：{$v['RealName']}</span>&nbsp;&nbsp;<span>时间：{$v['CreateTime']|date="Y-m-d"}</span>&nbsp;&nbsp;<span>阅读：{$v['ReadNum']}</span></p>-->
+                    <p class="p2" style="margin-top:10px;"><span>作者：{$v['RealName']}</span>&nbsp;&nbsp;<span>时间：{$v['CreateTime']|date="Y-m-d"}</span>&nbsp;</p>
+<!--                    <p class="p3">{$v['Content']|raw|mb_substr=0,18,'utf-8'}...</p>-->
                 </div>
             </a>
         </li>
         {/foreach}
 
     </ul>
+
+    <div class="layui-card-body ">
+        <div class="page">
+            {$ArticleAll|raw}
+        </div>
+    </div>
 </div>
+
+
+<!--{$ArticleAll|raw}-->
 
 <!--底部js-->
 <!--<script type="text/javascript" src="js/footer.js"></script>-->

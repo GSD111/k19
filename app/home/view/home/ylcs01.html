@@ -23,9 +23,9 @@
         <p class="p1" item="num">{$v['Title']}</p>
         <ul class="question">
             {foreach $v['Select'] as $key=>$item}
-            <li>
-                <input type="radio" value="{$item->score}" class="cks" name="question_{$k}"/>
-                <label>{$item->title}</label>
+            <li  class="cks" i="{$k}">
+                <input id="{$item->score}_{$k}" type="radio" value="{$item->score}" class="rad" name="question_{$k}" style="display:none;"/>
+                <label for="{$item->score}_{$k}">{$item->title}</label>
             </li>
             {/foreach}
         </ul>

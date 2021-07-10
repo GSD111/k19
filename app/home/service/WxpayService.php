@@ -4,7 +4,6 @@
 namespace app\home\service;
 
 
-use think\facade\Cache;
 use think\facade\Session;
 
 class WxpayService
@@ -68,42 +67,78 @@ class WxpayService
         return urldecode(http_build_query($arr));
     }
 
-    /*
-     * 获取用户的openid
-     */
-    public function getOpenId()
-    {
 
+    /**
+     * 通过跳转获取用户的openid，跳转流程如下：
+     * 1、设置自己需要调回的url及其其他参数，跳转到微信服务器https://open.weixin.qq.com/connect/oauth2/authorize
+     * 2、微信服务处理完成之后会跳转回用户redirect_uri地址，此时会带上一些参数，如：code
+     *  return 返回用户的openID
+     */
+    public function GetOpenid()
+    {
+        //通过code获得openid
         if (Session::has('openid')) {
-//            halt(Cache::get('openid'));
+////            halt(Cache::get('openid'));
             return Session::get('openid');
         } else {
-            //1.用户访问一个地址获取code
-            //2.根据获取的code获取openID
             if (!isset($_GET['code'])) {
-                //构建跳转地址
-//                $redurl = $_SERVER['REQUEST_SCHEME'] . '//' . $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
-//                $redurl = 'http://m.gsdblog.cn';
-                $str = time();
-                $redurl = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-//                halt($redurl);
-                $url = self::CODEURL . 'appid=' . self::APPID . '&redirect_uri=' . urlencode($redurl) . '&response_type=code&scope=snsapi_base&state=' . $str . '#wechat_redirect';
-//                halt($url);
-                header("location:$url");
-//                halt($url);
+                //触发微信返回code码
+                $baseUrl = urlencode($_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
+                $url = $this->__CreateOauthUrlForCode($baseUrl);
+                Header("Location: $url");
+                exit();
             } else {
-//                halt($_GET['code']);
-                $openidurl = self::OPENURL . "appid=" . self::APPID . "&secret=" . self::SECRET . "&code=" . $_GET['code'] . "&grant_type=authorization_code";
-                $data = file_get_contents($openidurl);
-                $arrs = json_decode($data, true);
-                Session::set('openid',$arrs['openid']);
-                $openid = Session::get('openid');
+                //获取code码，以获取openid
+                $code = $_GET['code'];
+                $openid = $this->getOpenidFromMp($code);
+                Session::set('openid', $openid);
+//                p($openid);
                 return $openid;
-
-                //调取接口获取openID
             }
         }
     }
+
+    /**
+     * 通过code从工作平台获取openid机器access_token
+     * @param string $code 微信跳转回来带上的code
+     * return openid
+     */
+    public function GetOpenidFromMp($code)
+    {
+        $url = $this->__CreateOauthUrlForOpenid($code);
+//        $res = self::curlGet($url);
+        $res = file_get_contents($url);
+        //取出openid
+        $data = json_decode($res, true);
+//        $this->data = $data;
+        $openid = $data['openid'];
+        return $openid;
+    }
+
+    /**
+     * 构造获取open和access_toke的url地址
+     * @param string $code
+     */
+    private function __CreateOauthUrlForOpenid($code)
+    {
+        $openid_url = self::OPENURL . "appid=" . self::APPID . "&secret=" . self::SECRET . "&code=" . $code . "&grant_type=authorization_code";
+
+        return $openid_url;
+    }
+
+    /**
+     * 构造获取code的url连接
+     * @param string $redirectUrl 微信服务器回跳的url，需要url编码
+     * @return
+     */
+    private function __CreateOauthUrlForCode($redirectUrl)
+    {
+
+        $url = self::CODEURL . 'appid=' . self::APPID . '&redirect_uri=' . $redirectUrl . '&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect';
+
+        return $url;
+    }
+
 
     /*
      * 统一下单
@@ -118,7 +153,7 @@ class WxpayService
      * @params product_id  商品的id(根据自己需求自定义)
      * @params openid 用户的唯一标识(必填项)
      */
-    public function unifiedOrder()
+    public function unifiedOrder($body, $total_fee)
     {
         //1构建原始数据
         //2加入签名
@@ -129,12 +164,12 @@ class WxpayService
             'appid' => self::APPID,
             'mch_id' => self::MCHID,
             'nonce_str' => md5(time()),
-            'body' => '公众号支付测试',
+            'body' => $body,
             'out_trade_no' => $this->makeOrderNo(),
-            'total_fee' => 1,
+            'total_fee' => $total_fee,
             'notify_url' => 'http://m.gsdblog.cn/',
             'trade_type' => 'JSAPI',
-            'openid' => $this->getOpenId()
+            'openid' => $this->GetOpenid()
         ];
 
         $params = $this->setSign($params);
@@ -168,7 +203,7 @@ class WxpayService
     {
         $data = $this->unifiedOrder();
 
-        halt($data,Session::get('openid'));
+        halt($data, Session::get('openid'));
 
         return $data['prepay_id'];
     }

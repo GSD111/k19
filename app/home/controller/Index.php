@@ -411,9 +411,12 @@ class Index extends BaseController
 //            echo "签名验证失败";
 //        }
 
-//        $wxPay->getOpenId();
-        $info = $wxPay->unifiedOrder();
-//        halt($info);
+//        $openid = $wxPay->GetOpenid();
+//        halt($openid);
+//        halt($openid);
+        $info = $wxPay->unifiedOrder('微信公众号测试',2);
+//        p($info);
+//        print_r($info['prepay_id']);
 //         halt($wxPay->makeOrderNo());
 //        $prepay_id = $wxPay->GetPrepayId();
 //        $prepay_id = $wxPay->GetPrepayId();
@@ -424,6 +427,23 @@ class Index extends BaseController
         return View::fetch('/home/paytest');
 
     }
+
+//    function p()
+//    {
+//        $numargs = func_get_args();
+//        foreach ($numargs as $v) {
+//            if (request()->isCli()) {
+//                print_r($v);
+//                echo "\n";
+//            } else {
+//                echo "<pre>";
+//                print_r($v);
+//                echo "</pre>";
+//                echo '<hr>';
+//            }
+//        }
+//    }
+
 
     public function notify()
     {

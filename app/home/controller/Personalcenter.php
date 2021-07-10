@@ -16,6 +16,7 @@ use think\facade\Cache;
 use think\facade\Db;
 use think\facade\Filesystem;
 use think\facade\Request;
+use think\facade\Session;
 use think\facade\View;
 
 class Personalcenter extends BaseController
@@ -27,10 +28,13 @@ class Personalcenter extends BaseController
     public function GrzxMain()
     {
 //        halt(Cache::get('users'));
-        $user_phone = Cache::get('users')['phone'];
-        $user_id = Cache::get('users')['id'];
+//        $user_phone = Cache::get('users')['phone'];
+//        $user_id = Cache::get('users')['id'];
 //        $doctor = Cache::get('users')['doctor'];
 //        $persion = Cache::get('users')['persion'];
+
+        $user_phone = Session::get('users')['phone'];
+        $user_id = Session::get('users')['id'];
         $user_login = User::where('ID', $user_id)->visible(['ID', 'IsPersion'])->find();
 //        halt($user_login->toArray());
 //        /*
@@ -75,7 +79,8 @@ class Personalcenter extends BaseController
 
     public function GrzxWdzx()
     {
-        $user_id = Cache::get('users')['id'];
+//        $user_id = Cache::get('users')['id'];
+        $user_id = Session::get('users')['id'];
 //        halt($user_id);
         $data = UserOrder::GetUserOrderInfo($user_id, StatusCode::USER_ORDER_STATUS_PAID);
 //        halt($data->toArray());
@@ -85,7 +90,8 @@ class Personalcenter extends BaseController
 
     public function GrzxJypj()
     {
-        $user_id = Cache::get('users')['id'];
+//        $user_id = Cache::get('users')['id'];
+        $user_id = Session::get('users')['id'];
         $data = UserOrder::GetUserOrderInfo($user_id, StatusCode::USER_ORDER_STATUS_PAID);
 
         View::assign('data', $data);
@@ -94,7 +100,8 @@ class Personalcenter extends BaseController
 
     public function GrzxWdgz()
     {
-        $user_id = Cache::get('users')['id'];
+//        $user_id = Cache::get('users')['id'];
+        $user_id = Session::get('users')['id'];
         $user_article = Article::GetUserArticle($user_id);
 
         $user_follow_doctor = Article::GetUserFollowDoctor($user_id);
@@ -126,7 +133,8 @@ class Personalcenter extends BaseController
 
     public function GrzxYsrz()
     {
-        $user_phone = Cache::get('users')['phone'];
+//        $user_phone = Cache::get('users')['phone'];
+        $user_phone = Session::get('users')['phone'];
         $data = UserService::GetGoodField();
 //        halt($data);
         View::assign('data', $data);
@@ -142,7 +150,8 @@ class Personalcenter extends BaseController
 
     public function SaveUserAvatar()
     {
-        $user_id = Cache::get('users')['id'];
+//        $user_id = Cache::get('users')['id'];
+        $user_id = Session::get('users')['id'];
         $file = Request::file('user_avatar');
         try {
             $result = validate(['image' => ['fileExt:gif,jpg,png']])->check(['image' => $file]);
@@ -152,11 +161,7 @@ class Personalcenter extends BaseController
                 $path = Filesystem::disk('public')->putFile('static', $file);
 //            dump($path);
                 $picCover = Filesystem::getDiskConfig('public', 'url') . '/' . str_replace('\\', '/', $path);
-//                $user = User::find($user_id);
-////                halt($user);
-//                $user->UserAvatar = $picCover;
-////                halt($user->UserAvatar);
-//                $user->save();
+
                 Db::table('user')->where('ID', $user_id)->update(['UserAvatar' => $picCover]);
                 redirect('/home/grzx_main')->send();
             }
@@ -167,7 +172,8 @@ class Personalcenter extends BaseController
 
     public function SjzxMain()
     {
-        $persion = Cache::get('users')['is_persion'];
+//        $persion = Cache::get('users')['is_persion'];
+        $persion = Session::get('users')['is_persion'];
         if ($persion != StatusCode::USER_PERSION) {
             return View::fetch('/home/sjzx_pdtzym');
         }
@@ -210,7 +216,7 @@ class Personalcenter extends BaseController
 
         Db::table('evaluate')->insert([
             'DoctorID' => $result['params']['doctor_id'],
-            'UserID' => Cache::get('users')['id'],
+            'UserID' => Session::get('users')['id'],
             'Content' => $result['params']['content'],
             'Grade' => $result['grade'],
 //            "IsAnonymous" => $result['params']['is_anonymous'],
@@ -252,7 +258,7 @@ class Personalcenter extends BaseController
 
     public function LoginOut()
     {
-        Cache::pull('users');
+        Session::delete('users');
 
         redirect('/home/login')->send();
     }

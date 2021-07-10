@@ -65,6 +65,12 @@ Route::group('home',function(){
 
     Route::get('/login_out','Personalcenter/LoginOut');
 
+
+
+
+    Route::get('/paytest','Index/PayTest');
+    Route::get('/notify','Index/notify');
+
 //    Route::get('/hosp_arc/:user_id','Findhospital/HospArc');
 //    Route::get('/xlzxs_arc/:user_id','Askdoctor/XlzxsArc');
 

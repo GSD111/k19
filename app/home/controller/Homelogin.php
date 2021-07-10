@@ -11,6 +11,7 @@ use app\home\model\User;
 use Overtrue\EasySms\EasySms;
 use think\facade\Cache;
 use think\facade\Request;
+use think\facade\Session;
 use think\facade\View;
 
 class Homelogin extends BaseController
@@ -44,8 +45,16 @@ class Homelogin extends BaseController
                 ]);
 
 //                halt($info->id);
-                Cache::set('users', ['id' => $info->id, 'phone' => $info->PhoneNumber,
+//                Cache::set('users', ['id' => $info->id, 'phone' => $info->PhoneNumber,
+//                    'is_persion'=> $info->IsPersion],3600);
+
+                Session::set('users',['id' => $info->id, 'phone' => $info->PhoneNumber,
                     'is_persion'=> $info->IsPersion]);
+
+//                Session::set('user_id',$info->id);
+//                Session::set('phone',$info->PhoneNumber);
+//                Session::set('is_persion',$info->IsPersion);
+
                 redirect('/')->send();
             }
             if ($result['UserStatus'] != StatusCode::USER_STATUS) {
@@ -59,8 +68,16 @@ class Homelogin extends BaseController
             $result->save();
 //            halt($result->ID);
 //            halt($result->IsPersion);
-            Cache::set('users', ['id' => $result->ID, 'phone' => $result->PhoneNumber,
+//            Cache::set('users', ['id' => $result->ID, 'phone' => $result->PhoneNumber,
+//                'is_persion'=> $result->IsPersion],3600);
+
+            Session::set('users',['id' => $result->ID, 'phone' => $result->PhoneNumber,
                 'is_persion'=> $result->IsPersion]);
+//            Session::set('aa','qqq');
+//            Session::set('user_id',$result->ID);
+//            Session::set('phone',$result->PhoneNumber);
+//            Session::set('is_persion',$result->IsPersion);
+
             redirect('/')->send();
         } else {
             return "<script>alert('手机号有误');window.history.go(-1);</script>";
@@ -113,3 +130,5 @@ class Homelogin extends BaseController
 
     }
 }
+
+

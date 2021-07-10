@@ -15,9 +15,11 @@ use app\home\model\UserTest;
 use app\home\service\Article as ArticleService;
 use app\home\service\FontMenu as FrontMenuService;
 use app\home\service\User as UserService;
+use app\home\service\WxpayService;
 use think\facade\Cache;
 use think\facade\Db;
 use think\facade\Request;
+use think\facade\Session;
 use think\facade\View;
 
 
@@ -30,8 +32,9 @@ class Index extends BaseController
     public function Index()
     {
 
-
 //            Cache::get('users')['phone'],Cache::get('users')['type']);
+//        halt(Session::get('user_id'),Session::get('phone'),Session::get('is_persion'),Session::get('aa'));
+//        halt(Session::get('users')['id']);
         //头部导航栏目按钮
         $result = FrontMenuModel::TopMenu();
 
@@ -50,6 +53,36 @@ class Index extends BaseController
 //        halt($bottommenu);
         return View::fetch('home/index');
     }
+
+//    //微信公众号验证接口
+//    public function wxapi(){
+//        $echoStr = $_GET["echostr"];//从微信用户端获取一个随机字符赋予变量echostr
+//
+//        if($this->checkSignature()){
+//            echo $echoStr;
+//            exit;
+//        }
+//    }
+//
+//    private function checkSignature()
+//    {
+//        $signature = $_GET["signature"];//从用户端获取签名赋予变量signature
+//        $timestamp = $_GET["timestamp"];//从用户端获取时间戳赋予变量timestamp
+//        $nonce = $_GET["nonce"];  //从用户端获取随机数赋予变量nonce
+//
+////        $token = config('tk.wx_token');//将常量token赋予变量token
+//        $token = 'SaiGeR2021';//将常量token赋予变量token
+//        $tmpArr = array($token, $timestamp, $nonce);//简历数组变量tmpArr
+//        sort($tmpArr, SORT_STRING);//新建排序
+//        $tmpStr = implode( $tmpArr );//字典排序
+//        $tmpStr = sha1( $tmpStr );//shal加密
+//        //tmpStr与signature值相同，返回真，否则返回假
+//        if( $tmpStr == $signature ){
+//            return true;
+//        }else{
+//            return false;
+//        }
+//    }
 
 
     public function Xlzx($id)
@@ -77,8 +110,8 @@ class Index extends BaseController
         $title = Request::param('title');
         $data = FrontMenuService::GetTypeListInfo($id);
 //        halt($data);
-        View::assign('data',$data);
-        View::assign('title',$title);
+        View::assign('data', $data);
+        View::assign('title', $title);
 
         return View::fetch('home/xlcs_list');
 
@@ -175,7 +208,7 @@ class Index extends BaseController
         $info = json_decode($data, true);
 //        halt($info['phone_number']);
         $result = UserOrder::create([
-            'UserID' => Cache::get('users')['id'],
+            'UserID' => Session::get('users')['id'],
             'DoctorName' => $info['doctor_name'],
             'DoctorID' => $info['doctor_id'],
             'Time' => $info['times'],
@@ -203,7 +236,7 @@ class Index extends BaseController
     public function ArcArc($id)
     {
 //        halt(Cache::get('users')['id']);
-        $user_id = Cache::get('users')['id'];
+        $user_id = Session::get('users')['id'];
 //        halt($user_id);
         $article = ArticleService::GetArticleDetail($id);
 //        halt($article);
@@ -225,7 +258,7 @@ class Index extends BaseController
 
 //        halt(Request::param());
         $data = Db::table('articlemessage')->save([
-            'UserID' => Cache::get('users')['id'],
+            'UserID' => Session::get('users')['id'],
             'ArticleID' => Request::param('article_id'),
             'MessageContent' => Request::param('message_content'),
             'IsAnonymous' => Request::param('is_anonymous'),
@@ -339,7 +372,7 @@ class Index extends BaseController
             $info = Db::table('answerrecord')->insert([
                 'TestTitle' => $v['title'],
                 'TestSelect' => $v['select'],
-                'UserID' => Cache::get('users')['id'],
+                'UserID' => Session::get('users')['id'],
                 'UserTestID' => $result['user_test_id'],
                 'CreateTime' => time()
             ]);
@@ -358,6 +391,49 @@ class Index extends BaseController
     {
 
         return View::fetch('home/ylcs04');
+    }
+
+
+    public function PayTest()
+    {
+
+
+
+
+        $wxPay = new WxpayService();
+//        $wxPay->getSign($arr);
+//        $arr = $wxPay->setSign($arr);
+//        print_r($arr);
+
+//        if($wxPay->checkSign($arr)){
+//            echo "签名验证成功";
+//        }else{
+//            echo "签名验证失败";
+//        }
+
+//        $wxPay->getOpenId();
+        $info = $wxPay->unifiedOrder();
+//        halt($info);
+//         halt($wxPay->makeOrderNo());
+//        $prepay_id = $wxPay->GetPrepayId();
+//        $prepay_id = $wxPay->GetPrepayId();
+//        halt($prepay_id);
+        $data = $wxPay->GetJsParams($info['prepay_id']);
+//        halt($data);
+        View::assign('data', $data);
+        return View::fetch('/home/paytest');
+
+    }
+
+    public function notify()
+    {
+        $notify = new WxpayService();
+        $notify->notify();
+        //1获取通知数据(原始数据格式为XML)->转换成数组
+        //2验证签名
+        //3验证业务结果(return_code 和 result_code)
+        //4验证订单号和支付金额(out_trade_no 和 total_fee)
+        //5记录日志 修改订单状态(然后根据自己的业务进行处理下一步操作)
     }
 
 

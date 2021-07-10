@@ -10,6 +10,7 @@ use app\home\model\User;
 use think\facade\Cache;
 use think\facade\Filesystem;
 use think\facade\Request;
+use think\facade\Session;
 
 class Certification extends BaseController
 {
@@ -24,7 +25,7 @@ class Certification extends BaseController
             return "<script>alert('该名称已被认证占用了,如有疑问请联系客服人员进行处理');window.history.back();</script>";
         }
 
-        $data = HospitalApply::where('UserId', Cache::get('users')['id'])->find();
+        $data = HospitalApply::where('UserId', Session::get('users')['id'])->find();
 
         if(!empty($data)){
 
@@ -40,7 +41,7 @@ class Certification extends BaseController
 //            dump($path);
                 $picCover = Filesystem::getDiskConfig('public', 'url') . '/' . str_replace('\\', '/', $path);
 
-                User::where('ID',Cache::get('users')['id'])->save([
+                User::where('ID',Session::get('users')['id'])->save([
                     'RealName'=>Request::param('name'),
                     "IsPersion"=>Request::param('is_persion'),
                     "Remark"=>Request::param('Remark'),
@@ -54,7 +55,7 @@ class Certification extends BaseController
                 $user->Address = Request::param('address');
                 $user->Specialty = json_encode(Request::param('specialty'));
                 $user->UserPhone = Request::param('user_phone');
-                $user->UserId = Cache::get('users')['id'];
+                $user->UserId = Session::get('users')['id'];
                 $user->LicensePermission = $picCover;
 //                $user->IsPersion = Request::param('is_persion');
                 $user->BusinessTime = Request::param('business_time');
@@ -79,7 +80,7 @@ class Certification extends BaseController
         if(!empty($is_exist)){
             return "<script>alert('该名称已被认证占用了,如有疑问请联系客服人员进行处理');window.history.back();</script>";
         }
-        $data = HospitalApply::where('UserId', Cache::get('users')['id'])->find();
+        $data = HospitalApply::where('UserId', Session::get('users')['id'])->find();
 //        halt($data);
         if(!empty($data)){
 
@@ -95,7 +96,7 @@ class Certification extends BaseController
 //        halt($arr);
             if ($rules) {
                 $paths = Filesystem::disk('public')->putFile('static', $files);
-                User::where('ID',Cache::get('users')['id'])->save([
+                User::where('ID',Session::get('users')['id'])->save([
                     'RealName'=>Request::param('name'),
                     "IsPersion"=>Request::param('is_persion')
                 ]);
@@ -109,7 +110,7 @@ class Certification extends BaseController
                 $user->Address = Request::param('address');
                 $user->UserName = Request::param('user_name');
                 $user->UserPhone = Request::param('user_phone');
-                $user->UserId = Cache::get('users')['id'];
+                $user->UserId = Session::get('users')['id'];
                 $user->BusinessLicense = $picCover;
 //                $user->IsPersion = Request::param('is_persion');
                 $user->BusinessTime = Request::param('business_time');

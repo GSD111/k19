@@ -13,6 +13,7 @@ use app\home\service\User as UserService;
 use think\facade\Cache;
 use think\facade\Db;
 use think\facade\Request;
+use think\facade\Session;
 use think\facade\View;
 
 class Askdoctor extends BaseController
@@ -59,7 +60,7 @@ class Askdoctor extends BaseController
      */
     public function XlzxsArc($user_id)
     {
-        $users_id = Cache::get('users')['id'];
+        $users_id = Session::get('users')['id'];
         $DoctorDetail = HospitalApply::GetDoctorDetail($user_id);
 //        halt($DoctorDetail);
         if(empty($DoctorDetail)){
@@ -76,7 +77,7 @@ class Askdoctor extends BaseController
 
 //        $ParentName = HospitalApply::where('UserId', $DoctorDetail['HospitalID'])->visible(['Name', 'UserId'])->find();
 
-        $result = Db::table('userfollow')->where('UserID',Cache::get('users')['id'])
+        $result = Db::table('userfollow')->where('UserID',Session::get('users')['id'])
             ->where('Doctor',$user_id)
             ->find();
 //        halt($result);
@@ -96,7 +97,7 @@ class Askdoctor extends BaseController
     public function GetFollow($user_id)
     {
 
-        $UserId = Cache::get('users')['id'];
+        $UserId = Session::get('users')['id'];
         $info = UserService::UserFollowDoctor($UserId,$user_id);
         if ($info == true) {
 

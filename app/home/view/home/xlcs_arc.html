@@ -25,12 +25,12 @@
                     <p class="p2"><span class="sp1">免费，</span>预计1分钟完成</p>
                </li>
            </a>
-           
-            <li id="reg">
-                <p class="p1">专业测试</p>
-                <p class="p2"><span class="sp2">2.99元，</span>预计15分钟完成</p>
-           </li>
-           
+           <a href="{:URL('/home/ylcs03?type_id='.$type_id)}">
+                <li id="reg">
+                    <p class="p1">专业测试</p>
+                    <p class="p2"><span class="sp2">2.99元，</span>预计15分钟完成</p>
+               </li>
+           </a>
             <a href="{:URL('/')}">
                 <li>
                     <p class="p3">下次再测试</p>
@@ -89,6 +89,7 @@
 
         <input type="hidden" value="{$type_id}" name="type_id">
         <input style="margin-top:0.85rem;"  type="submit" class="a1" value="确定" />
+        <input style="margin-top:0.85rem;"  type="submit" class="a1" value="关闭" />
 <!--        <a href="{:URL('/home/ylcs03?type_id='.$type_id)}" class="a1">确定</a>-->
         <p class="p2"><input type="radio" name="qd" />点击确定说明您已经同意《测试说明》的相关信息。</p>
     </div>
@@ -103,9 +104,9 @@
         form = layui.form;
 
     });
-	$("#reg").click(function(){
-		$(".tcxxdj").css('display','block');
-		});
+	// $("#reg").click(function(){
+	// 	$(".tcxxdj").css('display','block');
+	// 	});
 </script>
 
 

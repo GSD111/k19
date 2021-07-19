@@ -7,7 +7,6 @@ namespace app\home\controller;
 use app\BaseController;
 use app\home\model\HospitalApply;
 use app\home\model\User;
-use think\facade\Cache;
 use think\facade\Filesystem;
 use think\facade\Request;
 use think\facade\Session;
@@ -20,17 +19,25 @@ class Certification extends BaseController
      */
     public function PeopleCertification()
     {
-        $is_exist =  HospitalApply::where('Name',Request::param('name'))->select();
-        if(!empty($is_exist)){
-            return "<script>alert('该名称已被认证占用了,如有疑问请联系客服人员进行处理');window.history.back();</script>";
-        }
 
-        $data = HospitalApply::where('UserId', Session::get('users')['id'])->find();
-
-        if(!empty($data)){
+//        $data = HospitalApply::where('UserId', Session::get('users')['id'])->find();
+//
+//        if(!empty($data)){
+//
+//            return "<script>alert('您已经认证过了请勿再次提交申请');window.history.back();</script>";
+//        }
+        $data = HospitalApply::IsUserCertification(Session::get('users')['id']);
+        if (!empty($data)) {
 
             return "<script>alert('您已经认证过了请勿再次提交申请');window.history.back();</script>";
         }
+
+        $is_exist = HospitalApply::where('Name', Request::param('name'))->select();
+//        halt($is_exist);
+        if (!empty($is_exist)) {
+            return "<script>alert('该名称已被认证占用了,如有疑问请联系客服人员进行处理');window.history.back();</script>";
+        }
+
         $file = Request::file('license_permission');
         try {
             $result = validate(['image' => ['fileExt:gif,jpg,png']])->check(['image' => $file]);
@@ -41,10 +48,10 @@ class Certification extends BaseController
 //            dump($path);
                 $picCover = Filesystem::getDiskConfig('public', 'url') . '/' . str_replace('\\', '/', $path);
 
-                User::where('ID',Session::get('users')['id'])->save([
-                    'RealName'=>Request::param('name'),
-                    "IsPersion"=>Request::param('is_persion'),
-                    "Remark"=>Request::param('Remark'),
+                User::where('ID', Session::get('users')['id'])->save([
+                    'RealName' => Request::param('name'),
+                    "IsPersion" => Request::param('is_persion'),
+                    "Remark" => Request::param('Remark'),
                 ]);
 //            halt($picCover);
                 $user = new HospitalApply;
@@ -76,17 +83,18 @@ class Certification extends BaseController
      */
     public function HospitalCertification()
     {
-        $is_exist =  HospitalApply::where('Name',Request::param('name'))->select();
-        if(!empty($is_exist)){
-            return "<script>alert('该名称已被认证占用了,如有疑问请联系客服人员进行处理');window.history.back();</script>";
-        }
-        $data = HospitalApply::where('UserId', Session::get('users')['id'])->find();
-//        halt($data);
-        if(!empty($data)){
+
+        $data = HospitalApply::IsUserCertification(Session::get('users')['id']);
+        if (!empty($data)) {
 
             return "<script>alert('您已经认证过了请勿再次提交申请');window.history.back();</script>";
+
         }
 
+        $is_exist = HospitalApply::where('Name', Request::param('name'))->select();
+        if (!empty($is_exist)) {
+            return "<script>alert('该名称已被认证占用了,如有疑问请联系客服人员进行处理');window.history.back();</script>";
+        }
 
 
 //        halt(Request::param());
@@ -96,9 +104,9 @@ class Certification extends BaseController
 //        halt($arr);
             if ($rules) {
                 $paths = Filesystem::disk('public')->putFile('static', $files);
-                User::where('ID',Session::get('users')['id'])->save([
-                    'RealName'=>Request::param('name'),
-                    "IsPersion"=>Request::param('is_persion')
+                User::where('ID', Session::get('users')['id'])->save([
+                    'RealName' => Request::param('name'),
+                    "IsPersion" => Request::param('is_persion')
                 ]);
 //            dump($path);
                 $picCover = Filesystem::getDiskConfig('public', 'url') . '/' . str_replace('\\', '/', $paths);
@@ -117,7 +125,7 @@ class Certification extends BaseController
                 $user->CreateTime = time();
                 $user->save();
 
-                redirect('/home/grzx_jgrztj/'. $user->id)->send();
+                redirect('/home/grzx_jgrztj/' . $user->id)->send();
             }
         } catch (\Exception $e) {
 

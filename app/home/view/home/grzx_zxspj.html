@@ -48,8 +48,9 @@
 <!--            <p class="p4" style=""><input type="checkbox" name="is_anonymous" value="1"/>不匿名</p>-->
             <div style="margin-top:45px;text-align:center">
                 <input type="hidden" name="doctor_id" value="{$doctor_id}" />
+                <input type="hidden" name="order_id" value="{$order_id}" />
             <input style="margin: auto;background: #6fc750;text-align: center;width: 40%;height:40px;color: #fff;
-               margin-bottom: 20px;"   onclick="comment()" value="提交评价"/>
+               margin-bottom: 20px;"  type="button" onclick="comment()" value="提交评价"/>
             </div>
             <div style="height:1.5rem; clear:both;"></div>
         </div>
@@ -62,6 +63,10 @@
 
 <script>
 
+    layui.use(['form', 'code'], function () {
+        form = layui.form;
+
+    });
 
 var grade = 0;
     layui.use(['rate'], function () {
@@ -99,7 +104,7 @@ var grade = 0;
         $.each(params, function(i, obj) {
             tempObj[obj.name] = obj.value;
         });
-        console.log(tempObj);
+        // console.log(tempObj);
         $.ajax({
             url:'/home/user_comment',
             data:JSON.stringify({
@@ -108,10 +113,16 @@ var grade = 0;
             }),
             contentType: 'application/x-www-form-urlencoded',
             type:'POST',
-            success:function (data) {
-                if(data.code == 200){
-                    layer.msg(data.msg, {icon: 1, time: 2000})
-                    window.location='/home/grzx_main'
+            dataType:'JSON',
+            success:function (res) {
+                console.log(res)
+                if(res.code == 200){
+                    layer.msg(res.msg, {icon: 1, time: 2000})
+                    window.setTimeout('window.location.href="https://m.gsdblog.cn/home/grzx_jypj"',2000);
+                    // window.location='/home/grzx_main'
+                }else{
+                    layer.msg(res.msg, {icon: 5, time: 2000})
+                    window.setTimeout('window.location.href="https://m.gsdblog.cn/home/grzx_jypj"',2000);
                 }
             }
         })

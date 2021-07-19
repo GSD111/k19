@@ -7,6 +7,7 @@ namespace app\home\model;
 use app\home\enum\StatusCode;
 use app\home\service\User as UserService;
 use think\facade\Db;
+use think\facade\Session;
 use think\Model;
 
 class HospitalApply extends Model
@@ -55,7 +56,7 @@ class HospitalApply extends Model
             ->join('user', 'user.ID = hospitalapply.UserId')
             ->where('UserId', $user_id)
             ->field('user.RealName,user.Remark,user.UserAvatar,user.HospitalID,user.ID UID,hospitalapply.*')
-            ->visible(['Name', 'Province', 'City', 'Area', 'Address','UID',
+            ->visible(['Name', 'Province', 'City', 'Area', 'Address', 'UID',
                 'UserPhone', 'BusinessTime', 'UserAvatar', 'Remark',
                 'HospitalID', 'UserId', 'RealName', 'Specialty', 'UserName', 'Status'])
             ->find();
@@ -142,6 +143,18 @@ class HospitalApply extends Model
             ->order('CreateTime desc')
             ->limit(15)
             ->select()->toArray();
+
+        return $data;
+    }
+
+
+    /*
+     * 检测当前用户是否已进行认证
+     * @params string $user_id  //用户的id
+     */
+    public static function IsUserCertification($user_id)
+    {
+        $data = HospitalApply::where('UserId',$user_id)->find();
 
         return $data;
     }

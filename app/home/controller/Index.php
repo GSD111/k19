@@ -15,7 +15,6 @@ use app\home\model\UserTest;
 use app\home\service\Article as ArticleService;
 use app\home\service\FontMenu as FrontMenuService;
 use app\home\service\User as UserService;
-use app\home\service\WxpayService;
 use think\facade\Cache;
 use think\facade\Db;
 use think\facade\Request;
@@ -34,7 +33,8 @@ class Index extends BaseController
 
 //            Cache::get('users')['phone'],Cache::get('users')['type']);
 //        halt(Session::get('user_id'),Session::get('phone'),Session::get('is_persion'),Session::get('aa'));
-//        halt(Session::get('users')['id']);
+//        halt(Session::get('users')['id'],Cache::get('user_id'));
+//        p(Cache::get('user_id'));
         //头部导航栏目按钮
         $result = FrontMenuModel::TopMenu();
 
@@ -175,8 +175,13 @@ class Index extends BaseController
         $info['Specialty'] = json_decode($info['Specialty']);
 //        halt($info);
         $user_comment = UserService::GetDoctorCommentInfo($id);
+
+        $good_field = UserService::GetGoodField();
+
+
 //        halt($user_comment);
         View::assign('info', $info);
+        View::assign('good_field', $good_field);
         View::assign('user_comment', $user_comment);
         return View::fetch('home/wzxqs_arc');
     }
@@ -189,10 +194,12 @@ class Index extends BaseController
         $info = UserService::DoctorTalkDetail($id)->toArray();
 //        halt($id);
         $info['Specialty'] = json_decode($info['Specialty']);
+        $good_field = UserService::GetGoodField();
 
         $DoctorPrice = UserService::DoctorPriceList($id);
 
         View::assign('info', $info);
+        View::assign('good_field', $good_field);
         View::assign('DoctorPrice', $DoctorPrice);
         View::assign('name', $name);
         View::assign('id', $id);
@@ -206,20 +213,30 @@ class Index extends BaseController
 //       halt(Request::param('doctor_price_id'),Request::param());
         $data = file_get_contents("php://input");
         $info = json_decode($data, true);
+//        halt($info);
 //        halt($info['phone_number']);
         $result = UserOrder::create([
-            'UserID' => Session::get('users')['id'],
-            'DoctorName' => $info['doctor_name'],
+            'UserId' => Session::get('users')['id'],
+//            'DoctorName' => $info['doctor_name'],
             'DoctorID' => $info['doctor_id'],
             'Time' => $info['times'],
             'Money' => $info['price'],
             "UserName" => $info['username'],
             'Phone' => $info['phone_number'],
-            "PayWay" => $info['pay_way'],
+            'Specialty' => $info['specialty'],
+//            "PayWay" => $info['pay_way'],
             "CreateTime" => time()
         ]);
 
-        return $result;
+        Cache::set('user_talk_id',$result->id,300);
+//        halt($result->id);
+        if ($result) {
+
+            return $info = ['code' => 200, 'msg' => '提交成功', 'id' => $result->id];
+
+        } else {
+            return $info = ['code' => 405, 'msg' => '提交失败'];
+        }
         //根据前端传递的支付类别请求对应的支付接口
         //调用相应支付接口
         //支付成功将订单信息存进订单表，修改订单状态
@@ -239,6 +256,7 @@ class Index extends BaseController
         $user_id = Session::get('users')['id'];
 //        halt($user_id);
         $article = ArticleService::GetArticleDetail($id);
+        $article['Content'] = str_replace('src="', 'src="https://admin.gsdblog.cn', $article['Content']);
 //        halt($article);
         $article_message = ArticleService::GetUserArticleMessage($id);
 //        halt($article_message);
@@ -309,8 +327,10 @@ class Index extends BaseController
         }
 //        halt($data);
         if (empty($data)) {
-            return "<script>alert('当前分类下暂时没有题!');window.history.back();</script>";
+            return "<script>alert('该题库正在策划中，敬请期待!');window.history.back();</script>";
         }
+
+
         View::assign('data', $data);
         return View::fetch('home/ylcs01');
     }
@@ -330,10 +350,11 @@ class Index extends BaseController
             $data[$k]['Select'] = json_decode($v['Select']);
         }
 
-//        halt($data);
-        if (empty($data)) {
-            return "<script>alert('当前分类下暂时没有题!');window.history.back();</script>";
-        }
+//        $info = TypeList::GetTypeInfo(Request::param('type_id'));
+//         halt($data);
+//        if (empty($data)) {
+//            return "<script>alert('当前分类下暂时没有题!');window.history.back();</script>";
+//        }
 
         View::assign('data', $data);
         View::assign('user_test', $user_test);
@@ -343,8 +364,27 @@ class Index extends BaseController
 
     public function UserTest()
     {
-//        halt(Request::param());
+
+//        p(Cache::get('user_id'),Cache::get('order_no'));
+        $order_no = Cache::get('order_no');
         $type_id = Request::param('type_id');
+//        p($order_no);
+        View::assign('type_id', $type_id);
+        View::assign('order_no', $order_no);
+        return View::fetch('home/user_test');
+//        return redirect('/home/ylcs03?type_id=' . $type_id . '&user_test_id=' . $result->id);
+    }
+
+    public function SaveUserTest()
+    {
+
+
+//        halt($test_type);
+        $type_id = Request::param('type_id');
+        $order_no = Request::param('order_no');
+//        halt(Request::param());
+        $data = TypeList::GetTypeInfo($type_id);
+//        halt(Request::param());
         $result = UserTest::create([
             'UserName' => Request::param('user_name'),
             'Sex' => Request::param('sex'),
@@ -354,11 +394,16 @@ class Index extends BaseController
             'Marriage' => Request::param('marriage'),
             'Job' => Request::param('job'),
             "Remark" => Request::param('remark'),
-            'UserId' => Cache::get('users')['id'],
+            'UserId' => Session::get('users')['id'],
+            'TestType' => $data['Title'],
+            'OrderNo' => $order_no,
             'CreateTime' => time()
         ]);
-//
-        return redirect('/home/ylcs03?type_id=' . $type_id . '&user_test_id=' . $result->id);
+        if ($result) {
+
+            return redirect('/home/ylcs03?type_id=' . $type_id . '&user_test_id=' . $result->id);
+        }
+
     }
 
     public function QuestionRecord()
@@ -367,7 +412,7 @@ class Index extends BaseController
 //        halt(Cache::get('users')['id']);
         $data = file_get_contents("php://input");
         $result = json_decode($data, true);
-//        halt($result['pay_way'],$result['user_test_id']);
+//        halt($result,$result['user_test_id']);
         foreach ($result['arr'] as $k => $v) {
             $info = Db::table('answerrecord')->insert([
                 'TestTitle' => $v['title'],
@@ -377,9 +422,16 @@ class Index extends BaseController
                 'CreateTime' => time()
             ]);
         }
-
+//        halt($info);
         if ($info) {
-            return $info = ['code' => 200, 'msg' => '提交成功'];
+            Db::table('usertest')
+                ->join('answerrecord', 'usertest.ID = answerrecord.UserTestID')
+                ->join('usertestorder', 'usertestorder.OrderNo = usertest.OrderNo')
+                ->field('usertestorder.OrderNo order_no,usertestorder.is_use,usertest.*,answerrecord.*')
+                ->where('usertest.UserId', Session::get('users')['id'])
+                ->update(['usertestorder.is_use' => 2]);
+
+            return $info = ['code' => 200, 'msg' => '提交成功,我们将尽快给您处理，请耐心等待'];
         } else {
             return $info = ['code' => 405, 'msg' => '提交失败'];
         }
@@ -394,67 +446,72 @@ class Index extends BaseController
     }
 
 
-    public function PayTest()
-    {
-
-
-
-
-        $wxPay = new WxpayService();
-//        $wxPay->getSign($arr);
-//        $arr = $wxPay->setSign($arr);
-//        print_r($arr);
-
-//        if($wxPay->checkSign($arr)){
-//            echo "签名验证成功";
-//        }else{
-//            echo "签名验证失败";
-//        }
-
-//        $openid = $wxPay->GetOpenid();
-//        halt($openid);
-//        halt($openid);
-        $info = $wxPay->unifiedOrder('微信公众号测试',2);
-//        p($info);
-//        print_r($info['prepay_id']);
-//         halt($wxPay->makeOrderNo());
-//        $prepay_id = $wxPay->GetPrepayId();
-//        $prepay_id = $wxPay->GetPrepayId();
-//        halt($prepay_id);
-        $data = $wxPay->GetJsParams($info['prepay_id']);
-//        halt($data);
-        View::assign('data', $data);
-        return View::fetch('/home/paytest');
-
-    }
-
-//    function p()
+//    public function PayTest()
 //    {
-//        $numargs = func_get_args();
-//        foreach ($numargs as $v) {
-//            if (request()->isCli()) {
-//                print_r($v);
-//                echo "\n";
-//            } else {
-//                echo "<pre>";
-//                print_r($v);
-//                echo "</pre>";
-//                echo '<hr>';
-//            }
-//        }
+////        $info = TypeList::GetTypeInfo(Request::param('type_id'));
+////        $result = UserService::UserTestQuestion(Request::param('type_id'), StatusCode::USER_TEST_PAY)->toArray();
+//////        p($info);
+//////        halt($info);
+////        if (empty($result)) {
+////            return "<script>alert('该题库正在策划中，敬请期待!');window.history.back();</script>";
+////        }
+//
+//
+//        $wxPay = new WxpayService();
+//////        $wxPay->getSign($arr);
+//////        $arr = $wxPay->setSign($arr);
+//////        print_r($arr);
+////
+//        $pay_info = $wxPay->unifiedOrder('测试', 0.01);
+//////        p($info);
+//////        print_r($info['prepay_id']);
+//////         halt($wxPay->makeOrderNo());
+//////        $prepay_id = $wxPay->GetPrepayId();
+//////        $prepay_id = $wxPay->GetPrepayId();
+//////        halt($prepay_id);
+//        $data = $wxPay->GetJsParams($pay_info['prepay_id']);
+//////        halt($data);
+//        View::assign('data', $data);
+////        View::assign('info', $info);
+//        return View::fetch('/home/paytest');
+//
+//    }
+//
+//    public function receiveNotify()
+//    {
+////          halt(111111);
+//
+//        $notify = new Notify();
+//        $notify->notify();
+////        if($result){
+////            Header("Location: https://m.gsdblog.cn");
+////        }else{
+////            halt('回调失败');
+////        }
+//
+////        return redirect('https://m.gsdblog.cn')->send();
+//        //1获取通知数据(原始数据格式为XML)->转换成数组
+//        //2验证签名
+//        //3验证业务结果(return_code 和 result_code)
+//        //4验证订单号和支付金额(out_trade_no 和 total_fee)
+//        //5记录日志 修改订单状态(然后根据自己的业务进行处理下一步操作)
 //    }
 
 
-    public function notify()
+    public function Pact()
     {
-        $notify = new WxpayService();
-        $notify->notify();
-        //1获取通知数据(原始数据格式为XML)->转换成数组
-        //2验证签名
-        //3验证业务结果(return_code 和 result_code)
-        //4验证订单号和支付金额(out_trade_no 和 total_fee)
-        //5记录日志 修改订单状态(然后根据自己的业务进行处理下一步操作)
+
+        return View::fetch('/home/pact_k19');
     }
 
+    public function Protocol()
+    {
+
+        return View::fetch('/home/protocol');
+    }
 
 }
+
+
+
+

@@ -12,9 +12,14 @@
             <p class="p1">{$info['Name']}<span>语音倾诉</span></p>
             <p class="p2">{$info['Signature']}</p>
             <p class="p3">
-                {foreach $info['Specialty'] as $k=>$item}
-                <span>{$item}</span>
+                {foreach $good_field as $k=>$item}
+                    {if in_array($item['ID'],$info['Specialty'])}
+                    <span>{$item['Name']}</span>
+                    {/if}
                 {/foreach}
+<!--                {foreach $info['Specialty'] as $k=>$item}-->
+<!--                <span>{$item}</span>-->
+<!--                {/foreach}-->
             </p>
             <p class="p4 clr">服务人数：<span>{$info['ServiceNum']}</span>
                 &nbsp;&nbsp;&nbsp;好评率：<span>{$info['PraiseRate']}%</span></p>
@@ -35,8 +40,10 @@
         <p class="p2">{$info['Qualification']} </p>
         <p class="p1"><img src="/home/picture/tb32.png"/>擅长</p>
         <p class="p2">
-            {foreach $info['Specialty'] as $k=>$item}
-            <span>{$item}</span>
+            {foreach $good_field as $k=>$item}
+                {if in_array($item['ID'],$info['Specialty'])}
+                    <span>{$item['Name']}</span>
+                {/if}
             {/foreach}
         </p>
         <p class="p1"><img src="/home/picture/tb32.png"/>个人简介</p>
@@ -55,8 +62,14 @@
             {foreach $user_comment as $k=>$v}
             <li>
                 <p class="p1">用户：{$v['RealName']}<span>{$v['CreateTime']|date='Y-m-d'}</span></p>
-                <p class="p2">{$v['Content']}<span>
-                   {$v['Grade']}星</span></p>
+                <p class="p2">{$v['Content']}
+<!--                    <span>-->
+<!--                   {$v['Grade']}星</span>-->
+
+                </p>
+<!--                <div><div id="{$v['ID']}"></div></div>-->
+
+
             </li>
             {/foreach}
         {/if}
@@ -77,7 +90,20 @@
 
 
 <!--底部js-->
-<!--<script type="text/javascript" src="js/footer.js"></script>-->
+<!--{load href="/admin/lib/layui/css/layui.css"}-->
+<!--{load href="/admin/lib/layui/layui.js"}-->
+<!--<script>-->
+<!--    layui.use(['rate'], function () {-->
+<!--        var rate = layui.rate;-->
+<!--        {foreach $user_comment as $k=>$v}-->
+<!--        rate.render({-->
+<!--            elem: "#{$v['ID']}"-->
+<!--            ,length: 5-->
+<!--            ,value: {$v['Grade']}-->
+<!--        });-->
+<!--        {/foreach}-->
+<!--        });-->
+<!--</script>-->
 
 {include file="home/footer" /}
 </body>

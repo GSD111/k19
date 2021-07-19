@@ -66,10 +66,11 @@ Route::group('home',function(){
     Route::get('/login_out','Personalcenter/LoginOut');
 
 
+    Route::any('/protocol','Index/Protocol');
+    Route::any('/pact_k19','Index/Pact');
 
-
-    Route::get('/paytest','Index/PayTest');
-    Route::get('/notify','Index/notify');
+//    Route::any('/paytest/:id','Index/PayTest');
+    Route::any('/receiveNotify','WxPay/receiveNotify');
 
 //    Route::get('/hosp_arc/:user_id','Findhospital/HospArc');
 //    Route::get('/xlzxs_arc/:user_id','Askdoctor/XlzxsArc');
@@ -82,7 +83,10 @@ Route::group('home',function(){
  * 中间件验证
  */
 Route::group('home',function (){
-//    Route::get('/arc_arc/:id','Index/ArcArc');
+
+    Route::any('/pay_test/:type_id','WxPay/PayTest');
+    Route::get('/pay_talk/:id','WxPay/PayTalk');
+
     Route::get('/article_read_num/:id','Index/ArcReadNum');
     Route::post('user_message','Index/userMessage');
     Route::post('/UserFollow/:user_id','Askdoctor/GetFollow');
@@ -93,8 +97,10 @@ Route::group('home',function (){
     Route::get('/ylcs02','Index/Ylcs02');
     Route::get('/ylcs03','Index/Ylcs03');
     Route::get('/ylcs04','Index/Ylcs04');
+//    Route::get('/user_test','Index/Ylcs04');
 
-    Route::any('/user_test','Index/UserTest');
+    Route::any('/user_test/:type_id','Index/UserTest');
+    Route::any('/user_save','Index/SaveUserTest');
     Route::any('/question_record','Index/QuestionRecord');
 
 

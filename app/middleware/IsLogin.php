@@ -20,6 +20,7 @@ class IsLogin
     {
         if (!Session::has('users')) {
 
+//            Header("Location: https://m.gsdblog.cn/home/login");
             redirect('/home/login')->send();
 
         }

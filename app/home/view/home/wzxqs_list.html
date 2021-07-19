@@ -80,9 +80,14 @@
                     <p class="p1">{$v['Name']}<span>语音倾诉</span></p>
                     <p class="p2">{$v['Signature']}</p>
                     <p class="p3">
-                        {foreach $v['Specialty'] as $k=>$item}
-                            <span>{$item}</span>
+                        {foreach $good_field as $k=>$item}
+                          {if in_array($item['ID'],$v['Specialty'])}
+                            <span>{$item['Name']}</span>
+                          {/if}
                         {/foreach}
+<!--                        {foreach $v['Specialty'] as $k=>$item}-->
+<!--                            <span>{$item}</span>-->
+<!--                        {/foreach}-->
                     </p>
                     <p class="p4 clr">服务人数：<span>{$v['ServiceNum']}</span> &nbsp;&nbsp;&nbsp;好评率：<span>{$v['PraiseRate']}%</span></p>
                 </div>

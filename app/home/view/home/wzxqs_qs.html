@@ -39,11 +39,19 @@
         	<p>倾诉方向</p>
         </div>
         <ul>
-                {foreach $info['Specialty'] as $k=>$item}
+<!--                {foreach $info['Specialty'] as $k=>$item}-->
+<!--                    <li>-->
+<!--                        <p class='specialty' index="{$item}">{$item}</p>-->
+<!--                    </li>-->
+<!--                {/foreach}-->
+
+            {foreach $good_field as $k=>$item}
+                {if in_array($item['ID'],$info['Specialty'])}
                     <li>
-                        <p class='specialty' index="{$item}">{$item}</p>
+                        <p class='specialty' index="{$item['Name']}">{$item['Name']}</p>
                     </li>
-                {/foreach}
+                {/if}
+            {/foreach}
 <!--        	<li><p>婚恋</p></li>-->
 <!--            <li><p>职场</p></li>-->
 <!--            <li><p>婚恋</p></li>-->
@@ -68,12 +76,15 @@
         	<input type="text" class="inp01" id="phone_number" placeholder="请输入您的联系方式"/>
         </div>
         <div class="hx"></div>
-        <div class="tj">
-       		<p class="p4">提交订单即表示您已经同意我们提供的<span>服务协议</span></p>
+        <div class="tj" style="margin-bottom: 40px;">
+       		<p class="p4">提交订单即表示您已经同意我们提供的<span><a href="{:URL('/home/pact_k19')}">服务协议</a></span></p>
 <!--            <p class="p5"><span>19.9元</span> /30分钟</p>	-->
-<!--            <p style="margin-top:20px;" class="p6" id="reg" item-name="{$name}">提交</p>-->
+<!--            <p style="margin-top:20px;" class="p6" id="reg"  onclick="pay({$id})">提交</p>-->
+            <div style="display:flex;margin:0 auto;text-align: center;margin-top:30px;" >
+              <input style="width:40%;margin:0 auto;border:white solid;line-height:0;height:45px;" type="button" class="p6" id="reg" onclick="pay({$id})" value="提交" />
+            </div>
 
-            <a href="javascript:alert('正在测试中，敬请期待！')" style="display:none;float:right;margin-right:55px;">提交</a>
+<!--            <a href="javascript:alert('正在测试中，敬请期待！')" style="display:none;float:right;margin-right:55px;">提交</a>-->
         </div>
         
         
@@ -82,28 +93,28 @@
 
 
 <!--付费弹出-->
-<div class="fftc">
-	<div class="fk">
-<!--    	<p class="p1">抑郁测试<span>￥2.99</span></p>-->
-        <p class="p2">选择支付方式</p>
-        <ul>
-        	<li>
-            	<input type="radio" id="weixin" index-pay="1" name="zhifu" />
-                <label for="weixin"><img src="/home/picture/tb21.png" />微信支付</label>
-            </li>
-            <li>
-            	<input type="radio" id="zhifubao" index-pay="2" name="zhifu" />
-                <label for="zhifubao"><img src="/home/picture/tb22.png" />支付宝支付</label>
-            </li>
-        </ul>
-        <div style="display:flex;margin-top:20px;">
-            <input style="width:40%;margin-left:30px;text-align:center;background:#ef8d6f;color:#fff;line-height:0.8rem;"  class="close"
-              value="取消" />
-            <input style="width:40%;margin-left:15px;" class="qr" value="确认" onclick="pay({$id})" />
-        </div>
+<!--<div class="fftc">-->
+<!--	<div class="fk">-->
+<!--&lt;!&ndash;    	<p class="p1">抑郁测试<span>￥2.99</span></p>&ndash;&gt;-->
+<!--        <p class="p2">选择支付方式</p>-->
+<!--        <ul>-->
+<!--        	<li>-->
+<!--            	<input type="radio" id="weixin" index-pay="1" name="zhifu" />-->
+<!--                <label for="weixin"><img src="/home/picture/tb21.png" />微信支付</label>-->
+<!--            </li>-->
+<!--            <li>-->
+<!--            	<input type="radio" id="zhifubao" index-pay="2" name="zhifu" />-->
+<!--                <label for="zhifubao"><img src="/home/picture/tb22.png" />支付宝支付</label>-->
+<!--            </li>-->
+<!--        </ul>-->
+<!--        <div style="display:flex;margin-top:20px;">-->
+<!--            <input style="width:40%;margin-left:30px;text-align:center;background:#ef8d6f;color:#fff;line-height:0.8rem;"  class="close"-->
+<!--              value="取消" />-->
+<!--            <input style="width:40%;margin-left:15px;" class="qr" value="确认" onclick="pay({$id})" />-->
+<!--        </div>-->
 
-    </div>
-</div>
+<!--    </div>-->
+<!--</div>-->
 
 
 
@@ -119,11 +130,11 @@
         form = layui.form;
     });
 
-    $("#reg").click(function(){
-        doctor_name = $(this).attr('item-name')
-        // console.log(doctor_id)
-        $(".fftc").css('display','block');
-    });
+    // $("#reg").click(function(){
+    //     doctor_name = $(this).attr('item-name')
+    //     // console.log(doctor_id)
+    //     $(".fftc").css('display','block');
+    // });
 
 
 </script>

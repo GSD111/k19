@@ -25,10 +25,13 @@
                     <p class="p2"><span class="sp1">免费，</span>预计1分钟完成</p>
                </li>
            </a>
-           <a href="{:URL('/home/ylcs03?type_id='.$type_id)}">
+           <a href="{:URL('/home/pay_test/'.$type_id)}">
                 <li id="reg">
                     <p class="p1">专业测试</p>
-                    <p class="p2"><span class="sp2">2.99元，</span>预计15分钟完成</p>
+                    <p class="p2" style="padding-top: 0.26rem;">
+                        <del style="margin-right:10px;color:gray;">原价 {$data['OriginalPrice']}元</del>
+                        <span class="sp2">现价 {$data['SalePrice']}元</span>
+                    </p>
                </li>
            </a>
             <a href="{:URL('/')}">
@@ -41,60 +44,62 @@
 </div>
 
 <!--专业测试弹出-->
-<div class="tcxxdj">
-    <form action="{:URL('/home/user_test')}" method="post" onsubmit="return UserTest()" enctype="multipart/form-data">
-	<div class="fk" style="height:10.6rem;margin-top:0.5rem;">
-    	<p class="p1"><span>温馨提示：</span>您即将进入专业测试的答题中，请您在答题前认真如实填写相关信息，并在最后答题结束后，支付相应的服务费用，我们会有专业的心理为你解答。</p>
-        <div class="dm01">
-        	<p>姓名：</p>
-            <input type="text" name="user_name" id="live_username" placeholder="请输入您的姓名" />
-        </div>
-        <div class="dm02">
-        	<p>性别：</p>
-            <input type="radio" class="nan" name="sex" value="1"/><label for="nan">男</label>
-            <input type="radio" class="nv" name="sex" value="2"/><label for="nv">女</label>
-        </div>
-        <div class="dm01">
-        	<p>年龄：</p>
-            <input type="number" name="age" id="live_age" placeholder="请输入年龄"/>
-        </div>
-        <div class="dm01">
-            <p>邮箱：</p>
-            <input type="text" name="user_email" id="live_email" placeholder="请输入邮箱"/>
-        </div>
-        <div class="dm01">
-            <p>微信：</p>
-            <input type="text" name="user_wechat"  placeholder="请输入微信号"/>
-        </div>
-        <div class="dm03">
-        	<p>婚姻：</p>
-            <input type="radio" class="nan" name="marriage" value="单身"/><label for="nan">单身</label>
-            <input type="radio" class="nv" name="marriage" value="恋爱" /><label for="nv">恋爱</label>
-            <input type="radio" class="nan" name="marriage" value="已婚"/><label for="nan">已婚</label>
-            <input type="radio" class="nv" name="marriage" value="已婚已育"/><label for="nv">已婚已育</label>
-            <br/>
-            <input type="radio" class="nan" name="marriage" value="离异"/><label for="nan">离异</label>
-            <input type="radio" class="nv" name="marriage" value="离异再组"/><label for="nv">离异再组</label>
-            <input type="radio" class="nan" name="marriage" value="离异再组已育"/><label for="nan">离异再组已育</label>
-        </div>
-        <div class="dm01">
-        	<p>职业：</p>
-            <input type="text" name="job" id="live_job" placeholder="请输入您的职业"/>
-        </div>
+<!--<div class="tcxxdj">-->
+<!--    <form action="{:URL('/home/user_test')}" method="post"  enctype="multipart/form-data">-->
+<!--	<div class="fk" style="height:10.6rem;margin-top:0.5rem;">-->
+<!--    	<p class="p1"><span>温馨提示：</span>您即将进入专业测试的答题中，请您在答题前认真如实填写相关信息，并在最后答题结束后，支付相应的服务费用，我们会有专业的心理为你解答。</p>-->
+<!--        <div class="dm01">-->
+<!--        	<p>姓名：</p>-->
+<!--            <input type="text" name="user_name" id="live_username" placeholder="请输入您的姓名" />-->
+<!--        </div>-->
+<!--        <div class="dm02">-->
+<!--        	<p>性别：</p>-->
+<!--            <input type="radio" class="nan" name="sex" value="1"/><label for="nan">男</label>-->
+<!--            <input type="radio" class="nv" name="sex" value="2"/><label for="nv">女</label>-->
+<!--        </div>-->
+<!--        <div class="dm01">-->
+<!--        	<p>年龄：</p>-->
+<!--            <input type="number" name="age" id="live_age" placeholder="请输入年龄"/>-->
+<!--        </div>-->
+<!--        <div class="dm01">-->
+<!--            <p>邮箱：</p>-->
+<!--            <input type="text" name="user_email" id="live_email" placeholder="请输入邮箱"/>-->
+<!--        </div>-->
+<!--        <div class="dm01">-->
+<!--            <p>微信：</p>-->
+<!--            <input type="text" name="user_wechat"  placeholder="请输入微信号"/>-->
+<!--        </div>-->
+<!--        <div class="dm03">-->
+<!--        	<p>婚姻：</p>-->
+<!--            <input type="radio" class="nan" name="marriage" value="单身"/><label for="nan">单身</label>-->
+<!--            <input type="radio" class="nv" name="marriage" value="恋爱" /><label for="nv">恋爱</label>-->
+<!--            <input type="radio" class="nan" name="marriage" value="已婚"/><label for="nan">已婚</label>-->
+<!--            <input type="radio" class="nv" name="marriage" value="已婚已育"/><label for="nv">已婚已育</label>-->
+<!--            <br/>-->
+<!--            <input type="radio" class="nan" name="marriage" value="离异"/><label for="nan">离异</label>-->
+<!--            <input type="radio" class="nv" name="marriage" value="离异再组"/><label for="nv">离异再组</label>-->
+<!--            <input type="radio" class="nan" name="marriage" value="离异再组已育"/><label for="nan">离异再组已育</label>-->
+<!--        </div>-->
+<!--        <div class="dm01">-->
+<!--        	<p>职业：</p>-->
+<!--            <input type="text" name="job" id="live_job" placeholder="请输入您的职业"/>-->
+<!--        </div>-->
 
-        <div class="dm01">
-            <p>自述：</p>
-            <textarea style="height:55px;width:4.5rem;border:solid gray 0.5px;" name="remark" id="live_remark"></textarea>
-        </div>
+<!--        <div class="dm01">-->
+<!--            <p>自述：</p>-->
+<!--            <textarea style="height:55px;width:4.5rem;border:solid gray 0.5px;" name="remark" id="live_remark"></textarea>-->
+<!--        </div>-->
 
-        <input type="hidden" value="{$type_id}" name="type_id">
-        <input style="margin-top:0.85rem;"  type="submit" class="a1" value="确定" />
-        <input style="margin-top:0.85rem;"  type="submit" class="a1" value="关闭" />
-<!--        <a href="{:URL('/home/ylcs03?type_id='.$type_id)}" class="a1">确定</a>-->
-        <p class="p2"><input type="radio" name="qd" />点击确定说明您已经同意《测试说明》的相关信息。</p>
-    </div>
-    </form>
-</div>
+<!--        <input type="hidden" value="{$type_id}" name="type_id">-->
+<!--        <input type="hidden" value="{$data['Brief']}" name="type_name">-->
+<!--        <input type="hidden" value="{$data['SalePrice']}" name="price">-->
+<!--        <input style="margin-top:0.85rem;"  type="submit" class="a1" value="确定" />-->
+<!--        <input style="margin-top:0.85rem;"  type="submit" class="a1" value="关闭" />-->
+<!--&lt;!&ndash;        <a href="{:URL('/home/ylcs03?type_id='.$type_id)}" class="a1">确定</a>&ndash;&gt;-->
+<!--&lt;!&ndash;        <p class="p2" style="margin-left:0;"><input type="radio" name="qd" />点击确定说明您已经同意《测试说明》的相关信息。</p>&ndash;&gt;-->
+<!--    </div>-->
+<!--    </form>-->
+<!--</div>-->
 
 
 {load href="/admin/lib/layui/layui.js"}

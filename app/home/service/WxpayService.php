@@ -147,13 +147,14 @@ class WxpayService
      * @params nonce_str 随机机字符串
      * @params body 内容的描述
      * @params out_trade_no 每个商户号都是唯一的
-     * @params total_fee 订单金额(已分为单位计算)
+     * @params total_fee 订单金额(以分为单位计算)
      * @params notify_url 支付成功后回调的地址
      * @params trade_type 支付的类型
      * @params product_id  商品的id(根据自己需求自定义)
      * @params openid 用户的唯一标识(必填项)
+     * @params attach 自定义的附加参数
      */
-    public function unifiedOrder($body, $total_fee)
+    public function unifiedOrder($body, $total_fee,$attach)
     {
         //1构建原始数据
         //2加入签名
@@ -165,14 +166,16 @@ class WxpayService
             'mch_id' => self::MCHID,
             'nonce_str' => md5(time()),
             'body' => $body,
+            'attach' => $attach,
             'out_trade_no' => $this->makeOrderNo(),
-            'total_fee' => $total_fee,
-            'notify_url' => 'http://m.gsdblog.cn/',
+            'total_fee' => $total_fee * 100,
+            'notify_url' => 'https://m.gsdblog.cn/home/receiveNotify',
             'trade_type' => 'JSAPI',
             'openid' => $this->GetOpenid()
         ];
 
         $params = $this->setSign($params);
+//        halt($params);
         $xmldata = $this->ArrToXml($params);
         $resdata = $this->postXml(self::UNURL, $xmldata);
 //        halt($resdata);
@@ -199,19 +202,19 @@ class WxpayService
      * 获取prepay_id   预付单号标识
      */
 
-    public function GetPrepayId()
-    {
-        $data = $this->unifiedOrder();
-
-        halt($data, Session::get('openid'));
-
-        return $data['prepay_id'];
-    }
+//    public function GetPrepayId()
+//    {
+//        $data = $this->unifiedOrder();
+//
+//        halt($data, Session::get('openid'));
+//
+//        return $data['prepay_id'];
+//    }
 
     /*
      * 获取公众号支付所需要的的参数返回给前端进行支付
      * @params appId 公众号id
-     * @params timeStamp 时间戳(注:官方格式为字符串类型，不转换无法进行支付)
+     * @params timeStamp 时间戳(注:官方格式为字符串类型，不转换无法l拉起支付)
      * @params nonceStr 随机机字符串
      * @params package 预付单号的标识(没有该值将无法进行支付)
      * @params signType 签名类型
@@ -255,6 +258,7 @@ class WxpayService
     function XmlToArr($xml)
     {
         if ($xml == '') return '';
+        //禁止引用外部xml实体
         libxml_disable_entity_loader(true);
         $arr = json_decode(json_encode(simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOCDATA)), true);
         return $arr;
@@ -296,38 +300,42 @@ class WxpayService
         return file_get_contents('php://input');
     }
 
-    /*
-     * 支付回调通知
-     */
-    public function notify()
-    {
-        $xml = $this->GetPostData();
-        $arr = $this->XmlToArr($xml);
-        if ($this->checkSign($arr)) {
-            if ($arr['return_code'] == "SUCCESS" && $arr['result_code'] == "SUCCESS") {
-                if ($arr['total_fee'] == 1) {    //根据订单号查询出订单金额进行验证
-
-                    echo "交易成功";          //修改订单状态
-
-                    //发送应答给商户平台
-                    $result = [
-                        'return_code' => 'SUCCESS',
-                        "return_msg" => "OK"
-                    ];
-
-                    return $this->ArrToXml($result);
-
-                } else {
-                    return "金额有误";
-                }
-            } else {
-                return "业务结果不正确";
-            }
-        } else {
-
-            return "签名验证失败";
-        }
-    }
+//    /*
+//     * 支付回调通知
+//     */
+//    public function notify()
+//    {
+//        $xml = $this->GetPostData();
+//        p($xml);
+//        $arr = $this->XmlToArr($xml);
+//        p($arr);
+//        if ($this->checkSign($arr)) {
+//            if ($arr['return_code'] == "SUCCESS" && $arr['result_code'] == "SUCCESS") {
+//                if ($arr['total_fee'] == 1) {    //根据订单号查询出订单金额进行验证
+//
+////                    echo "交易成功";          //修改订单状态
+//                    Log::record('交易成功');
+//                    //发送应答给商户平台
+//                    $result = [
+//                        'return_code' => 'SUCCESS',
+//                        "return_msg" => "OK"
+//                    ];
+//
+//                    return $this->ArrToXml($result);
+//
+//                } else {
+//                    Log::record('金额有误');
+////                    return "金额有误";
+//                }
+//            } else {
+//                Log::record('业务结果不正确');
+////                return "业务结果不正确";
+//            }
+//        } else {
+//            Log::record('业务结果不正确');
+////            return "签名验证失败";
+//        }
+//    }
 
 
 }

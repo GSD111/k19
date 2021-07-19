@@ -35,27 +35,27 @@ $('.specialty').click(function(){
 
 
 
-//获取对应的支付类别的属性值
-$('#weixin').click(function(){
-    pay_way = $(this).attr('index-pay')
-    // console.log(pay_way)
-})
-$('#zhifubao').click(function(){
-    pay_way = $(this).attr('index-pay')
-    // console.log(pay_way)
-})
+// //获取对应的支付类别的属性值
+// $('#weixin').click(function(){
+//     pay_way = $(this).attr('index-pay')
+//     // console.log(pay_way)
+// })
+// $('#zhifubao').click(function(){
+//     pay_way = $(this).attr('index-pay')
+//     // console.log(pay_way)
+// })
 
 
 var times;        //选择的时长
 var price;        //对应时长的价格
 var specialty;    //倾述的方向
 // var doctor_id     //医生的id
-var doctor_name;  //医生的名字
-var pay_way;      //支付的类别
+// var doctor_name;  //医生的名字
+// var pay_way;      //支付的类别
 
 
 function pay(id) {
-    // console.log(id)
+    // console.log(id,name)
     var username = $('#username').val();
     var phone_number = $('#phone_number').val();
     // console.log(username,phone_number)
@@ -80,17 +80,22 @@ function pay(id) {
             // 'doctor_price_id':doctor_price_id,
             'times':times,
             'price':price,
-            "pay_way":pay_way,
+            // "pay_way":pay_way,
             'doctor_id':id,
             'specialty':specialty,
-            'doctor_name':doctor_name,
+            // 'doctor_name':name,
             'username':username,
             'phone_number':phone_number
         }),
         type:'POST',
         dataType:'JSON',
         success:function (data) {
-            console.log(data)
+            // console.log(data)
+            if(data.code == 200){
+                window.location.href="https://m.gsdblog.cn/home/pay_talk/"+data.id;
+            }else{
+                layer.msg('提交失败', { icon:5,time:2000})
+            }
         }
 
     })

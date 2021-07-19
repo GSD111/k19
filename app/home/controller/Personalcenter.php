@@ -10,9 +10,9 @@ use app\home\model\Hospital;
 use app\home\model\HospitalApply;
 use app\home\model\User;
 use app\home\model\UserOrder;
+use app\home\model\UserTestOrder;
 use app\home\service\Article;
 use app\home\service\User as UserService;
-use think\facade\Cache;
 use think\facade\Db;
 use think\facade\Filesystem;
 use think\facade\Request;
@@ -93,8 +93,12 @@ class Personalcenter extends BaseController
 //        $user_id = Cache::get('users')['id'];
         $user_id = Session::get('users')['id'];
         $data = UserOrder::GetUserOrderInfo($user_id, StatusCode::USER_ORDER_STATUS_PAID);
+//        halt($data);
+        $user_test_order = UserTestOrder::GetUserTestOrderInfo($user_id, StatusCode::USER_ORDER_STATUS_PAID);
+//        halt($user_test_order);
 
         View::assign('data', $data);
+        View::assign('user_test_order', $user_test_order);
         return View::fetch('home/grzx_jypj');
     }
 
@@ -193,6 +197,13 @@ class Personalcenter extends BaseController
 
     public function GrzxCsjg()
     {
+        $order_id = Request::param('order_id');
+        $result = Db::table('usertestanswer')->where('OrderID', $order_id)->find();
+        if (empty($result)) {
+            return "<script>alert('测试结果正在加快评估中，请您耐心等待！');window.history.back();</script>";
+        }
+//        halt($result);
+        View::assign('result', $result);
         return View::fetch('home/grzx_csjg');
     }
 
@@ -203,9 +214,18 @@ class Personalcenter extends BaseController
 
     public function GrzxZxspj()
     {
+        $order_id = Request::param('order_id');
         $doctor_id = Request::param('doctor_id');
-
+        $evaluate = Db::table('evaluate')
+            ->where('OrderID', $order_id)
+            ->find();
+//        halt($evaluate);
+        if(!empty($evaluate)){
+            return "<script>alert('您已经评论过了，请勿在次操作！');window.history.back();</script>";
+        }
+//        halt($evaluate);
         View::assign('doctor_id', $doctor_id);
+        View::assign('order_id', $order_id);
         return View::fetch('home/grzx_zxspj');
     }
 
@@ -214,16 +234,24 @@ class Personalcenter extends BaseController
         $data = file_get_contents("php://input");
         $result = json_decode($data, true);
 
-        Db::table('evaluate')->insert([
+        $info = Db::table('evaluate')->insert([
             'DoctorID' => $result['params']['doctor_id'],
             'UserID' => Session::get('users')['id'],
             'Content' => $result['params']['content'],
             'Grade' => $result['grade'],
+            'OrderID' => $result['params']['order_id'],
 //            "IsAnonymous" => $result['params']['is_anonymous'],
             "CreateTime" => time()
         ]);
+//        halt($info);
+        if ($info) {
+            return $res = ['code' => 200, 'msg' => '评论成功'];
+        } else {
+            return $res = ['code' => 405, 'msg' => '评论失败'];
+        }
 
-        return redirect('/home/grzx_main')->send();
+
+//        return redirect('/home/grzx_main')->send();
 
 
     }
@@ -260,6 +288,8 @@ class Personalcenter extends BaseController
     {
         Session::delete('users');
 
-        redirect('/home/login')->send();
+        Header("Location: https://m.gsdblog.cn/home/login");
+//        $this->error('退出登录','/home/login');
+//        redirect('/home/login')->send();
     }
 }

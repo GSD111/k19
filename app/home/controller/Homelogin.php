@@ -50,12 +50,14 @@ class Homelogin extends BaseController
 
                 Session::set('users',['id' => $info->id, 'phone' => $info->PhoneNumber,
                     'is_persion'=> $info->IsPersion]);
-
+                Cache::set('user_id',$info->id);
 //                Session::set('user_id',$info->id);
 //                Session::set('phone',$info->PhoneNumber);
 //                Session::set('is_persion',$info->IsPersion);
-
-                redirect('/')->send();
+//                halt($info);
+                 $this->success('登录成功','/');
+//                Header("Location: https://m.gsdblog.cn");
+//                redirect('/')->send();
             }
             if ($result['UserStatus'] != StatusCode::USER_STATUS) {
                 return "<script>alert('您的账号存在异常无法登录，请联系管理进行处理');window.history.go(-1);</script>";
@@ -73,12 +75,13 @@ class Homelogin extends BaseController
 
             Session::set('users',['id' => $result->ID, 'phone' => $result->PhoneNumber,
                 'is_persion'=> $result->IsPersion]);
-//            Session::set('aa','qqq');
+            Cache::set('user_id',$result->ID);
 //            Session::set('user_id',$result->ID);
 //            Session::set('phone',$result->PhoneNumber);
 //            Session::set('is_persion',$result->IsPersion);
-
-            redirect('/')->send();
+            $this->success('登录成功','/');
+//            Header("Location: https://m.gsdblog.cn");
+//            redirect('/')->send();
         } else {
             return "<script>alert('手机号有误');window.history.go(-1);</script>";
         }

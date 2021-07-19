@@ -8,34 +8,39 @@
 
 <div class="grzx_jypj">
 
-    {empty name='data'}
-       <p style="margin-top:13px;text-align:center;">暂时没有您的记录</p>
-    {/empty}
+<!--    {empty name='data'}-->
+<!--       <p style="margin-top:13px;text-align:center;">暂时没有您的记录</p>-->
+<!--    {/empty}-->
 
 	<ul>
-<!--    	<li>-->
-<!--        	<div class="test">-->
-<!--            	<p class="p1"><span></span>抑郁症测试</p>-->
-<!--                <p class="p2">2021-05-10<span>￥2.99</span></p>-->
+
+        {foreach $user_test_order as $k=>$v}
+    	<li>
+        	<div class="test">
+            	<p class="p1"><span></span>{$v['TestType']}</p>
+                <p class="p2">{$v['CreateTime']|date='Y-m-d'}<span>￥{$v['Money']}</span></p>
 <!--                <p class="p3">心理医师：王医生</p>-->
 <!--                <p class="p4"><span>喜爱度：</span><img src="/home/picture/tb19.png" /><img src="/home/picture/tb19.png" /><img src="picture/tb19.png" /><img src="picture/tb18.png" /><img src="picture/tb18.png" /></p>-->
-<!--                <a href="{:URL('/home/grzx_csjg')}">查看结果</a>-->
+                <a href="{:URL('/home/grzx_csjg?order_id='.$v['order_id'])}">查看结果</a>
 <!--                <a href="{:URL('/home/grzx_cspj')}">我的评价</a>-->
-<!--            </div>-->
-<!--        </li>-->
+            </div>
+        </li>
+        {/foreach}
+
+
         {foreach $data as $k=>$v}
             <li>
                 <div class="test">
                     <p class="p1"><span></span>倾诉一刻</p>
                     <p class="p2">{$v['CreateTime']|date='Y-m-d'}<span>￥{$v['Money']}</span></p>
-                    <p class="p3">心理医师：{$v['DoctorName']}</p>
-                    <p class="p4"><span>喜爱度：</span><img src="/home/picture/tb19.png" />
-                        <img src="/home/picture/tb19.png" />
-                        <img src="picture/tb19.png" />
-                        <img src="picture/tb18.png" />
-                        <img src="picture/tb18.png" />
-                    </p>
-                    <a href="{:URL('/home/grzx_zxspj?doctor_id='.$v['DoctorID'])}">我的评价</a>
+                    <p class="p3">心理医师：{$v['RealName']}</p>
+<!--                    <p class="p4"><span>喜爱度：</span><img src="/home/picture/tb19.png" />-->
+<!--                        <img src="/home/picture/tb19.png" />-->
+<!--                        <img src="picture/tb19.png" />-->
+<!--                        <img src="picture/tb18.png" />-->
+<!--                        <img src="picture/tb18.png" />-->
+<!--                    </p>-->
+                    <a href="{:URL('/home/grzx_zxspj?doctor_id='.$v['DoctorID'].'&order_id='.$v['ID'])}">我的评价</a>
                 </div>
             </li>
         {/foreach}

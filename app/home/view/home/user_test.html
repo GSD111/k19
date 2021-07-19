@@ -1,0 +1,123 @@
+﻿{include file="home/header" /}
+{load href="/admin/lib/layui/layui.js"}
+{load href="/admin/js/xadmin.js"}
+{load href="/admin/css/xadmin.css"}
+<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+<script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+
+<body style="background:#f5f5f5;margin:0 auto;">
+<div class="head2">
+    <a href="javascript:history.go(-1);"><img src="/home/picture/tb16.png"/></a>
+    <p>专业测试</p>
+</div>
+<div class="grzx_jgrz">
+    <form class="layui-form layui-col-md12  layui-form-pane" action="{:URL('/home/user_save')}" method="post"
+          enctype="multipart/form-data" onsubmit="return UserTest()">
+        <p class="p1" style="margin-top:15px;"><span>温馨提示：</span>您即将进入专业测试的答题中，请您在答题前认真如实填写相关信息，并在最后答题结束后，支付相应的服务费用，我们会有专业的心理为你解答。</p>
+        <div class="nr">
+            <div class="layui-form-item">
+                <label class="layui-form-label">姓名</label>
+                <div class="layui-input-block">
+                    <input type="text" name="user_name" id="live_username" autocomplete="off" placeholder="请输入您的姓名"
+                           class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">年龄</label>
+                <div class="layui-input-block">
+                    <input type="text" name="age" id="live_age" autocomplete="off" placeholder="请输入年龄"
+                           class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-input-block" style="height:auto;float: left;width: 98%;margin-left: 10px;margin-bottom:15px;">
+                <label class="layui-form-label" style="margin-left:-9px;">性别</label>
+                    <input type="radio" name="sex" value="1" title="男" checked="">
+                    <input type="radio" name="sex" value="2" title="女">
+
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">邮箱</label>
+                <div class="layui-input-block">
+                    <input type="text" name="user_email" id="live_email" autocomplete="off" placeholder="请输入邮箱"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">微信</label>
+                <div class="layui-input-block">
+                    <input type="number" name="user_wechat"  autocomplete="off" placeholder="请输入微信号"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">职业</label>
+                <div class="layui-input-block">
+                    <input type="text" name="job" id="live_job" autocomplete="off" placeholder="请输入您的职业"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-input-block" style="height:auto;float: left;width: 98%;margin-left: 10px;margin-bottom:15px;">
+                <p>婚姻：</p>
+                <input type="radio" name="marriage"  title="单身" value="单身">
+                <input type="radio" name="marriage"  title="恋爱" value="恋爱">
+                <input type="radio" name="marriage"  title="已婚" value="已婚">
+                <input type="radio" name="marriage"  title="已婚已育" value="已婚已育">
+                <input type="radio" name="marriage"  title="离异" value="离异">
+                <input type="radio" name="marriage"  title="离异再组" value="离异再组">
+                <input type="radio" name="marriage"  title="离异再组已育" value="离异再组已育">
+
+            </div>
+
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">自述</label>
+                <div class="layui-input-block">
+                    <textarea style="width:98%;margin:0 auto;" name="remark" placeholder="请输入内容" class="layui-textarea"></textarea>
+                </div>
+            </div>
+<!--            <div class="dm01">-->
+<!--                <p>自述：</p>-->
+<!--                <textarea style="height:55px;width:4.5rem;border:solid gray 0.5px;" name="remark" id="live_remark"></textarea>-->
+<!--            </div>-->
+
+            <div class="kg"></div>
+            <div style="text-align: center;display:flex;margin-top:20px;">
+                <input type="hidden" name="type_id" value="{$type_id}">
+                <input type="hidden" name="order_no" value="{$order_no}">
+                <input style="margin:auto" type="submit" value="提交" class="tj" />
+<!--                <a style="margin:auto" href="javascript:alert('正在测试数据中')" class="tj">提交</a>-->
+            </div>
+
+            <div class="layui-input-block" style="height:auto;display:flex;width:100%;margin-left:26px;margin-top:24px;">
+                <input type="checkbox" name="sex" lay-skin="primary" title="" >
+                <a href="{:URL('/home/protocol')}" style="margin-left:3px;margin-top: 3px;">
+                    点击确定同意《测试说明》的相关信息
+                </a>
+            </div>
+            <div class="kg"></div>
+        </div>
+    </form>
+
+</div>
+
+
+<div style="height:1rem;"></div>
+
+
+{load href="/home/js/ischeck.js"}
+<script>
+    layui.use(['form', 'code'], function () {
+        form = layui.form;
+
+        layui.code();
+
+        // $('#start').xcity();
+
+
+    });
+</script>
+{include file="home/footer" /}
+</body>
+</html>

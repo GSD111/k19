@@ -3,7 +3,7 @@
 <body style="background:#fff;">
 <div class="login">
     <div class="hd01">
-        <a href="javascript:history.go(-1);"><img src="/home/picture/tb55.png"/></a>
+        <a href="{:URL('/')}"><img src="/home/picture/tb55.png"/></a>
     </div>
     <div class="logo1">
         <img src="/home/picture/logo2.png"/>
@@ -18,7 +18,7 @@
             <input type="text" id="live_captcha" name="captcha" placeholder="请输入短信验证码"/>
             <input style="width:36%;float:left;margin-top:4px;margin-left:5px;height:36px;" id="btn" type="button" onclick="duanxin()" value="发送验证码"/>
         </div>
-        <p class="p2">点击同意登录或者注册即代表您同意<span>《K19提供的相关服务条款》</span></p>
+        <p class="p2">点击同意登录或者注册即代表您同意<span><a href="{:URL('/home/pact_k19')}">《K19提供的相关服务条款》</a></span></p>
         <input type="submit"  class="a1" value="登录/注册"  />
     </form>
 <!--    <a href="#"><p class="p3">忘记密码</p></a>-->
